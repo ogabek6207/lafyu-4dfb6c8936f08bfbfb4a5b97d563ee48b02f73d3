@@ -11,15 +11,16 @@ import 'package:lafyu/src/model/category_model.dart';
 import 'package:lafyu/src/model/home_model.dart';
 import 'package:lafyu/src/model/recommend_model.dart';
 import 'package:lafyu/src/model/super_flash_sale_model.dart';
+import 'package:lafyu/src/ui/favourite/favourite_screen.dart';
 import 'package:lafyu/src/ui/home/product_screen.dart';
+import 'package:lafyu/src/widget/category_widget.dart';
 import 'package:lafyu/src/widget/item_horizantal_widget.dart';
-import 'package:lafyu/src/widget/search_widget.dart';
 import 'package:lafyu/src/widget/section_bar_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import '../../model/event/event_bottom_model.dart';
-import '../../utils/rx_bus.dart';
 import '../../utils/utils.dart';
-import '../super_flash_sale/notification_screen.dart';
+import '../../widget/banner_widget.dart';
+import '../../widget/searchWidget.dart';
+import '../offer/offer_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -33,7 +34,8 @@ class _HomeScreenState extends State<HomeScreen> {
   RecommendModel? recommendModel;
   HomeModel? homeModel;
   CategoryModel? categoryModel;
-
+  int notfication = 8;
+  int _current = 2;
   int activateIndex = 0;
 
   @override
@@ -58,8 +60,33 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: AppTheme.white,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: AppTheme.white,
-        title: const SearchWidget(),
+        title: SearchWidgetHome(onTap: () {  },),
+        actions: [
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const FavouriteScreen();
+                  },
+                ),
+              );
+            },
+            child: Center(
+              child: SvgPicture.asset('assets/icons/like.svg'),
+            ),
+          ),
+          SizedBox(
+            width: 16 * w,
+          ),
+          SizedBox(
+            width: 16 * w,
+          ),
+        ],
+        centerTitle: false,
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.white,
       ),
       body: ListView(
         padding: EdgeInsets.only(
@@ -80,203 +107,36 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       height: 16 * h,
                     ),
-                    CarouselSlider.builder(
-                      itemBuilder: (context, index, realIndex) {
-                        return GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) {
-                                return SuperFlashSaleScreen(
-                                    productId: saleResult[index].id);
-                              }),
-                            );
-                          },
-                          child: Stack(
-                            children: [
-                              Container(
-                                height: 206 * h,
-                                width: MediaQuery.of(context).size.width,
-                                margin: EdgeInsets.only(
-                                  right: 16 * w,
-                                ),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5 * o),
-                                ),
-                                child: ClipRect(
-                                  child: CachedNetworkImage(
-                                    imageUrl: saleResult[index].image,
-                                    fit: BoxFit.cover,
-                                    placeholder: (context, url) =>
-                                        const CircularProgressIndicator
-                                            .adaptive(),
-                                    errorWidget: (context, url, error) =>
-                                        const Icon(Icons.error),
+                    CarouselSlider(
+                      items: saleResult.map((saleResult) {
+                        return Builder(builder: (BuildContext context) {
+                          return BannerWidget(
+                              image:
+                              saleResult.image,
+                              name: saleResult.name,
+                              clock: saleResult.endDate,
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return OfferScreen();
+                                    },
                                   ),
-                                ),
-                              ),
-                              Container(
-                                height: 206 * h,
-                                width: MediaQuery.of(context).size.width,
-                                margin: EdgeInsets.only(
-                                  left: 16 * w,
-                                  right: 16 * w,
-                                ),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5 * o),
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      height: 70 * h,
-                                      width: 209 * w,
-                                      margin: EdgeInsets.only(
-                                        top: 32 * h,
-                                        left: 24 * w,
-                                      ),
-                                      child: Text(
-                                        "${saleResult[index].name} ${saleResult[index].percent}% Off",
-                                        textAlign: TextAlign.start,
-                                        maxLines: 2,
-                                        style: TextStyle(
-                                          color: AppTheme.white,
-                                          fontStyle: FontStyle.normal,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 24 * o,
-                                          fontFamily:
-                                              AppTheme.fontFamilyPoppins,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      height: 42 * h,
-                                      width: 150 * w,
-                                      margin: EdgeInsets.only(
-                                        // left: 24 * w,
-                                        top: 28 * h,
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            height: 41 * h,
-                                            width: 42 * w,
-                                            decoration: BoxDecoration(
-                                              color: AppTheme.white,
-                                              borderRadius:
-                                                  BorderRadius.circular(5 * o),
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                saleResult[index]
-                                                    .endDate
-                                                    .hour
-                                                    .toString(),
-                                                style: TextStyle(
-                                                  color: AppTheme.dark63,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 16 * w,
-                                                  fontStyle: FontStyle.normal,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            height: 21 * h,
-                                            width: 4 * w,
-                                            margin: EdgeInsets.symmetric(
-                                                horizontal: 4 * w),
-                                            child: Center(
-                                              child: SvgPicture.asset(
-                                                "assets/icons/minute.svg",
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            height: 41 * h,
-                                            width: 42 * w,
-                                            decoration: BoxDecoration(
-                                              color: AppTheme.white,
-                                              borderRadius:
-                                                  BorderRadius.circular(5 * o),
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                saleResult[index]
-                                                    .endDate
-                                                    .minute
-                                                    .toString(),
-                                                style: TextStyle(
-                                                  color: AppTheme.dark63,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 16 * w,
-                                                  fontStyle: FontStyle.normal,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                              height: 21 * h,
-                                              width: 4 * w,
-                                              margin: EdgeInsets.symmetric(
-                                                  horizontal: 4 * w),
-                                              child: Center(
-                                                child: SvgPicture.asset(
-                                                  "assets/icons/minute.svg",
-                                                ),
-                                              )),
-                                          Container(
-                                            height: 41 * h,
-                                            width: 42 * w,
-                                            decoration: BoxDecoration(
-                                              color: AppTheme.white,
-                                              borderRadius:
-                                                  BorderRadius.circular(5 * o),
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                saleResult[index]
-                                                    .endDate
-                                                    .second
-                                                    .toString(),
-                                                style: TextStyle(
-                                                  color: AppTheme.dark63,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 16 * w,
-                                                  fontStyle: FontStyle.normal,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
+                                );
+                              });
+                        });
+                      }).toList(),
                       options: CarouselOptions(
-                        height: 206 * h,
-                        initialPage: 0,
-                        enlargeCenterPage: true,
-                        enlargeStrategy: CenterPageEnlargeStrategy.height,
+                        height: 209 * h,
                         autoPlay: true,
-                        autoPlayInterval: const Duration(
-                          seconds: 10,
-                        ),
+                        viewportFraction: 1,
                         onPageChanged: (index, reason) {
                           setState(() {
                             activateIndex = index;
                           });
-                          // print(index);
                         },
                       ),
-                      itemCount: saleResult.length,
                     ),
                     SizedBox(
                       height: 16 * h,
@@ -332,53 +192,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         return ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: categoryResult.length,
-                          itemBuilder: (context, index) => Column(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(
-                                  left: 12 * w,
-                                  bottom: 8 * h,
-                                ),
-                                height: 70 * o,
-                                width: 70 * o,
-                                decoration: BoxDecoration(
-                                  color: AppTheme.white,
-                                  borderRadius: BorderRadius.circular(66 * o),
-                                  border: Border.all(
-                                    color: AppTheme.border,
-                                    width: 1,
-                                  ),
-                                ),
-                                child: Center(
-                                  child: CachedNetworkImage(
-                                    imageUrl: categoryResult[index].image,
-                                    fit: BoxFit.cover,
-                                    placeholder: (context, url) =>
-                                        const CircularProgressIndicator
-                                            .adaptive(),
-                                    errorWidget: (context, url, error) =>
-                                        const Icon(Icons.error),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(left: 16 * w),
-                                width: 70,
-                                child: Text(
-                                  categoryResult[index].name,
-                                  textAlign: TextAlign.center,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    color: AppTheme.greyB1,
-                                    fontSize: 10 * o,
-                                    fontStyle: FontStyle.normal,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                          itemBuilder: (context, index) => CategoryWidget(image: categoryResult[index].image, name: categoryResult[index].name, onTap: (){}),
                         );
                       }
                       return Container();

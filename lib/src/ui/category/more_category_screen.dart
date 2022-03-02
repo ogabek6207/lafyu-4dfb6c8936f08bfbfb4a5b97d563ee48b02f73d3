@@ -5,7 +5,7 @@ import 'package:lafyu/src/model/category_model.dart';
 import '../../app_theme/app_theme.dart';
 import '../../bloc/category_bloc.dart';
 import '../../utils/utils.dart';
-import '../../widget/search_widget.dart';
+import '../../widget/search_widget_home.dart';
 
 class MoreCategoryScreen extends StatefulWidget {
   const MoreCategoryScreen({Key? key}) : super(key: key);

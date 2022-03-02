@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lafyu/src/app_theme/app_theme.dart';
 import 'package:lafyu/src/model/event/event_bottom_model.dart';
 import 'package:lafyu/src/ui/favourite/favourite_screen.dart';
-import 'package:lafyu/src/ui/notification/notification_screen.dart';
 import 'package:lafyu/src/utils/rx_bus.dart';
 import '../utils/utils.dart';
 
