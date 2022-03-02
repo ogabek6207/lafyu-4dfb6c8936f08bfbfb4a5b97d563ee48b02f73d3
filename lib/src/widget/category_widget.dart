@@ -24,7 +24,7 @@ class CategoryWidget extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              width: 70 * w,
+              width: 70 * h,
               height: 70 * h,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(50),

@@ -8,6 +8,7 @@ class AppTheme {
   static Color border = const Color(0xFFEBF0FF);
   static Color blueFF = const Color(0xFF40BFFF);
   static Color red = const Color(0xFFFB7181);
+  static const Color  purple = Color(0xFF5C61F4);
 
   ///fonts
   static const String fontFamilyPoppins = "Poppins";

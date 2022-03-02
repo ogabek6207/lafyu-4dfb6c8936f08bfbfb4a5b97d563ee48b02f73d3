@@ -3,8 +3,9 @@ import 'package:lafyu/src/app_theme/app_theme.dart';
 import '../utils/utils.dart';
 
 class SectionBarWidget extends StatelessWidget {
-  final String rightTitle,leftTitle;
+  final String rightTitle, leftTitle;
   final Function() onTap;
+
   const SectionBarWidget({
     Key? key,
     required this.leftTitle,
@@ -14,8 +15,8 @@ class SectionBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double w =  Utils.windowWidth(context);
-    double h =  Utils.windowHeight(context);
+    double w = Utils.windowWidth(context);
+    double h = Utils.windowHeight(context);
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16 * w, vertical: 12 * h),
       child: Row(
@@ -24,7 +25,10 @@ class SectionBarWidget extends StatelessWidget {
             leftTitle,
             style: TextStyle(
               fontSize: 14 * h,
+              letterSpacing: 0.5,
               fontWeight: FontWeight.w700,
+              color: AppTheme.dark63,
+              fontFamily: AppTheme.fontFamilyPoppins,
             ),
           ),
           const Spacer(),
@@ -34,8 +38,10 @@ class SectionBarWidget extends StatelessWidget {
               rightTitle,
               style: TextStyle(
                 color: AppTheme.blueFF,
+                fontFamily: AppTheme.fontFamilyPoppins,
+                letterSpacing: 0.5,
                 fontSize: 14 * h,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),

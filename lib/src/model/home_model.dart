@@ -1,7 +1,3 @@
-// To parse required this JSON data, do
-//
-//     final homeModel = homeModelFromJson(jsonString);
-
 import 'dart:convert';
 
 HomeModel homeModelFromJson(String str) => HomeModel.fromJson(json.decode(str));
@@ -60,12 +56,6 @@ class HomeResult {
         discountPrice = json["discount_price"].toDouble();
       }
     }
-
-
-
-
-
-
 
     return HomeResult(
       id: json["id"] ?? 0,

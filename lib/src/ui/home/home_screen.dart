@@ -14,11 +14,12 @@ import 'package:lafyu/src/model/super_flash_sale_model.dart';
 import 'package:lafyu/src/ui/favourite/favourite_screen.dart';
 import 'package:lafyu/src/ui/home/product_screen.dart';
 import 'package:lafyu/src/widget/category_widget.dart';
-import 'package:lafyu/src/widget/item_horizantal_widget.dart';
+import 'package:lafyu/src/widget/product_widget.dart';
 import 'package:lafyu/src/widget/section_bar_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../utils/utils.dart';
 import '../../widget/banner_widget.dart';
+import '../../widget/recommend_widget.dart';
 import '../../widget/searchWidget.dart';
 import '../offer/offer_screen.dart';
 
@@ -35,7 +36,6 @@ class _HomeScreenState extends State<HomeScreen> {
   HomeModel? homeModel;
   CategoryModel? categoryModel;
   int notfication = 8;
-  int _current = 2;
   int activateIndex = 0;
 
   @override
@@ -60,7 +60,9 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: AppTheme.white,
       appBar: AppBar(
         elevation: 0,
-        title: SearchWidgetHome(onTap: () {  },),
+        title: SearchWidgetHome(
+          onTap: () {},
+        ),
         actions: [
           GestureDetector(
             onTap: () {
@@ -111,8 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       items: saleResult.map((saleResult) {
                         return Builder(builder: (BuildContext context) {
                           return BannerWidget(
-                              image:
-                              saleResult.image,
+                              image: saleResult.image,
                               name: saleResult.name,
                               clock: saleResult.endDate,
                               onTap: () {
@@ -120,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) {
-                                      return OfferScreen();
+                                      return const OfferScreen();
                                     },
                                   ),
                                 );
@@ -192,7 +193,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         return ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: categoryResult.length,
-                          itemBuilder: (context, index) => CategoryWidget(image: categoryResult[index].image, name: categoryResult[index].name, onTap: (){}),
+                          itemBuilder: (context, index) => CategoryWidget(
+                              image: categoryResult[index].image,
+                              name: categoryResult[index].name,
+                              onTap: () {}),
                         );
                       }
                       return Container();
@@ -207,35 +211,11 @@ class _HomeScreenState extends State<HomeScreen> {
             margin: EdgeInsets.only(top: 24 * h),
             child: Row(
               children: [
-                SizedBox(
-                  width: 16 * w,
-                ),
                 Expanded(
-                  child: Text(
-                    "Flash Sale",
-                    style: TextStyle(
-                      color: AppTheme.dark63,
-                      fontSize: 14 * o,
-                      fontWeight: FontWeight.bold,
-                      fontStyle: FontStyle.normal,
-                      letterSpacing: 0.5 * o,
-                    ),
-                  ),
-                ),
-                Text(
-                  "See More",
-                  style: TextStyle(
-                    color: AppTheme.blueFF,
-                    fontSize: 14 * o,
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.normal,
-                    height: 1.5,
-                    letterSpacing: 0.5 * o,
-                  ),
-                ),
-                SizedBox(
-                  width: 16 * w,
-                ),
+                    child: SectionBarWidget(
+                        leftTitle: "Flash Sale",
+                        rightTitle: "See More",
+                        onTap: () {})),
               ],
             ),
           ),
@@ -253,14 +233,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   }
 
                   List<HomeResult> product = homeModel!.results;
-                  double discountPercent;
                   return ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: product.length,
                       itemBuilder: (context, index) {
-                        discountPercent = 100 -
-                            ((product[index].price * 100) /
-                                product[index].discountPrice);
+
                         return GestureDetector(
                           onTap: () {
                             Navigator.push(
@@ -274,10 +251,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             );
                           },
-                          child: ItemHorizontalWidget(
-                            data: product[index],
+                          child: ProductWidget(
+                            name: product[index].name,
+                            price: product[index].price,
+                            oldPrice: product[index].discountPrice,
                             image: product[index].images.image,
-                            discountPercent: discountPercent,
+                            onTap: () {},
                           ),
                         );
                       });
@@ -291,35 +270,12 @@ class _HomeScreenState extends State<HomeScreen> {
             margin: EdgeInsets.only(top: 24 * h),
             child: Row(
               children: [
-                SizedBox(
-                  width: 16 * w,
-                ),
                 Expanded(
-                  child: Text(
-                    "Mega Sale",
-                    style: TextStyle(
-                      color: AppTheme.dark63,
-                      fontSize: 14 * o,
-                      fontWeight: FontWeight.bold,
-                      fontStyle: FontStyle.normal,
-                      letterSpacing: 0.5 * o,
-                    ),
-                  ),
-                ),
-                Text(
-                  "See More",
-                  style: TextStyle(
-                    color: AppTheme.blueFF,
-                    fontSize: 14 * o,
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.normal,
-                    height: 1.5,
-                    letterSpacing: 0.5 * o,
-                  ),
-                ),
-                SizedBox(
-                  width: 16 * w,
-                ),
+                    child: SectionBarWidget(
+                  rightTitle: "See More",
+                  leftTitle: "Mega Sale",
+                  onTap: () {},
+                )),
               ],
             ),
           ),
@@ -345,12 +301,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         discountPercent = 100 -
                             ((product[index].price * 100) /
                                 product[index].discountPrice);
-                        print(discountPercent);
-                        return ItemHorizontalWidget(
-                          data: product[index],
-                          image: product[index].images.image,
-                          discountPercent: discountPercent,
-                        );
+                        return ProductWidget(
+                            image: product[index].images.image,
+                            name: product[index].name,
+                            price: product[index].price,
+                            oldPrice: product[index].discountPrice,
+                            onTap: () {});
                       });
                 }
 
@@ -371,117 +327,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       height: 16 * h,
                     ),
-                    CarouselSlider.builder(
-                      itemBuilder: (context, index, realIndex) {
-                        return Stack(
-                          children: [
-                            Container(
-                              height: 206 * h,
-                              width: MediaQuery.of(context).size.width,
-                              margin: EdgeInsets.only(
-                                top: 8 * h,
-                                left: 16,
-                              ),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5 * o),
-                                  border: Border.all(
-                                      color: AppTheme.border, width: 1)),
-                              child: ClipRect(
-                                child: CachedNetworkImage(
-                                  imageUrl: recommendResult[index].image,
-                                  fit: BoxFit.cover,
-                                  placeholder: (context, url) =>
-                                      const CircularProgressIndicator
-                                          .adaptive(),
-                                  errorWidget: (context, url, error) =>
-                                      const Icon(Icons.error),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              height: 206,
-                              width: MediaQuery.of(context).size.width,
-                              margin: EdgeInsets.only(
-                                left: 16 * w,
-                                right: 16 * w,
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5 * o),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    height: 72 * h,
-                                    width: 209 * w,
-                                    margin: EdgeInsets.only(
-                                      top: 42 * h,
-                                      left: 24 * w,
-                                    ),
-                                    child: Text(
-                                      recommendResult[index].name,
-                                      textAlign: TextAlign.start,
-                                      maxLines: 2,
-                                      style: TextStyle(
-                                        color: AppTheme.white,
-                                        fontStyle: FontStyle.normal,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 24 * o,
-                                        fontFamily: AppTheme.fontFamilyPoppins,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    height: 42 * h,
-                                    margin: EdgeInsets.only(
-                                      left: 24 * w,
-                                      top: 16 * h,
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          recommendResult[index].title,
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                            color: AppTheme.white,
-                                            letterSpacing: 0.5,
-                                            fontStyle: FontStyle.normal,
-                                            fontWeight: FontWeight.normal,
-                                            fontSize: 12 * o,
-                                            fontFamily:
-                                                AppTheme.fontFamilyPoppins,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        );
-                      },
+                    CarouselSlider(
+                      items: recommendResult.map((recommendResult) {
+                        return Builder(builder: (BuildContext context) {
+                          return RecomendedWidget(image: recommendResult.image, name: recommendResult.name, subName: recommendResult.title, onTap: () {  },);
+                        });
+                      }).toList(),
                       options: CarouselOptions(
-                        height: 206 * h,
-                        initialPage: 0,
-                        enlargeCenterPage: true,
-                        enlargeStrategy: CenterPageEnlargeStrategy.height,
+                        height: 209 * h,
                         autoPlay: true,
-                        autoPlayInterval: const Duration(
-                          seconds: 10,
-                        ),
+                        viewportFraction: 1,
                         onPageChanged: (index, reason) {
                           setState(() {
                             activateIndex = index;
                           });
-                          // print(index);
                         },
                       ),
-                      itemCount: recommendResult.length,
                     ),
                     SizedBox(
                       height: 16 * h,

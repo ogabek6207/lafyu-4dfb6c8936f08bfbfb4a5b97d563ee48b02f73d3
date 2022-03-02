@@ -58,8 +58,6 @@ class SuperFlashSaleCategoryResult {
   List<ProductProduct> products;
 
   factory SuperFlashSaleCategoryResult.fromJson(Map<String, dynamic> json) {
-
-
     double price = 0.0;
     try {
       price = json["price"] ?? 0.0;
@@ -78,27 +76,19 @@ class SuperFlashSaleCategoryResult {
       }
     }
 
-
-
-
-
-
-
-
-    return  SuperFlashSaleCategoryResult(
+    return SuperFlashSaleCategoryResult(
       id: json["id"] ?? 0,
       name: json["name"] ?? "",
       start: json["start"] ?? 0,
       price: price,
       category: json["category"] ?? "",
-      discountPrice:discountPrice,
+      discountPrice: discountPrice,
       images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
       review: Review.fromJson(json["review"]),
       products: List<ProductProduct>.from(
           json["products"].map((x) => ProductProduct.fromJson(x))),
     );
   }
-
 }
 
 class Image {
@@ -137,9 +127,6 @@ class ProductProduct {
   Image images;
 
   factory ProductProduct.fromJson(Map<String, dynamic> json) {
-
-
-
     double price = 0.0;
     try {
       price = json["price"] ?? 0.0;
@@ -158,25 +145,15 @@ class ProductProduct {
       }
     }
 
-
-
-
-
-
-    return
-      ProductProduct(
-        id: json["id"] ?? 0,
-        name: json["name"],
-        start: json["start"] ?? 0,
-        price: price,
-        discountPrice: discountPrice,
-        images: Image.fromJson(json["images"]),
-      );
+    return ProductProduct(
+      id: json["id"] ?? 0,
+      name: json["name"],
+      start: json["start"] ?? 0,
+      price: price,
+      discountPrice: discountPrice,
+      images: Image.fromJson(json["images"]),
+    );
   }
-
-
-
-
 }
 
 class Review {
@@ -195,8 +172,8 @@ class Review {
   factory Review.fromJson(Map<String, dynamic> json) => Review(
         start: json["start"] ?? 0,
         user: json["user"] ?? 0,
-        text: json["text"]?? 0,
-        date:        json["date"] == null
+        text: json["text"] ?? 0,
+        date: json["date"] == null
             ? DateTime.now()
             : DateTime.parse(json["date"]),
       );

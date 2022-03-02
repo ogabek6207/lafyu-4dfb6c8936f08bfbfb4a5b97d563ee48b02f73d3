@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lafyu/src/ui/auth/forgot_password_screen.dart';
-import 'package:lafyu/src/ui/auth/new_password_screen.dart';
-import 'package:lafyu/src/ui/category/more_category_screen.dart';
-import 'package:lafyu/src/ui/home/home_screen.dart';
+import 'package:lafyu/src/ui/home/detail_screen.dart';
 import 'package:lafyu/src/ui/main_screen.dart';
-import 'package:lafyu/src/ui/notification/notification_screen.dart';
-import 'package:lafyu/src/ui/search/search_screen.dart';
-import 'package:lafyu/src/ui/splash/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,7 +19,7 @@ class MyApp extends StatelessWidget {
         platform: TargetPlatform.iOS,
         primarySwatch: Colors.blue,
       ),
-      home: const MainScreen(),
+      home:  const MainScreen(),
     );
   }
 }

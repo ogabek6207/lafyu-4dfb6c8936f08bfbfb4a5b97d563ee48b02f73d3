@@ -1,7 +1,3 @@
-// To parse required this JSON data, do
-//
-//     final categoryModel = categoryModelFromJson(jsonString);
-
 import 'dart:convert';
 
 CategoryModel categoryModelFromJson(String str) =>
@@ -11,7 +7,6 @@ class CategoryModel {
   CategoryModel({
     required this.count,
     required this.next,
-
     required this.results,
   });
 
@@ -21,11 +16,10 @@ class CategoryModel {
   List<CategoryResult> results;
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) => CategoryModel(
-        count: json["count"]?? 0,
+        count: json["count"] ?? 0,
         next: json["next"] ?? "",
-
-        results:
-            List<CategoryResult>.from(json["results"].map((x) => CategoryResult.fromJson(x))),
+        results: List<CategoryResult>.from(
+            json["results"].map((x) => CategoryResult.fromJson(x))),
       );
 }
 
