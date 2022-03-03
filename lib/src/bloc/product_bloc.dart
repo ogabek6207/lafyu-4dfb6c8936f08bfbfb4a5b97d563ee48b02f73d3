@@ -11,7 +11,7 @@ class ProductBloc {
   getProductDescription(int id) async {
     var response = await _repository.getProductDescription(id);
     if (response.isSucces) {
-      ProductModel productModel = ProductModel.fromJson(response.result);
+      ProductModel productModel = ProductModel.fromJson(response.result!);
       _productFetch.sink.add(productModel);
     }
   }

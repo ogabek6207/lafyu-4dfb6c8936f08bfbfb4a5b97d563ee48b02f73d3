@@ -23,7 +23,6 @@ class DetailScreen extends StatefulWidget {
 
 class _DetailScreenState extends State<DetailScreen> {
   ProductModel? productModel;
-  List<int> imgList = [1, 2, 3, 1, 31, 2];
   int _current = 0;
   final CarouselController _controller = CarouselController();
 
@@ -60,7 +59,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 style: TextStyle(fontSize: 16 * h, color: Colors.black),
               ),
               actions: [
-                SvgPicture.asset('assets/icons/explore.svg'),
+                SvgPicture.asset('assets/icons/search.svg'),
                 SizedBox(
                   width: 25 * w,
                 ),
@@ -230,24 +229,31 @@ class _DetailScreenState extends State<DetailScreen> {
                         onTap: () {},
                         child: SizedBox(
                           height: 48 * h,
-                          child: ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: 10,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) {
-                                return Container(
-                                  margin: EdgeInsets.only(left: 16 * w),
-                                  width: 48 * h,
-                                  height: 48 * h,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(50),
-                                      border: Border.all(
-                                          color: AppTheme.greyB1
-                                              .withOpacity(0.3))),
-                                  child: Center(
-                                    child: Text(index.toString()),
-                                  ),
-                                );
+                          child: StreamBuilder<ProductModel>(
+                              stream: productBloc.fetchProduct,
+                              builder: (context, snapshot) {
+                                List<Size> result = productModel.size;
+                                return ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: result.length,
+                                    scrollDirection: Axis.horizontal,
+                                    itemBuilder: (context, index) {
+                                      return Container(
+                                        margin: EdgeInsets.only(left: 16 * w),
+                                        width: 48 * h,
+                                        height: 48 * h,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                            border: Border.all(
+                                                color: AppTheme.greyB1
+                                                    .withOpacity(0.3))),
+                                        child: Center(
+                                          child: Text(
+                                              result[index].size.toString()),
+                                        ),
+                                      );
+                                    });
                               }),
                         ),
                       ),
@@ -269,28 +275,35 @@ class _DetailScreenState extends State<DetailScreen> {
                       ),
                       SizedBox(
                         height: 48 * h,
-                        child: ListView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              return Container(
-                                margin: EdgeInsets.only(left: 16 * w),
-                                width: 48 * h,
-                                height: 48 * h,
-                                decoration: BoxDecoration(
-                                  color: AppTheme.purple,
-                                  borderRadius: BorderRadius.circular(50),
-                                ),
-                                child: Center(
-                                  child: Container(
-                                    width: 16 * h,
-                                    height: 16 * h,
-                                    decoration: BoxDecoration(
+                        child: StreamBuilder<ProductModel>(
+                            stream: productBloc.fetchProduct,
+                            builder: (context, snapshot) {
+                              List<ColorResult> result = productModel.color;
+                              return ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: result.length,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, index) {
+                                    return Container(
+                                      margin: EdgeInsets.only(left: 16 * w),
+                                      width: 48 * h,
+                                      height: 48 * h,
+                                      decoration: BoxDecoration(
+                                        color: AppTheme.purple,
                                         borderRadius: BorderRadius.circular(50),
-                                        color: AppTheme.white),
-                                  ),
-                                ),
-                              );
+                                      ),
+                                      child: Center(
+                                        child: Container(
+                                          width: 16 * h,
+                                          height: 16 * h,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(50),
+                                              color: AppTheme.white),
+                                        ),
+                                      ),
+                                    );
+                                  });
                             }),
                       ),
                       SizedBox(
@@ -379,26 +392,49 @@ class _DetailScreenState extends State<DetailScreen> {
                           }),
                       Row(
                         children: [
-                          SizedBox(
-                            width: 16 * w,
+
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: 16 * w,
+                              ),
+                              SvgPicture.asset(
+                                "assets/icons/star.svg",
+                              ),
+                              SvgPicture.asset(
+                                productModel.reviewAvg > 1
+                                    ? "assets/icons/star.svg"
+                                    : "assets/icons/star1.svg",
+                              ),
+                              SvgPicture.asset(
+                                productModel.reviewAvg > 2
+                                    ? "assets/icons/star.svg"
+                                    : "assets/icons/star1.svg",
+                              ),
+                              SvgPicture.asset(
+                                productModel.reviewAvg > 3
+                                    ? "assets/icons/star.svg"
+                                    : "assets/icons/star1.svg",
+                              ),
+                              SvgPicture.asset(
+                                productModel.reviewAvg > 4
+                                    ? "assets/icons/star.svg"
+                                    : "assets/icons/star1.svg",
+                              ),
+                            ],
                           ),
-                          SvgPicture.asset('assets/icons/star.svg'),
-                          SvgPicture.asset('assets/icons/star.svg'),
-                          SvgPicture.asset('assets/icons/star.svg'),
-                          SvgPicture.asset('assets/icons/star.svg'),
-                          SvgPicture.asset('assets/icons/star.svg'),
                           SizedBox(
                             width: 8 * w,
                           ),
                           Text(
-                            '4.5 ',
+                            productModel.reviewAvg.toString(),
                             style: TextStyle(
                                 fontSize: 10 * h,
                                 color: AppTheme.greyB1,
                                 fontWeight: FontWeight.w700),
                           ),
                           Text(
-                            ' (5 Ko‘rib chiqish)',
+                            '  (${productModel.reviewCount} Ko‘rib chiqish)',
                             style: TextStyle(
                                 fontSize: 10 * h, color: AppTheme.greyB1),
                           ),
@@ -407,98 +443,112 @@ class _DetailScreenState extends State<DetailScreen> {
                       SizedBox(
                         height: 16 * w,
                       ),
-                      Column(
-                        children: [
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: 16 * w,
-                              ),
-                              SizedBox(
-                                width: 48 * h,
-                                height: 48 * h,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(50),
-                                  child: CachedNetworkImage(
-                                    imageUrl:
-                                        "http://via.placeholder.com/350x150",
-                                    placeholder: (context, url) =>
-                                        const CircularProgressIndicator
-                                            .adaptive(),
-                                    errorWidget: (context, url, error) =>
-                                        const Icon(Icons.error),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 16 * w,
-                              ),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                      StreamBuilder<ProductModel>(
+                          stream: productBloc.fetchProduct,
+                          builder: (context, snapshot) {
+                            Review result = productModel.review;
+                            return Column(
+                              children: [
+                                Row(
                                   children: [
-                                    Text(
-                                      'James Lawson',
-                                      style: TextStyle(
-                                        fontSize: 14 * h,
-                                        fontWeight: FontWeight.w700,
+                                    SizedBox(
+                                      width: 16 * w,
+                                    ),
+                                    SizedBox(
+                                      width: 48 * h,
+                                      height: 48 * h,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(50),
+                                        child: CachedNetworkImage(
+                                          fit: BoxFit.cover,
+                                          imageUrl: result.images.image,
+                                          placeholder: (context, url) =>
+                                              const CircularProgressIndicator
+                                                  .adaptive(),
+                                          errorWidget: (context, url, error) =>
+                                              const Icon(Icons.error),
+                                        ),
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 4 * h,
+                                      width: 16 * w,
                                     ),
-                                    Row(
-                                      children: [
-                                        SvgPicture.asset(
-                                            'assets/icons/star.svg'),
-                                        SvgPicture.asset(
-                                            'assets/icons/star.svg'),
-                                        SvgPicture.asset(
-                                            'assets/icons/star.svg'),
-                                        SvgPicture.asset(
-                                            'assets/icons/star.svg'),
-                                        SvgPicture.asset(
-                                            'assets/icons/star.svg'),
-                                      ],
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            result.user.firstName +
+                                                " " +
+                                                result.user.lastName,
+                                            style: TextStyle(
+                                              fontSize: 14 * h,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 4 * h,
+                                          ),
+                                          Row(
+                                            children: [
+                                              SvgPicture.asset(
+                                                  'assets/icons/star.svg'),
+                                              SvgPicture.asset(
+                                                  'assets/icons/star.svg'),
+                                              SvgPicture.asset(
+                                                  'assets/icons/star.svg'),
+                                              SvgPicture.asset(
+                                                  'assets/icons/star.svg'),
+                                              SvgPicture.asset(
+                                                  'assets/icons/star.svg'),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 16 * h,
-                          ),
-                          Container(
-                            margin: EdgeInsets.symmetric(horizontal: 16 * w),
-                            width: MediaQuery.of(context).size.width,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'air max har doim juda qulay, toza va har tomonlama mukammaldir. faqat quti juda kichkina edi va krossovkalarni biroz qisib qo\'ydi, quti har doim shunday kichkina bo\'lganiga ishonchim komil emas, lekin 90-yillar mening sevimlilarimdan biri bo\'lgan va shunday bo\'lib qoladi.',
-                                  style: TextStyle(
-                                      fontSize: 12 * h,
-                                      fontWeight: FontWeight.w500,
-                                      color: AppTheme.greyB1),
-                                ),
                                 SizedBox(
-                                  height: 23 * h,
+                                  height: 16 * h,
                                 ),
-                                Text(
-                                  'December 10, 2016',
-                                  style: TextStyle(
-                                    fontSize: 10 * h,
+                                Container(
+                                  margin:
+                                      EdgeInsets.symmetric(horizontal: 16 * w),
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        result.text,
+                                        style: TextStyle(
+                                            fontSize: 12 * h,
+                                            fontWeight: FontWeight.w500,
+                                            color: AppTheme.greyB1),
+                                      ),
+                                      SizedBox(
+                                        height: 23 * h,
+                                      ),
+                                      Text(
+                                        result.date.year.toString() +
+                                            "-yil " +
+                                            result.date.day.toString() +
+                                            "-" +
+                                            Utils.getMonth(result.date.month),
+                                        style: TextStyle(
+                                          fontSize: 10 * h,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
+                                SizedBox(
+                                  height: 16 * h,
+                                ),
                               ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 16 * h,
-                          ),
-                        ],
-                      ),
+                            );
+                          }),
                       SizedBox(
                         height: 20 * h,
                       ),
@@ -520,29 +570,36 @@ class _DetailScreenState extends State<DetailScreen> {
                       ),
                       SizedBox(
                         height: 238 * h,
-                        child: ListView.builder(
-                          itemCount: 9,
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) => ProductWidget(
-                            image:
-                                "https://media.jdsports.com/i/jdsports/JD_011922_Womens_Shoes_Nike_Midspot_600x600",
-                            name: 'FS - Nike Air Max 270 React...',
-                            price: 300,
-                            oldPrice: 350,
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return const DetailScreen(
-                                      id: 1,
-                                    );
-                                  },
-                                ),
-                              );
-                            },
-                          ),
+                        child: StreamBuilder<ProductModel>(
+                          stream: productBloc.fetchProduct,
+                          builder: (context, snapshot) {
+                            List<Product> result = productModel.products;
+
+                            return ListView.builder(
+                              itemCount: result.length,
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) => ProductWidget(
+                                image:
+                                    result[index].images.image,
+                                name: result[index].name,
+                                price: result[index].price,
+                                oldPrice: result[index].discountPrice,
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return const DetailScreen(
+                                          id: 1,
+                                        );
+                                      },
+                                    ),
+                                  );
+                                },
+                              ),
+                            );
+                          }
                         ),
                       ),
                     ],

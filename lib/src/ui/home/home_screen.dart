@@ -596,7 +596,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               ),
                                               Text(
                                                 discountPercent
-                                                    .toStringAsFixed(0) +
+                                                    .toInt().toStringAsFixed(0) +
                                                     "% Off",
                                                 textAlign: TextAlign.start,
                                                 overflow: TextOverflow.ellipsis,
