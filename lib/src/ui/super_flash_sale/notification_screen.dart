@@ -8,6 +8,7 @@ import '../../bloc/super_flash_sale_bloc.dart';
 import '../../model/super_flash_sale_category.dart';
 import '../../model/super_flash_sale_model.dart';
 import '../../utils/utils.dart';
+import '../home/detail_screen.dart';
 
 class SuperFlashSaleScreen extends StatefulWidget {
   final int productId;
@@ -344,14 +345,12 @@ class _SuperFlashSaleScreenState extends State<SuperFlashSaleScreen> {
                 StreamBuilder<SuperFlashSaleCategoryModel>(
                   stream: superFlashSaleBloc.fetchSuperFlashSaleCategory,
                   builder: (context, snapshot) {
-                    if (snapshot.hasData ||
-                        superFlashSaleCategoryModel != null) {
+                    if (snapshot.hasData || superFlashSaleCategoryModel != null) {
                       if (snapshot.hasData) {
                         superFlashSaleCategoryModel = snapshot.data;
                       }
-                      List<SuperFlashSaleCategoryResult> result =
-                          superFlashSaleCategoryModel!.product;
-
+                      List<SuperFlashSaleProduct> productResult = superFlashSaleCategoryModel!.product;
+                      double discountPercent;
                       return Column(
                         children: [
                           SizedBox(
@@ -361,21 +360,222 @@ class _SuperFlashSaleScreenState extends State<SuperFlashSaleScreen> {
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
+                              discountPercent = 100 -
+                                  ((productResult[index].price * 100) /
+                                      productResult[index].discountPrice);
+                              print(discountPercent);
                               return Column(
                                 children: [
                                   Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Expanded(
-                                        child: Container(
-                                          width: 165 * w,
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(builder: (context) {
+                                                return DetailScreen(
+                                                    id: productResult[index * gridCount]
+                                                        .id);
+                                              }),
+                                            );
+                                          },
+                                          child: Container(
+                                            width: 165 * w,
+                                            margin: EdgeInsets.only(
+                                              left: 16 * o,
+                                              top: 16 * o,
+                                            ),
+                                            height: 290 * h,
+                                            padding: EdgeInsets.all(
+                                              16 * o,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                color: AppTheme.border,
+                                                width: 1,
+                                              ),
+                                              borderRadius:
+                                              BorderRadius.circular(5 * o),
+                                            ),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                              children: [
+                                                Container(
+                                                  height: 133 * o,
+                                                  width: 133 * o,
+                                                  margin: EdgeInsets.only(
+                                                    bottom: 8 * h,
+                                                  ),
+                                                  decoration: BoxDecoration(
+                                                    color: AppTheme.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(5 * o),
+                                                    border: Border.all(
+                                                      color: AppTheme.border,
+                                                      width: 1,
+                                                    ),
+                                                  ),
+                                                  child: ClipRect(
+                                                    child: CachedNetworkImage(
+                                                      imageUrl: productResult[
+                                                      index * gridCount]
+                                                          .images[index].image,
+                                                      fit: BoxFit.cover,
+                                                      placeholder: (context, url) =>
+                                                      const CircularProgressIndicator
+                                                          .adaptive(),
+                                                      errorWidget:
+                                                          (context, url, error) =>
+                                                      const Icon(Icons.error),
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 133 * w,
+                                                  child: Text(
+                                                    productResult[index * gridCount]
+                                                        .name,
+                                                    maxLines: 2,
+                                                    overflow: TextOverflow.ellipsis,
+                                                    style: TextStyle(
+                                                      fontWeight: FontWeight.bold,
+                                                      fontStyle: FontStyle.normal,
+                                                      fontSize: 12 * o,
+                                                      color: AppTheme.dark63,
+                                                      fontFamily:
+                                                      AppTheme.fontFamilyPoppins,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  margin: EdgeInsets.only(top: 4 * h),
+                                                  width: 68 * w,
+                                                  child: Row(
+                                                    children: [
+                                                      SvgPicture.asset(
+                                                        "assets/icons/star.svg",
+                                                      ),
+                                                      SvgPicture.asset(
+                                                        productResult[index * gridCount]
+                                                            .start >
+                                                            1
+                                                            ? "assets/icons/star.svg"
+                                                            : "assets/icons/star1.svg",
+                                                      ),
+                                                      SvgPicture.asset(
+                                                        productResult[index * gridCount]
+                                                            .start >
+                                                            2
+                                                            ? "assets/icons/star.svg"
+                                                            : "assets/icons/star1.svg",
+                                                      ),
+                                                      SvgPicture.asset(
+                                                        productResult[index * gridCount]
+                                                            .start >
+                                                            3
+                                                            ? "assets/icons/star.svg"
+                                                            : "assets/icons/star1.svg",
+                                                      ),
+                                                      SvgPicture.asset(
+                                                        productResult[index * gridCount]
+                                                            .start >
+                                                            4
+                                                            ? "assets/icons/star.svg"
+                                                            : "assets/icons/star1.svg",
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    Container(
+                                                      child: Text(
+                                                        "\$" +
+                                                            productResult[
+                                                            index * gridCount]
+                                                                .price
+                                                                .toString(),
+                                                        textAlign: TextAlign.start,
+                                                        overflow:
+                                                        TextOverflow.ellipsis,
+                                                        style: TextStyle(
+                                                          fontWeight: FontWeight.bold,
+                                                          fontStyle: FontStyle.normal,
+                                                          fontSize: 12 * o,
+                                                          color: AppTheme.blueFF,
+                                                          fontFamily: AppTheme
+                                                              .fontFamilyPoppins,
+                                                        ),
+                                                      ),
+                                                      margin: EdgeInsets.only(
+                                                        bottom: 4 * h,
+                                                        top: 16 * h,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    Text(
+                                                      "\$" +
+                                                          productResult[
+                                                          index * gridCount]
+                                                              .discountPrice
+                                                              .toString(),
+                                                      textAlign: TextAlign.start,
+                                                      overflow: TextOverflow.ellipsis,
+                                                      style: TextStyle(
+                                                        decoration: TextDecoration
+                                                            .lineThrough,
+                                                        fontWeight: FontWeight.normal,
+                                                        fontStyle: FontStyle.normal,
+                                                        fontSize: 10 * o,
+                                                        color: AppTheme.greyB1,
+                                                        fontFamily: AppTheme
+                                                            .fontFamilyPoppins,
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 8 * w,
+                                                    ),
+                                                    Text(
+                                                      discountPercent
+                                                          .toInt()
+                                                          .toStringAsFixed(0) +
+                                                          "% Off",
+                                                      textAlign: TextAlign.start,
+                                                      overflow: TextOverflow.ellipsis,
+                                                      style: TextStyle(
+                                                        fontWeight: FontWeight.bold,
+                                                        fontStyle: FontStyle.normal,
+                                                        fontSize: 10 * o,
+                                                        color: AppTheme.red,
+                                                        fontFamily: AppTheme
+                                                            .fontFamilyPoppins,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: index * gridCount + 1 >=
+                                            productResult.length
+                                            ? Container()
+                                            : Container(
                                           margin: EdgeInsets.only(
                                             left: 16 * w,
                                             top: 16 * h,
+                                            right: 16 * w,
                                           ),
-                                          height: 282,
+                                          height: 290 * h,
                                           padding: EdgeInsets.all(
                                             16 * o,
                                           ),
@@ -385,11 +585,11 @@ class _SuperFlashSaleScreenState extends State<SuperFlashSaleScreen> {
                                               width: 1,
                                             ),
                                             borderRadius:
-                                                BorderRadius.circular(5 * o),
+                                            BorderRadius.circular(5 * o),
                                           ),
                                           child: Column(
                                             crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                            CrossAxisAlignment.start,
                                             children: [
                                               Container(
                                                 height: 133 * o,
@@ -400,8 +600,8 @@ class _SuperFlashSaleScreenState extends State<SuperFlashSaleScreen> {
                                                 decoration: BoxDecoration(
                                                   color: AppTheme.white,
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          5 * o),
+                                                  BorderRadius.circular(
+                                                      5 * o),
                                                   border: Border.all(
                                                     color: AppTheme.border,
                                                     width: 1,
@@ -409,61 +609,76 @@ class _SuperFlashSaleScreenState extends State<SuperFlashSaleScreen> {
                                                 ),
                                                 child: ClipRect(
                                                   child: CachedNetworkImage(
-                                                    imageUrl: result[
-                                                            index * gridCount]
-                                                        .products[index]
+                                                    imageUrl: productResult[
+                                                    index * gridCount +
+                                                        1]
                                                         .images
-                                                        .image,
+                                                        [index].image,
                                                     fit: BoxFit.cover,
                                                     placeholder: (context,
-                                                            url) =>
-                                                        const CircularProgressIndicator
-                                                            .adaptive(),
+                                                        url) =>
+                                                    const CircularProgressIndicator
+                                                        .adaptive(),
                                                     errorWidget: (context, url,
-                                                            error) =>
-                                                        const Icon(Icons.error),
+                                                        error) =>
+                                                    const Icon(Icons.error),
                                                   ),
                                                 ),
                                               ),
-                                              SizedBox(
-                                                width: 133 * w,
-                                                child: Text(
-                                                  "Nike Air Max 270 React ENG",
-                                                  maxLines: 2,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontStyle: FontStyle.normal,
-                                                    fontSize: 12 * o,
-                                                    color: AppTheme.dark63,
-                                                    fontFamily: AppTheme
-                                                        .fontFamilyPoppins,
-                                                  ),
+                                              Text(
+                                                "Nike Air Max 270 React ENG",
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontStyle: FontStyle.normal,
+                                                  fontSize: 12 * o,
+                                                  color: AppTheme.dark63,
+                                                  fontFamily: AppTheme
+                                                      .fontFamilyPoppins,
                                                 ),
                                               ),
                                               Container(
                                                 margin:
-                                                    EdgeInsets.only(top: 4 * h),
-                                                width: 68,
+                                                EdgeInsets.only(top: 4 * h),
+                                                width: 68 * w,
                                                 child: Row(
                                                   children: [
                                                     SvgPicture.asset(
                                                       "assets/icons/star.svg",
                                                     ),
                                                     SvgPicture.asset(
-                                                      "assets/icons/star.svg",
+                                                      productResult[index * gridCount +
+                                                          1]
+                                                          .start >
+                                                          1
+                                                          ? "assets/icons/star.svg"
+                                                          : "assets/icons/star1.svg",
                                                     ),
                                                     SvgPicture.asset(
-                                                      "assets/icons/star.svg",
+                                                      productResult[index * gridCount +
+                                                          1]
+                                                          .start >
+                                                          2
+                                                          ? "assets/icons/star.svg"
+                                                          : "assets/icons/star1.svg",
                                                     ),
                                                     SvgPicture.asset(
-                                                      "assets/icons/star.svg",
+                                                      productResult[index * gridCount +
+                                                          1]
+                                                          .start >
+                                                          3
+                                                          ? "assets/icons/star.svg"
+                                                          : "assets/icons/star1.svg",
                                                     ),
                                                     SvgPicture.asset(
-                                                      "assets/icons/star1.svg",
-                                                      color: AppTheme.border,
-                                                    ),
+                                                      productResult[index * gridCount +
+                                                          1]
+                                                          .start >
+                                                          4
+                                                          ? "assets/icons/star.svg"
+                                                          : "assets/icons/star1.svg",
+                                                    )
                                                   ],
                                                 ),
                                               ),
@@ -471,16 +686,22 @@ class _SuperFlashSaleScreenState extends State<SuperFlashSaleScreen> {
                                                 children: [
                                                   Container(
                                                     child: Text(
-                                                      "\$299,43",
+                                                      "\$" +
+                                                          productResult[index *
+                                                              gridCount +
+                                                              1]
+                                                              .price
+                                                              .toInt()
+                                                              .toString(),
                                                       textAlign:
-                                                          TextAlign.start,
+                                                      TextAlign.start,
                                                       overflow:
-                                                          TextOverflow.ellipsis,
+                                                      TextOverflow.ellipsis,
                                                       style: TextStyle(
                                                         fontWeight:
-                                                            FontWeight.bold,
+                                                        FontWeight.bold,
                                                         fontStyle:
-                                                            FontStyle.normal,
+                                                        FontStyle.normal,
                                                         fontSize: 12 * o,
                                                         color: AppTheme.blueFF,
                                                         fontFamily: AppTheme
@@ -497,17 +718,21 @@ class _SuperFlashSaleScreenState extends State<SuperFlashSaleScreen> {
                                               Row(
                                                 children: [
                                                   Text(
-                                                    result[index * gridCount]
-                                                        .products[index]
-                                                        .name,
+                                                    "\$" +
+                                                        productResult[index *
+                                                            gridCount +
+                                                            1]
+                                                            .discountPrice
+                                                            .toInt()
+                                                            .toString(),
                                                     textAlign: TextAlign.start,
                                                     overflow:
-                                                        TextOverflow.ellipsis,
+                                                    TextOverflow.ellipsis,
                                                     style: TextStyle(
                                                       fontWeight:
-                                                          FontWeight.normal,
+                                                      FontWeight.normal,
                                                       fontStyle:
-                                                          FontStyle.normal,
+                                                      FontStyle.normal,
                                                       fontSize: 10 * o,
                                                       color: AppTheme.greyB1,
                                                       fontFamily: AppTheme
@@ -518,15 +743,18 @@ class _SuperFlashSaleScreenState extends State<SuperFlashSaleScreen> {
                                                     width: 8 * w,
                                                   ),
                                                   Text(
-                                                    "24% Off",
+                                                    discountPercent
+                                                        .toInt()
+                                                        .toString() +
+                                                        "% Off",
                                                     textAlign: TextAlign.start,
                                                     overflow:
-                                                        TextOverflow.ellipsis,
+                                                    TextOverflow.ellipsis,
                                                     style: TextStyle(
                                                       fontWeight:
-                                                          FontWeight.bold,
+                                                      FontWeight.bold,
                                                       fontStyle:
-                                                          FontStyle.normal,
+                                                      FontStyle.normal,
                                                       fontSize: 10 * o,
                                                       color: AppTheme.red,
                                                       fontFamily: AppTheme
@@ -539,197 +767,6 @@ class _SuperFlashSaleScreenState extends State<SuperFlashSaleScreen> {
                                           ),
                                         ),
                                       ),
-                                      Expanded(
-                                        child: index * gridCount + 1 >=
-                                                result.length
-                                            ? Container()
-                                            : Container(
-                                                margin: EdgeInsets.only(
-                                                  left: 16 * w,
-                                                  top: 16 * h,
-                                                  right: 16 * w,
-                                                ),
-                                                height: 282,
-                                                padding: EdgeInsets.all(
-                                                  16 * o,
-                                                ),
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: AppTheme.border,
-                                                    width: 1,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          5 * o),
-                                                ),
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Container(
-                                                      height: 133 * o,
-                                                      width: 133 * o,
-                                                      margin: EdgeInsets.only(
-                                                        bottom: 8 * h,
-                                                      ),
-                                                      decoration: BoxDecoration(
-                                                        color: AppTheme.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                                    5 * o),
-                                                        border: Border.all(
-                                                          color:
-                                                              AppTheme.border,
-                                                          width: 1,
-                                                        ),
-                                                      ),
-                                                      child: ClipRect(
-                                                        child:
-                                                            CachedNetworkImage(
-                                                          imageUrl: result[index *
-                                                                      gridCount +
-                                                                  1]
-                                                              .products[index]
-                                                              .images
-                                                              .image,
-                                                          fit: BoxFit.cover,
-                                                          placeholder: (context,
-                                                                  url) =>
-                                                              const CircularProgressIndicator
-                                                                  .adaptive(),
-                                                          errorWidget: (context,
-                                                                  url, error) =>
-                                                              const Icon(
-                                                                  Icons.error),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      "Nike Air Max 270 React ENG",
-                                                      maxLines: 2,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontStyle:
-                                                            FontStyle.normal,
-                                                        fontSize: 12 * o,
-                                                        color: AppTheme.dark63,
-                                                        fontFamily: AppTheme
-                                                            .fontFamilyPoppins,
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      margin: EdgeInsets.only(
-                                                          top: 4 * h),
-                                                      width: 68,
-                                                      child: Row(
-                                                        children: [
-                                                          SvgPicture.asset(
-                                                            "assets/icons/star.svg",
-                                                          ),
-                                                          SvgPicture.asset(
-                                                            "assets/icons/star.svg",
-                                                          ),
-                                                          SvgPicture.asset(
-                                                            "assets/icons/star.svg",
-                                                          ),
-                                                          SvgPicture.asset(
-                                                            "assets/icons/star.svg",
-                                                          ),
-                                                          SvgPicture.asset(
-                                                            "assets/icons/star1.svg",
-                                                            color:
-                                                                AppTheme.border,
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        Container(
-                                                          child: Text(
-                                                            "\$299,43",
-                                                            textAlign:
-                                                                TextAlign.start,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontStyle:
-                                                                  FontStyle
-                                                                      .normal,
-                                                              fontSize: 12 * o,
-                                                              color: AppTheme
-                                                                  .blueFF,
-                                                              fontFamily: AppTheme
-                                                                  .fontFamilyPoppins,
-                                                            ),
-                                                          ),
-                                                          margin:
-                                                              EdgeInsets.only(
-                                                            bottom: 4 * h,
-                                                            top: 16 * h,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        Text(
-                                                          result[index *
-                                                                      gridCount +
-                                                                  1]
-                                                              .products[index]
-                                                              .name,
-                                                          textAlign:
-                                                              TextAlign.start,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .normal,
-                                                            fontStyle: FontStyle
-                                                                .normal,
-                                                            fontSize: 10 * o,
-                                                            color:
-                                                                AppTheme.greyB1,
-                                                            fontFamily: AppTheme
-                                                                .fontFamilyPoppins,
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          width: 8 * w,
-                                                        ),
-                                                        Text(
-                                                          "24% Off",
-                                                          textAlign:
-                                                              TextAlign.start,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontStyle: FontStyle
-                                                                .normal,
-                                                            fontSize: 10 * o,
-                                                            color: AppTheme.red,
-                                                            fontFamily: AppTheme
-                                                                .fontFamilyPoppins,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                      ),
                                     ],
                                   ),
                                   SizedBox(height: 12 * h),
@@ -737,7 +774,7 @@ class _SuperFlashSaleScreenState extends State<SuperFlashSaleScreen> {
                               );
                             },
                             itemCount:
-                                (result.length + gridCount - 1) ~/ gridCount,
+                            (productResult.length + gridCount - 1) ~/ gridCount,
                           ),
                         ],
                       );

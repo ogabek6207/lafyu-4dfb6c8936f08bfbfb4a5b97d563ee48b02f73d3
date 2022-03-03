@@ -14,7 +14,7 @@ class SuperFlashSaleCategoryModel {
   });
 
   int id;
-  List<SuperFlashSaleCategoryResult> product;
+  List<SuperFlashSaleProduct> product;
   DateTime endDate;
   String image;
   String name;
@@ -23,8 +23,8 @@ class SuperFlashSaleCategoryModel {
   factory SuperFlashSaleCategoryModel.fromJson(Map<String, dynamic> json) =>
       SuperFlashSaleCategoryModel(
         id: json["id"] ?? 0,
-        product: List<SuperFlashSaleCategoryResult>.from(json["product"]
-            .map((x) => SuperFlashSaleCategoryResult.fromJson(x))),
+        product: List<SuperFlashSaleProduct>.from(
+            json["product"].map((x) => SuperFlashSaleProduct.fromJson(x))),
         endDate: json["end_date"] == null
             ? DateTime.now()
             : DateTime.parse(json["end_date"]),
@@ -34,61 +34,38 @@ class SuperFlashSaleCategoryModel {
       );
 }
 
-class SuperFlashSaleCategoryResult {
-  SuperFlashSaleCategoryResult({
+class SuperFlashSaleProduct {
+  SuperFlashSaleProduct({
     required this.id,
     required this.name,
     required this.start,
     required this.price,
-    required this.category,
     required this.discountPrice,
     required this.images,
     required this.review,
-    required this.products,
+    required this.reviewAvg,
   });
 
   int id;
   String name;
   int start;
   double price;
-  String category;
   double discountPrice;
   List<Image> images;
   Review review;
-  List<ProductProduct> products;
+  int reviewAvg;
 
-  factory SuperFlashSaleCategoryResult.fromJson(Map<String, dynamic> json) {
-    double price = 0.0;
-    try {
-      price = json["price"] ?? 0.0;
-    } catch (_) {
-      if (json["price"] != null) {
-        price = json["price"].toDouble();
-      }
-    }
-
-    double discountPrice = 0.0;
-    try {
-      discountPrice = json["discount_price"] ?? 0.0;
-    } catch (_) {
-      if (json["discount_price"] != null) {
-        discountPrice = json["discount_price"].toDouble();
-      }
-    }
-
-    return SuperFlashSaleCategoryResult(
-      id: json["id"] ?? 0,
-      name: json["name"] ?? "",
-      start: json["start"] ?? 0,
-      price: price,
-      category: json["category"] ?? "",
-      discountPrice: discountPrice,
-      images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
-      review: Review.fromJson(json["review"]),
-      products: List<ProductProduct>.from(
-          json["products"].map((x) => ProductProduct.fromJson(x))),
-    );
-  }
+  factory SuperFlashSaleProduct.fromJson(Map<String, dynamic> json) =>
+      SuperFlashSaleProduct(
+        id: json["id"] ?? 0,
+        name: json["name"] ?? "",
+        start: json["start"] ?? 0,
+        price: json["price"] ?? 0.0,
+        discountPrice: json["discount_price"] ?? 0.0,
+        images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
+        review: Review.fromJson(json["review"]),
+        reviewAvg: json["review_avg"] ?? 0,
+      );
 }
 
 class Image {
@@ -109,72 +86,61 @@ class Image {
       );
 }
 
-class ProductProduct {
-  ProductProduct({
-    required this.id,
-    required this.name,
-    required this.start,
-    required this.price,
-    required this.discountPrice,
-    required this.images,
-  });
-
-  int id;
-  String name;
-  int start;
-  double price;
-  double discountPrice;
-  Image images;
-
-  factory ProductProduct.fromJson(Map<String, dynamic> json) {
-    double price = 0.0;
-    try {
-      price = json["price"] ?? 0.0;
-    } catch (_) {
-      if (json["price"] != null) {
-        price = json["price"].toDouble();
-      }
-    }
-
-    double discountPrice = 0.0;
-    try {
-      discountPrice = json["discount_price"] ?? 0.0;
-    } catch (_) {
-      if (json["discount_price"] != null) {
-        discountPrice = json["discount_price"].toDouble();
-      }
-    }
-
-    return ProductProduct(
-      id: json["id"] ?? 0,
-      name: json["name"],
-      start: json["start"] ?? 0,
-      price: price,
-      discountPrice: discountPrice,
-      images: Image.fromJson(json["images"]),
-    );
-  }
-}
-
 class Review {
   Review({
-    required this.start,
     required this.user,
     required this.text,
     required this.date,
+    required this.images,
   });
 
-  int start;
-  int user;
+  User user;
   String text;
   DateTime date;
+  Images images;
 
   factory Review.fromJson(Map<String, dynamic> json) => Review(
-        start: json["start"] ?? 0,
-        user: json["user"] ?? 0,
-        text: json["text"] ?? 0,
-        date: json["date"] == null
+        user: User.fromJson(json["user"]),
+        text: json["text"] ?? "",
+        date: json["end_date"] == null
             ? DateTime.now()
-            : DateTime.parse(json["date"]),
+            : DateTime.parse(json["end_date"]),
+        images: Images.fromJson(json["images"]),
+      );
+}
+
+class Images {
+  Images({
+    required this.id,
+    required this.image,
+    required this.reviews,
+  });
+
+  int id;
+  String image;
+  int reviews;
+
+  factory Images.fromJson(Map<String, dynamic> json) => Images(
+        id: json["id"] ?? 0,
+        image: json["image"] ?? "",
+        reviews: json["reviews"] ?? 0,
+      );
+}
+
+class User {
+  User({
+    required this.firstName,
+    required this.lastName,
+    required this.avatar,
+  });
+
+  dynamic firstName;
+  dynamic lastName;
+  String avatar;
+
+  factory User.fromJson(Map<String, dynamic> json) => User(
+        firstName: json["first_name"] ?? "",
+        lastName: json["last_name"] ?? "",
+        avatar: json["avatar"] ?? "",
       );
 }

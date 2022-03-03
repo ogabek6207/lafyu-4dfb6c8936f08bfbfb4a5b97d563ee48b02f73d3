@@ -14,6 +14,7 @@ import 'package:lafyu/src/model/recommend_model.dart';
 import 'package:lafyu/src/model/super_flash_sale_model.dart';
 import 'package:lafyu/src/ui/favourite/favourite_screen.dart';
 import 'package:lafyu/src/ui/home/detail_screen.dart';
+import 'package:lafyu/src/ui/home/product_screen.dart';
 import 'package:lafyu/src/widget/category_widget.dart';
 import 'package:lafyu/src/widget/product_widget.dart';
 import 'package:lafyu/src/widget/section_bar_widget.dart';
@@ -148,7 +149,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) {
-                                      return const OfferScreen();
+                                      return SuperFlashSaleScreen(
+                                          id: saleResult.id);
                                     },
                                   ),
                                 );
@@ -264,20 +266,21 @@ class _HomeScreenState extends State<HomeScreen> {
                       scrollDirection: Axis.horizontal,
                       itemCount: product.length,
                       itemBuilder: (context, index) {
-                        return  ProductWidget(
-                            name: product[index].name,
-                            price: product[index].price,
-                            oldPrice: product[index].discountPrice,
-                            image: product[index].images.image,
-                            onTap: () {  Navigator.push(
+                        return ProductWidget(
+                          name: product[index].name,
+                          price: product[index].price,
+                          oldPrice: product[index].discountPrice,
+                          image: product[index].images.image,
+                          onTap: () {
+                            Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) {
                                 return DetailScreen(
                                   id: product[index].id,
                                 );
                               }),
-                            );},
-
+                            );
+                          },
                         );
                       });
                 }
@@ -322,8 +325,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           ((product1[index].price * 100) /
                               product1[index].discountPrice);
                       return GestureDetector(
-                        onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=> DetailScreen(id: product1[index].id)));
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      DetailScreen(id: product1[index].id)));
                         },
                         child: ProductWidget(
                           image: product1[index].images.image,
@@ -424,18 +431,17 @@ class _HomeScreenState extends State<HomeScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Expanded(
-                                    child:
-
-
-                                    GestureDetector(
-                                      onTap: (){
-                                        Navigator.push(context, MaterialPageRoute(builder: (context){
-                                          return   DetailScreen(id: homeResult[index*gridCount].id);
-                                        }),);
-                                      },
-
-
-
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) {
+                                          return DetailScreen(
+                                              id: homeResult[index * gridCount]
+                                                  .id);
+                                        }),
+                                      );
+                                    },
                                     child: Container(
                                       width: 165 * w,
                                       margin: EdgeInsets.only(
@@ -452,11 +458,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                           width: 1,
                                         ),
                                         borderRadius:
-                                        BorderRadius.circular(5 * o),
+                                            BorderRadius.circular(5 * o),
                                       ),
                                       child: Column(
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Container(
                                             height: 133 * o,
@@ -467,7 +473,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             decoration: BoxDecoration(
                                               color: AppTheme.white,
                                               borderRadius:
-                                              BorderRadius.circular(5 * o),
+                                                  BorderRadius.circular(5 * o),
                                               border: Border.all(
                                                 color: AppTheme.border,
                                                 width: 1,
@@ -475,24 +481,25 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ),
                                             child: ClipRect(
                                               child: CachedNetworkImage(
-                                                imageUrl:
-                                                homeResult[index * gridCount]
+                                                imageUrl: homeResult[
+                                                        index * gridCount]
                                                     .images
                                                     .image,
                                                 fit: BoxFit.cover,
                                                 placeholder: (context, url) =>
-                                                const CircularProgressIndicator
-                                                    .adaptive(),
+                                                    const CircularProgressIndicator
+                                                        .adaptive(),
                                                 errorWidget:
                                                     (context, url, error) =>
-                                                const Icon(Icons.error),
+                                                        const Icon(Icons.error),
                                               ),
                                             ),
                                           ),
                                           SizedBox(
                                             width: 133 * w,
                                             child: Text(
-                                              homeResult[index * gridCount].name,
+                                              homeResult[index * gridCount]
+                                                  .name,
                                               maxLines: 2,
                                               overflow: TextOverflow.ellipsis,
                                               style: TextStyle(
@@ -501,7 +508,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 fontSize: 12 * o,
                                                 color: AppTheme.dark63,
                                                 fontFamily:
-                                                AppTheme.fontFamilyPoppins,
+                                                    AppTheme.fontFamilyPoppins,
                                               ),
                                             ),
                                           ),
@@ -515,29 +522,29 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 ),
                                                 SvgPicture.asset(
                                                   homeResult[index * gridCount]
-                                                      .start >
-                                                      1
+                                                              .start >
+                                                          1
                                                       ? "assets/icons/star.svg"
                                                       : "assets/icons/star1.svg",
                                                 ),
                                                 SvgPicture.asset(
                                                   homeResult[index * gridCount]
-                                                      .start >
-                                                      2
+                                                              .start >
+                                                          2
                                                       ? "assets/icons/star.svg"
                                                       : "assets/icons/star1.svg",
                                                 ),
                                                 SvgPicture.asset(
                                                   homeResult[index * gridCount]
-                                                      .start >
-                                                      3
+                                                              .start >
+                                                          3
                                                       ? "assets/icons/star.svg"
                                                       : "assets/icons/star1.svg",
                                                 ),
                                                 SvgPicture.asset(
                                                   homeResult[index * gridCount]
-                                                      .start >
-                                                      4
+                                                              .start >
+                                                          4
                                                       ? "assets/icons/star.svg"
                                                       : "assets/icons/star1.svg",
                                                 )
@@ -550,11 +557,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 child: Text(
                                                   "\$" +
                                                       homeResult[
-                                                      index * gridCount]
+                                                              index * gridCount]
                                                           .price
                                                           .toString(),
                                                   textAlign: TextAlign.start,
-                                                  overflow: TextOverflow.ellipsis,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                   style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontStyle: FontStyle.normal,
@@ -575,20 +583,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                             children: [
                                               Text(
                                                 "\$" +
-                                                    homeResult[index * gridCount]
+                                                    homeResult[
+                                                            index * gridCount]
                                                         .discountPrice
                                                         .toString(),
                                                 textAlign: TextAlign.start,
                                                 overflow: TextOverflow.ellipsis,
                                                 style: TextStyle(
-                                                  decoration:
-                                                  TextDecoration.lineThrough,
+                                                  decoration: TextDecoration
+                                                      .lineThrough,
                                                   fontWeight: FontWeight.normal,
                                                   fontStyle: FontStyle.normal,
                                                   fontSize: 10 * o,
                                                   color: AppTheme.greyB1,
-                                                  fontFamily:
-                                                  AppTheme.fontFamilyPoppins,
+                                                  fontFamily: AppTheme
+                                                      .fontFamilyPoppins,
                                                 ),
                                               ),
                                               SizedBox(
@@ -596,7 +605,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                               ),
                                               Text(
                                                 discountPercent
-                                                    .toInt().toStringAsFixed(0) +
+                                                        .toInt()
+                                                        .toStringAsFixed(0) +
                                                     "% Off",
                                                 textAlign: TextAlign.start,
                                                 overflow: TextOverflow.ellipsis,
@@ -605,8 +615,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   fontStyle: FontStyle.normal,
                                                   fontSize: 10 * o,
                                                   color: AppTheme.red,
-                                                  fontFamily:
-                                                  AppTheme.fontFamilyPoppins,
+                                                  fontFamily: AppTheme
+                                                      .fontFamilyPoppins,
                                                 ),
                                               ),
                                             ],
@@ -614,27 +624,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ],
                                       ),
                                     ),
-
-                                    ),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                                   ),
-
+                                ),
                                 Expanded(
                                   child: index * gridCount + 1 >=
                                           homeResult.length
