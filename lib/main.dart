@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lafyu/src/ui/home/detail_screen.dart';
 import 'package:lafyu/src/ui/main_screen.dart';
 
 void main() {

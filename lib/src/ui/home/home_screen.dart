@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,7 @@ import '../../utils/utils.dart';
 import '../../widget/banner_widget.dart';
 import '../../widget/recommend_widget.dart';
 import '../../widget/searchWidget.dart';
+import '../notification/notification_screen.dart';
 import '../offer/offer_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -81,6 +83,31 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           SizedBox(
             width: 16 * w,
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) {
+                  return const NotificationScreen();
+                }),
+              );
+            },
+            child: notfication >= 1
+                ? Badge(
+                    badgeColor: AppTheme.blueFF,
+                    badgeContent: Text(
+                      notfication.toString(),
+                      style: TextStyle(color: AppTheme.white, fontSize: 10 * h),
+                    ),
+                    position: BadgePosition.topEnd(top: 8 * h, end: 0),
+                    child: Center(
+                      child: SvgPicture.asset('assets/icons/bell.svg'),
+                    ),
+                  )
+                : Center(
+                    child: SvgPicture.asset('assets/icons/bell.svg'),
+                  ),
           ),
           SizedBox(
             width: 16 * w,
@@ -237,7 +264,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       scrollDirection: Axis.horizontal,
                       itemCount: product.length,
                       itemBuilder: (context, index) {
-
                         return GestureDetector(
                           onTap: () {
                             Navigator.push(
@@ -295,19 +321,21 @@ class _HomeScreenState extends State<HomeScreen> {
                   List<HomeResult> product = homeModel!.results;
                   double discountPercent;
                   return ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: product.length,
-                      itemBuilder: (context, index) {
-                        discountPercent = 100 -
-                            ((product[index].price * 100) /
-                                product[index].discountPrice);
-                        return ProductWidget(
-                            image: product[index].images.image,
-                            name: product[index].name,
-                            price: product[index].price,
-                            oldPrice: product[index].discountPrice,
-                            onTap: () {});
-                      });
+                    scrollDirection: Axis.horizontal,
+                    itemCount: product.length,
+                    itemBuilder: (context, index) {
+                      discountPercent = 100 -
+                          ((product[index].price * 100) /
+                              product[index].discountPrice);
+                      return ProductWidget(
+                        image: product[index].images.image,
+                        name: product[index].name,
+                        price: product[index].price,
+                        oldPrice: product[index].discountPrice,
+                        onTap: () {},
+                      );
+                    },
+                  );
                 }
 
                 return Container();
@@ -330,7 +358,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     CarouselSlider(
                       items: recommendResult.map((recommendResult) {
                         return Builder(builder: (BuildContext context) {
-                          return RecomendedWidget(image: recommendResult.image, name: recommendResult.name, subName: recommendResult.title, onTap: () {  },);
+                          return RecomendedWidget(
+                            image: recommendResult.image,
+                            name: recommendResult.name,
+                            subName: recommendResult.title,
+                            onTap: () {},
+                          );
                         });
                       }).toList(),
                       options: CarouselOptions(

@@ -25,9 +25,14 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
     double w = Utils.windowWidth(context);
     double o = (h + w) / 2;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppTheme.white,
+        title: AppBarWidget(title: "Profile"),
+        centerTitle: false,
+        elevation: 1,
+      ),
       body: Column(
         children: [
-       AppBarWidget(title: "Profile"),
           Container(
             margin: EdgeInsets.only(
               left: 16 * w,

@@ -21,35 +21,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
     double w = Utils.windowWidth(context);
     double o = (h + w) / 2;
     return Scaffold(
+      appBar: AppBar(
+        elevation: 1,
+        centerTitle: false,
+        backgroundColor: AppTheme.white,
+        title: Text(
+          "Account",
+          textAlign: TextAlign.start,
+          style: TextStyle(
+            color: AppTheme.dark63,
+            fontWeight: FontWeight.bold,
+            fontSize: 16 * o,
+            fontStyle: FontStyle.normal,
+            fontFamily: AppTheme.fontFamilyPoppins,
+            letterSpacing: 0.005,
+            height: 1.5,
+          ),
+        ),
+      ),
       backgroundColor: AppTheme.white,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            margin: EdgeInsets.only(
-              top: 70 * h,
-              left: 16 * w,
-              bottom: 28 * h,
-            ),
-            child: Text(
-              "Account",
-              textAlign: TextAlign.start,
-              style: TextStyle(
-                color: AppTheme.dark63,
-                fontWeight: FontWeight.bold,
-                fontSize: 16 * o,
-                fontStyle: FontStyle.normal,
-                fontFamily: AppTheme.fontFamilyPoppins,
-                letterSpacing: 0.005,
-                height: 1.5,
-              ),
-            ),
-          ),
-          Container(
-            height: 1 * h,
-            width: MediaQuery.of(context).size.width,
-            color: AppTheme.border,
-          ),
           Container(
             margin: EdgeInsets.only(
               left: 16 * w,
