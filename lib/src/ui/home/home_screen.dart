@@ -14,7 +14,6 @@ import 'package:lafyu/src/model/recommend_model.dart';
 import 'package:lafyu/src/model/super_flash_sale_model.dart';
 import 'package:lafyu/src/ui/favourite/favourite_screen.dart';
 import 'package:lafyu/src/ui/home/detail_screen.dart';
-import 'package:lafyu/src/ui/home/product_screen.dart';
 import 'package:lafyu/src/widget/category_widget.dart';
 import 'package:lafyu/src/widget/product_widget.dart';
 import 'package:lafyu/src/widget/section_bar_widget.dart';
@@ -265,26 +264,20 @@ class _HomeScreenState extends State<HomeScreen> {
                       scrollDirection: Axis.horizontal,
                       itemCount: product.length,
                       itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return DetailScreen(
-                                    id: product[index].id,
-                                  );
-                                },
-                              ),
-                            );
-                          },
-                          child: ProductWidget(
+                        return  ProductWidget(
                             name: product[index].name,
                             price: product[index].price,
                             oldPrice: product[index].discountPrice,
                             image: product[index].images.image,
-                            onTap: () {},
-                          ),
+                            onTap: () {  Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) {
+                                return DetailScreen(
+                                  id: product[index].id,
+                                );
+                              }),
+                            );},
+
                         );
                       });
                 }
@@ -319,21 +312,26 @@ class _HomeScreenState extends State<HomeScreen> {
                     homeModel = snapshot.data;
                   }
 
-                  List<HomeResult> product = homeModel!.results;
+                  List<HomeResult> product1 = homeModel!.results;
                   double discountPercent;
                   return ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: product.length,
+                    itemCount: product1.length,
                     itemBuilder: (context, index) {
                       discountPercent = 100 -
-                          ((product[index].price * 100) /
-                              product[index].discountPrice);
-                      return ProductWidget(
-                        image: product[index].images.image,
-                        name: product[index].name,
-                        price: product[index].price,
-                        oldPrice: product[index].discountPrice,
-                        onTap: () {},
+                          ((product1[index].price * 100) /
+                              product1[index].discountPrice);
+                      return GestureDetector(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> DetailScreen(id: product1[index].id)));
+                        },
+                        child: ProductWidget(
+                          image: product1[index].images.image,
+                          name: product1[index].name,
+                          price: product1[index].price,
+                          oldPrice: product1[index].discountPrice,
+                          onTap: () {},
+                        ),
                       );
                     },
                   );
@@ -426,185 +424,217 @@ class _HomeScreenState extends State<HomeScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Expanded(
-                                  child: Container(
-                                    width: 165 * w,
-                                    margin: EdgeInsets.only(
-                                      left: 16 * o,
-                                      top: 16 * o,
-                                    ),
-                                    height: 290 * h,
-                                    padding: EdgeInsets.all(
-                                      16 * o,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: AppTheme.border,
-                                        width: 1,
+                                    child:
+
+
+                                    GestureDetector(
+                                      onTap: (){
+                                        Navigator.push(context, MaterialPageRoute(builder: (context){
+                                          return   DetailScreen(id: homeResult[index*gridCount].id);
+                                        }),);
+                                      },
+
+
+
+                                    child: Container(
+                                      width: 165 * w,
+                                      margin: EdgeInsets.only(
+                                        left: 16 * o,
+                                        top: 16 * o,
                                       ),
-                                      borderRadius:
-                                          BorderRadius.circular(5 * o),
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          height: 133 * o,
-                                          width: 133 * o,
-                                          margin: EdgeInsets.only(
-                                            bottom: 8 * h,
-                                          ),
-                                          decoration: BoxDecoration(
-                                            color: AppTheme.white,
-                                            borderRadius:
-                                                BorderRadius.circular(5 * o),
-                                            border: Border.all(
-                                              color: AppTheme.border,
-                                              width: 1,
+                                      height: 290 * h,
+                                      padding: EdgeInsets.all(
+                                        16 * o,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: AppTheme.border,
+                                          width: 1,
+                                        ),
+                                        borderRadius:
+                                        BorderRadius.circular(5 * o),
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            height: 133 * o,
+                                            width: 133 * o,
+                                            margin: EdgeInsets.only(
+                                              bottom: 8 * h,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              color: AppTheme.white,
+                                              borderRadius:
+                                              BorderRadius.circular(5 * o),
+                                              border: Border.all(
+                                                color: AppTheme.border,
+                                                width: 1,
+                                              ),
+                                            ),
+                                            child: ClipRect(
+                                              child: CachedNetworkImage(
+                                                imageUrl:
+                                                homeResult[index * gridCount]
+                                                    .images
+                                                    .image,
+                                                fit: BoxFit.cover,
+                                                placeholder: (context, url) =>
+                                                const CircularProgressIndicator
+                                                    .adaptive(),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                const Icon(Icons.error),
+                                              ),
                                             ),
                                           ),
-                                          child: ClipRect(
-                                            child: CachedNetworkImage(
-                                              imageUrl:
+                                          SizedBox(
+                                            width: 133 * w,
+                                            child: Text(
+                                              homeResult[index * gridCount].name,
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontStyle: FontStyle.normal,
+                                                fontSize: 12 * o,
+                                                color: AppTheme.dark63,
+                                                fontFamily:
+                                                AppTheme.fontFamilyPoppins,
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            margin: EdgeInsets.only(top: 4 * h),
+                                            width: 68 * w,
+                                            child: Row(
+                                              children: [
+                                                SvgPicture.asset(
+                                                  "assets/icons/star.svg",
+                                                ),
+                                                SvgPicture.asset(
                                                   homeResult[index * gridCount]
-                                                      .images
-                                                      .image,
-                                              fit: BoxFit.cover,
-                                              placeholder: (context, url) =>
-                                                  const CircularProgressIndicator
-                                                      .adaptive(),
-                                              errorWidget:
-                                                  (context, url, error) =>
-                                                      const Icon(Icons.error),
+                                                      .start >
+                                                      1
+                                                      ? "assets/icons/star.svg"
+                                                      : "assets/icons/star1.svg",
+                                                ),
+                                                SvgPicture.asset(
+                                                  homeResult[index * gridCount]
+                                                      .start >
+                                                      2
+                                                      ? "assets/icons/star.svg"
+                                                      : "assets/icons/star1.svg",
+                                                ),
+                                                SvgPicture.asset(
+                                                  homeResult[index * gridCount]
+                                                      .start >
+                                                      3
+                                                      ? "assets/icons/star.svg"
+                                                      : "assets/icons/star1.svg",
+                                                ),
+                                                SvgPicture.asset(
+                                                  homeResult[index * gridCount]
+                                                      .start >
+                                                      4
+                                                      ? "assets/icons/star.svg"
+                                                      : "assets/icons/star1.svg",
+                                                )
+                                              ],
                                             ),
                                           ),
-                                        ),
-                                        SizedBox(
-                                          width: 133 * w,
-                                          child: Text(
-                                            homeResult[index * gridCount].name,
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontStyle: FontStyle.normal,
-                                              fontSize: 12 * o,
-                                              color: AppTheme.dark63,
-                                              fontFamily:
-                                                  AppTheme.fontFamilyPoppins,
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(top: 4 * h),
-                                          width: 68 * w,
-                                          child: Row(
+                                          Row(
                                             children: [
-                                              SvgPicture.asset(
-                                                "assets/icons/star.svg",
+                                              Container(
+                                                child: Text(
+                                                  "\$" +
+                                                      homeResult[
+                                                      index * gridCount]
+                                                          .price
+                                                          .toString(),
+                                                  textAlign: TextAlign.start,
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontStyle: FontStyle.normal,
+                                                    fontSize: 12 * o,
+                                                    color: AppTheme.blueFF,
+                                                    fontFamily: AppTheme
+                                                        .fontFamilyPoppins,
+                                                  ),
+                                                ),
+                                                margin: EdgeInsets.only(
+                                                  bottom: 4 * h,
+                                                  top: 16 * h,
+                                                ),
                                               ),
-                                              SvgPicture.asset(
-                                                homeResult[index * gridCount]
-                                                            .start >
-                                                        1
-                                                    ? "assets/icons/star.svg"
-                                                    : "assets/icons/star1.svg",
-                                              ),
-                                              SvgPicture.asset(
-                                                homeResult[index * gridCount]
-                                                            .start >
-                                                        2
-                                                    ? "assets/icons/star.svg"
-                                                    : "assets/icons/star1.svg",
-                                              ),
-                                              SvgPicture.asset(
-                                                homeResult[index * gridCount]
-                                                            .start >
-                                                        3
-                                                    ? "assets/icons/star.svg"
-                                                    : "assets/icons/star1.svg",
-                                              ),
-                                              SvgPicture.asset(
-                                                homeResult[index * gridCount]
-                                                            .start >
-                                                        4
-                                                    ? "assets/icons/star.svg"
-                                                    : "assets/icons/star1.svg",
-                                              )
                                             ],
                                           ),
-                                        ),
-                                        Row(
-                                          children: [
-                                            Container(
-                                              child: Text(
+                                          Row(
+                                            children: [
+                                              Text(
                                                 "\$" +
-                                                    homeResult[
-                                                            index * gridCount]
-                                                        .price
+                                                    homeResult[index * gridCount]
+                                                        .discountPrice
                                                         .toString(),
+                                                textAlign: TextAlign.start,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  decoration:
+                                                  TextDecoration.lineThrough,
+                                                  fontWeight: FontWeight.normal,
+                                                  fontStyle: FontStyle.normal,
+                                                  fontSize: 10 * o,
+                                                  color: AppTheme.greyB1,
+                                                  fontFamily:
+                                                  AppTheme.fontFamilyPoppins,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: 8 * w,
+                                              ),
+                                              Text(
+                                                discountPercent
+                                                    .toStringAsFixed(0) +
+                                                    "% Off",
                                                 textAlign: TextAlign.start,
                                                 overflow: TextOverflow.ellipsis,
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   fontStyle: FontStyle.normal,
-                                                  fontSize: 12 * o,
-                                                  color: AppTheme.blueFF,
-                                                  fontFamily: AppTheme
-                                                      .fontFamilyPoppins,
+                                                  fontSize: 10 * o,
+                                                  color: AppTheme.red,
+                                                  fontFamily:
+                                                  AppTheme.fontFamilyPoppins,
                                                 ),
                                               ),
-                                              margin: EdgeInsets.only(
-                                                bottom: 4 * h,
-                                                top: 16 * h,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              "\$" +
-                                                  homeResult[index * gridCount]
-                                                      .discountPrice
-                                                      .toString(),
-                                              textAlign: TextAlign.start,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                decoration:
-                                                    TextDecoration.lineThrough,
-                                                fontWeight: FontWeight.normal,
-                                                fontStyle: FontStyle.normal,
-                                                fontSize: 10 * o,
-                                                color: AppTheme.greyB1,
-                                                fontFamily:
-                                                    AppTheme.fontFamilyPoppins,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 8 * w,
-                                            ),
-                                            Text(
-                                              discountPercent
-                                                      .toStringAsFixed(0) +
-                                                  "% Off",
-                                              textAlign: TextAlign.start,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontStyle: FontStyle.normal,
-                                                fontSize: 10 * o,
-                                                color: AppTheme.red,
-                                                fontFamily:
-                                                    AppTheme.fontFamilyPoppins,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
+
+                                    ),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                   ),
-                                ),
+
                                 Expanded(
                                   child: index * gridCount + 1 >=
                                           homeResult.length
@@ -615,7 +645,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             top: 16 * h,
                                             right: 16 * w,
                                           ),
-                                          height: 285 * h,
+                                          height: 290 * h,
                                           padding: EdgeInsets.all(
                                             16 * o,
                                           ),
@@ -681,7 +711,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               Container(
                                                 margin:
                                                     EdgeInsets.only(top: 4 * h),
-                                                width: 68,
+                                                width: 68 * w,
                                                 child: Row(
                                                   children: [
                                                     SvgPicture.asset(
@@ -726,7 +756,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 children: [
                                                   Container(
                                                     child: Text(
-                                                      "\$299,43",
+                                                      "\$" +
+                                                          homeResult[index *
+                                                                      gridCount +
+                                                                  1]
+                                                              .price
+                                                              .toInt()
+                                                              .toString(),
                                                       textAlign:
                                                           TextAlign.start,
                                                       overflow:
@@ -752,10 +788,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                               Row(
                                                 children: [
                                                   Text(
-                                                    homeResult[
-                                                            index * gridCount +
+                                                    "\$" +
+                                                        homeResult[index *
+                                                                    gridCount +
                                                                 1]
-                                                        .name,
+                                                            .discountPrice
+                                                            .toInt()
+                                                            .toString(),
                                                     textAlign: TextAlign.start,
                                                     overflow:
                                                         TextOverflow.ellipsis,
@@ -774,7 +813,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     width: 8 * w,
                                                   ),
                                                   Text(
-                                                    "24% Off",
+                                                    discountPercent
+                                                            .toInt()
+                                                            .toString() +
+                                                        "% Off",
                                                     textAlign: TextAlign.start,
                                                     overflow:
                                                         TextOverflow.ellipsis,

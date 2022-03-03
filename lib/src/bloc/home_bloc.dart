@@ -17,7 +17,7 @@ class HomeBloc {
   Stream<HomeModel> get fetchFlashSale => _flashSaleFetch.stream;
 
   getHomeSale() async {
-    HttpResult response = await _repository.getProduct(true, false, false);
+    HttpResult response = await _repository.getProduct("true", "", "");
     if (response.isSucces) {
       HomeModel data = HomeModel.fromJson(response.result);
       _homeSaleFetch.sink.add(data);
@@ -25,7 +25,7 @@ class HomeBloc {
   }
 
   getFlashSale() async {
-    HttpResult response = await _repository.getProduct(false, false, true);
+    HttpResult response = await _repository.getProduct("", "", "true");
     if (response.isSucces) {
       HomeModel data = HomeModel.fromJson(response.result);
       _flashSaleFetch.sink.add(data);
@@ -33,7 +33,7 @@ class HomeBloc {
   }
 
   getMegaSale() async {
-    HttpResult response = await _repository.getProduct(false, true, false);
+    HttpResult response = await _repository.getProduct("", "true", "");
     if (response.isSucces) {
       HomeModel data = HomeModel.fromJson(response.result);
       _flashSaleFetch.sink.add(data);

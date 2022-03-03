@@ -80,7 +80,7 @@ class _ProductWidgetState extends State<ProductWidget> {
             Container(
               width: 109 * w,
               child: Text(
-                'UZS ' + widget.price.toString(),
+                '\$' + widget.price.toString(),
                 style: TextStyle(
                   fontSize: 12 * h,
                   color: AppTheme.blueFF,
@@ -96,7 +96,7 @@ class _ProductWidgetState extends State<ProductWidget> {
               child: Row(
                 children: [
                   Text(
-                    'UZS ' + widget.oldPrice.toString(),
+                    '\$' + widget.oldPrice.toInt().toString(),
                     style: TextStyle(
                         decoration: TextDecoration.lineThrough,
                         fontWeight: FontWeight.normal,

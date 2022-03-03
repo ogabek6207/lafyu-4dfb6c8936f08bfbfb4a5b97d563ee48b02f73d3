@@ -194,9 +194,9 @@ class AppProvider {
   }
 
   Future<HttpResult> getProduct(
-    bool isHome,
-    bool megaSale,
-    bool flashSale,
+    String isHome,
+    String megaSale,
+    String flashSale,
   ) async {
     String url = baseUrl +
         "product/?flash_sale=$flashSale&mega_sale=$megaSale&home_sale=$isHome";

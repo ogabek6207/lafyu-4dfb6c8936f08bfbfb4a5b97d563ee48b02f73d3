@@ -3,17 +3,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lafyu/src/ui/main_screen.dart';
 import 'package:lafyu/src/widget/save_widget.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../app_provider/app_provider.dart';
 import '../../app_theme/app_theme.dart';
 import '../../model/auth/login_model.dart';
 import '../../utils/utils.dart';
 
 class AcceptScreen extends StatefulWidget {
-  String email;
+  final String email;
 
-  AcceptScreen({required this.email});
+  const AcceptScreen({Key? key, required this.email}) : super(key: key);
 
   @override
   _AcceptScreenState createState() => _AcceptScreenState();
@@ -134,8 +132,7 @@ class _AcceptScreenState extends State<AcceptScreen> {
             ),
           ),
           GestureDetector(
-
-              onTap: (){
+              onTap: () {
                 _acceptData(_controllerCode.text, widget.email);
               },
               child: SaveWidget(title: "Send")),
@@ -145,11 +142,11 @@ class _AcceptScreenState extends State<AcceptScreen> {
   }
 
   Future<void> _acceptData(
-    String sms_code,
+    String smsCode,
     String email,
   ) async {
     var response = await AppProvider().acceptData(
-      sms_code,
+      smsCode,
       email,
     );
 

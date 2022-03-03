@@ -4,8 +4,8 @@ import '../model/auth/http_result.dart';
 class Repository {
   final AppProvider _provider = AppProvider();
 
-  Future<HttpResult> sendLogin(String first_name, password) =>
-      _provider.getLogin(first_name, password);
+  Future<HttpResult> sendLogin(String firstName, password) =>
+      _provider.getLogin(firstName, password);
 
   Future<HttpResult> sendEmail(
     String email,
@@ -19,12 +19,14 @@ class Repository {
   Future<HttpResult> getSearch(String number) => _provider.getSearch();
 
   Future<HttpResult> getSuperFlash() => _provider.getSuperFlash();
-  Future<HttpResult> getSuperFlashCategory(int id) => _provider.getSuperFlashCategory(id);
+
+  Future<HttpResult> getSuperFlashCategory(int id) =>
+      _provider.getSuperFlashCategory(id);
 
   Future<HttpResult> getProduct(
-    bool isHome,
-    bool megaSale,
-    bool flashSale,
+    String isHome,
+    String megaSale,
+    String flashSale,
   ) =>
       _provider.getProduct(isHome, megaSale, flashSale);
 

@@ -1,7 +1,4 @@
-import 'dart:convert';
-
-ProductModel productModelFromJson(String str) =>
-    ProductModel.fromJson(json.decode(str));
+import 'package:lafyu/src/model/home_model.dart';
 
 class ProductModel {
   ProductModel({
@@ -19,32 +16,32 @@ class ProductModel {
 
   int id;
   String name;
-  int price;
-  int discountPrice;
-  List<Image> images;
-  int reviewAvg;
+  double price;
+  double discountPrice;
+  List<ImageResults> images;
+  double reviewAvg;
   int reviewCount;
   Review review;
-  List<Product> products;
+  List<HomeResult> products;
   String category;
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
         id: json["id"] ?? 0,
         name: json["name"] ?? "",
-        price: json["price"] ?? 0,
-        discountPrice: json["discount_price"] ?? 0,
-        images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
-        reviewAvg: json["review_avg"] ?? 0,
+        price: json["price"] ?? 0.0,
+        discountPrice: json["discount_price"] ?? 0.0,
+        images: List<ImageResults>.from(json["images"].map((x) => ImageResults.fromJson(x))),
+        reviewAvg: json["review_avg"] ?? 0.0,
         reviewCount: json["review_count"] ?? 0,
         review: Review.fromJson(json["review"]),
-        products: List<Product>.from(
-            json["products"].map((x) => Product.fromJson(x))),
+        products: List<HomeResult>.from(
+            json["products"].map((x) => HomeResult.fromJson(x))),
         category: json["category"] ?? "",
       );
 }
 
-class Image {
-  Image({
+class ImageResults {
+  ImageResults({
     required this.id,
     required this.image,
     required this.product,
@@ -54,40 +51,10 @@ class Image {
   String image;
   int product;
 
-  factory Image.fromJson(Map<String, dynamic> json) => Image(
+  factory ImageResults.fromJson(Map<String, dynamic> json) => ImageResults(
         id: json["id"] ?? 0,
         image: json["image"] ?? "",
         product: json["product"] ?? 0,
-      );
-}
-
-class Product {
-  Product({
-    required this.id,
-    required this.name,
-    required this.start,
-    required this.price,
-    required this.discountPrice,
-    required this.images,
-    required this.reviewAvg,
-  });
-
-  int id;
-  String name;
-  int start;
-  int price;
-  int discountPrice;
-  Image images;
-  dynamic reviewAvg;
-
-  factory Product.fromJson(Map<String, dynamic> json) => Product(
-        id: json["id"] ?? 0,
-        name: json["name"] ?? "",
-        start: json["start"] ?? 0,
-        price: json["price"] ?? 0,
-        discountPrice: json["discount_price"] ?? 0,
-        images: Image.fromJson(json["images"]),
-        reviewAvg: json["review_avg"],
       );
 }
 
