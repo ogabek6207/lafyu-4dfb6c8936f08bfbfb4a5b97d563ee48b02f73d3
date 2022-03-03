@@ -1,26 +1,28 @@
+
+import 'dart:convert';
+
 import 'package:rxdart/rxdart.dart';
-import '../model/product_description_model.dart';
+import '../model/product_model.dart';
 import '../repository/repository_.dart';
 
-class ProductDescriptionBloc {
+class ProductBloc {
   final Repository _repository = Repository();
-  final productDescriptionFetch = PublishSubject<ProductDescriptionModel>();
+  final productFetch = PublishSubject<ProductModel>();
 
-  Stream<ProductDescriptionModel> get fetchProductDescription =>
-      productDescriptionFetch.stream;
+  Stream<ProductModel> get fetchProduct =>
+      productFetch.stream;
 
   getProductDescription(int id) async {
     var response = await _repository.getProductDescription(id);
     if (response.isSucces) {
-      ProductDescriptionModel productDescriptionModel =
-          ProductDescriptionModel.fromJson(response.result);
-      productDescriptionFetch.sink.add(productDescriptionModel);
+      var productModel = productModelFromJson(json.encode(response.result));
+      productFetch.sink.add(productModel);
     }
   }
 
   dispose() {
-    productDescriptionFetch.close();
+    productFetch.close();
   }
 }
 
-final productDescriptionBloc = ProductDescriptionBloc();
+final productBloc = ProductBloc();

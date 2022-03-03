@@ -33,6 +33,7 @@ class _BannerWidgetState extends State<BannerWidget> {
         margin: EdgeInsets.symmetric(horizontal: 16 * w),
         decoration: BoxDecoration(
           image: DecorationImage(
+
               fit: BoxFit.cover, image: NetworkImage(widget.image)),
           borderRadius: BorderRadius.circular(10),
         ),

@@ -29,14 +29,22 @@ class _EditGenderScreenState extends State<EditGenderScreen> {
     double w = Utils.windowWidth(context);
     double o = (h + w) / 2;
     return Scaffold(
+      backgroundColor: AppTheme.white,
+      appBar: AppBar(
+        elevation: 1,
+        backgroundColor: AppTheme.white,
+        title: const AppBarWidget(title: "Gender"),
+        automaticallyImplyLeading: false,
+      ),
       body: Column(
         children: [
-        AppBarWidget(title: "Gender"),
           Expanded(
             child: ListView(
               shrinkWrap: true,
-              padding: EdgeInsets.only(top: 16*h,),
-              physics: NeverScrollableScrollPhysics(),
+              padding: EdgeInsets.only(
+                top: 16 * h,
+              ),
+              physics: const NeverScrollableScrollPhysics(),
               children: [
                 Container(
                   margin: EdgeInsets.only(
@@ -80,6 +88,8 @@ class _EditGenderScreenState extends State<EditGenderScreen> {
                           height: 48 * h,
                           width: MediaQuery.of(context).size.width,
                           child: DropdownButton(
+elevation: 10,
+                            isExpanded: true,
                             value: dropDownValue,
                             icon: const Icon(Icons.keyboard_arrow_down),
                             items: items.map((String items) {
@@ -88,8 +98,6 @@ class _EditGenderScreenState extends State<EditGenderScreen> {
                                 child: Text(items),
                               );
                             }).toList(),
-                            // After selecting the desired option,it will
-                            // change button value to selected value
                             onChanged: (String? newValue) {
                               setState(
                                 () {

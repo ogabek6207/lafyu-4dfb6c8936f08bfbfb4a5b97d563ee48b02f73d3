@@ -4,8 +4,9 @@ import 'package:lafyu/src/app_theme/app_theme.dart';
 import '../utils/utils.dart';
 
 class RecomendedWidget extends StatelessWidget {
-  final String name,subName,image;
+  final String name, subName, image;
   final Function() onTap;
+
   const RecomendedWidget({
     Key? key,
     required this.onTap,
@@ -26,30 +27,36 @@ class RecomendedWidget extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         height: 206 * h,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            image:  DecorationImage(
-                fit: BoxFit.cover,
-                image: NetworkImage(
-                    image)
-            )
+
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            image: NetworkImage(image),
+          ),
+borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
               width: 169 * w,
-              child: Text(name, style: TextStyle(
-                  fontSize: 24 * h,
-                  color: AppTheme.white,
-                  fontWeight: FontWeight.w700),),
+              child: Text(
+                name,
+                style: TextStyle(
+                    fontSize: 24 * h,
+                    color: AppTheme.white,
+                    fontWeight: FontWeight.w700),
+              ),
             ),
-            SizedBox(height: 16 * h,),
-            Text(subName,
-              style: TextStyle(fontSize: 16 * h, color: AppTheme.white),)
+            SizedBox(
+              height: 16 * h,
+            ),
+            Text(
+              subName,
+              style: TextStyle(fontSize: 16 * h, color: AppTheme.white),
+            )
           ],
         ),
       ),
     );
-
   }
 }

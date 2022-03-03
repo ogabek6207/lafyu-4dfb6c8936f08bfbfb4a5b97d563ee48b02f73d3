@@ -13,6 +13,7 @@ import 'package:lafyu/src/model/home_model.dart';
 import 'package:lafyu/src/model/recommend_model.dart';
 import 'package:lafyu/src/model/super_flash_sale_model.dart';
 import 'package:lafyu/src/ui/favourite/favourite_screen.dart';
+import 'package:lafyu/src/ui/home/detail_screen.dart';
 import 'package:lafyu/src/ui/home/product_screen.dart';
 import 'package:lafyu/src/widget/category_widget.dart';
 import 'package:lafyu/src/widget/product_widget.dart';
@@ -270,7 +271,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) {
-                                  return ProductScreen(
+                                  return DetailScreen(
                                     id: product[index].id,
                                   );
                                 },

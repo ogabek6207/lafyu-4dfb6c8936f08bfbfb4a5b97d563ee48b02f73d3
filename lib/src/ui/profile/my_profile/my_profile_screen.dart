@@ -27,7 +27,8 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppTheme.white,
-        title: AppBarWidget(title: "Profile"),
+        title: const AppBarWidget(title: "Profile"),
+        automaticallyImplyLeading: false,
         centerTitle: false,
         elevation: 1,
       ),
