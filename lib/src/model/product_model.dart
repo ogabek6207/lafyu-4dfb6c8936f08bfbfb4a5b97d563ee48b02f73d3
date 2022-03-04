@@ -57,7 +57,8 @@ class ProductModel {
       discountPrice: discountPrice,
       images: List<ImageResults>.from(
           json["images"].map((x) => ImageResults.fromJson(x))),
-      color: List<ColorResult>.from(json["color"].map((x) => ColorResult.fromJson(x))),
+      color: List<ColorResult>.from(
+          json["color"].map((x) => ColorResult.fromJson(x))),
       size: List<Size>.from(json["size"].map((x) => Size.fromJson(x))),
       reviewAvg: json["review_avg"] ?? 0,
       reviewCount: json["review_count"] ?? 0,
@@ -122,7 +123,6 @@ class Product {
   dynamic reviewAvg;
 
   factory Product.fromJson(Map<String, dynamic> json) {
-
     double price = 0.0;
     try {
       price = json["price"] ?? 0.0;
