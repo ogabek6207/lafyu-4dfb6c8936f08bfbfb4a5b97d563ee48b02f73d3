@@ -20,9 +20,16 @@ class _OrderScreenState extends State<OrderScreen> {
     double w = Utils.windowWidth(context);
     double o = (h + w) / 2;
     return Scaffold(
+      backgroundColor: AppTheme.white,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: AppTheme.white,
+        elevation: 1,
+        title: const   AppBarWidget(title: "Order"),
+      ),
       body: Column(
         children: [
-          AppBarWidget(title: "Order"),
+
           GestureDetector(
             onTap: () {
               Navigator.push(

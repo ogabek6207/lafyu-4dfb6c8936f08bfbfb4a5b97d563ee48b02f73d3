@@ -24,9 +24,15 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
     double w = Utils.windowWidth(context);
     double o = (h + w) / 2;
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: AppTheme.white,
+        elevation: 1,
+        title: const   AppBarWidget(title: "Order Details"),
+      ),
+
       body: Column(
         children: [
-          AppBarWidget(title: "Order Details"),
           Expanded(
             child: ListView(
               padding: EdgeInsets.only(

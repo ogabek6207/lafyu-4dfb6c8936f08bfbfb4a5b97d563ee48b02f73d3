@@ -22,9 +22,15 @@ class _ChangeNameScreenState extends State<ChangeNameScreen> {
     double w = Utils.windowWidth(context);
     double o = (h + w) / 2;
     return Scaffold(
+      backgroundColor: AppTheme.white,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: AppTheme.white,
+        elevation: 1,
+        title: const AppBarWidget(title: "Name"),
+      ),
       body: Column(
         children: [
-          AppBarWidget(title: "Name"),
           Expanded(
             child: ListView(
               padding: EdgeInsets.only(

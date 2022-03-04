@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lafyu/src/widget/app_widget.dart';
 import 'package:lafyu/src/widget/save_widget.dart';
+import 'package:lafyu/src/widget/title_widget.dart';
 
 import '../../../app_theme/app_theme.dart';
 import '../../../utils/utils.dart';
@@ -20,9 +21,15 @@ class _EditBirthdayScreenState extends State<EditBirthdayScreen> {
     double w = Utils.windowWidth(context);
     double o = (h + w) / 2;
     return Scaffold(
+      backgroundColor: AppTheme.white,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: AppTheme.white,
+        elevation: 1,
+        title: const AppBarWidget(title: "Birthday"),
+      ),
       body: Column(
         children: [
-         AppBarWidget(title: "Birthday"),
           Expanded(
             child: ListView(
               shrinkWrap: true,
@@ -37,21 +44,8 @@ class _EditBirthdayScreenState extends State<EditBirthdayScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          Text(
-                            "Your Birthday",
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
-                              color: AppTheme.dark63,
-                              fontFamily: AppTheme.fontFamilyPoppins,
-                              fontSize: 14 * o,
-                              height: 1.5,
-                              fontStyle: FontStyle.normal,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
+                      const TitleWidget(
+                        title: 'Your Birthday',
                       ),
                       Container(
                         height: 48 * h,

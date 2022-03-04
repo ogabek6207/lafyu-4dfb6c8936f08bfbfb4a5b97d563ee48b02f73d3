@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lafyu/src/widget/app_widget.dart';
 import 'package:lafyu/src/widget/save_widget.dart';
+import 'package:lafyu/src/widget/title_widget.dart';
 
 import '../../../app_theme/app_theme.dart';
 import '../../../utils/utils.dart';
@@ -23,16 +24,19 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
     double w = Utils.windowWidth(context);
     double o = (h + w) / 2;
     return Scaffold(
+      backgroundColor: AppTheme.white,
+      appBar: AppBar(
+        elevation: 1,
+        automaticallyImplyLeading: false,
+        backgroundColor: AppTheme.white,
+        title: const AppBarWidget(title: "Phone Number"),
+      ),
       body: Column(
         children: [
-          AppBarWidget(title: "Phone Number"),
           Expanded(
             child: ListView(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.only(
-                top: 16 * h,
-              ),
               children: [
                 Container(
                   margin: EdgeInsets.only(
@@ -42,22 +46,7 @@ class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          Text(
-                            "Phone Number",
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
-                              color: AppTheme.dark63,
-                              fontFamily: AppTheme.fontFamilyPoppins,
-                              fontSize: 14 * o,
-                              height: 1.5,
-                              fontStyle: FontStyle.normal,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
+                      const TitleWidget(title: "Phone Number"),
                       Container(
                         decoration: BoxDecoration(
                           border: Border.all(

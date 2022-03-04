@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lafyu/src/widget/app_widget.dart';
 import 'package:lafyu/src/widget/save_widget.dart';
+import 'package:lafyu/src/widget/title_widget.dart';
 
 import '../../../app_theme/app_theme.dart';
 import '../../../utils/utils.dart';
@@ -14,7 +15,7 @@ class ChangeEmailScreen extends StatefulWidget {
 }
 
 class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
-  TextEditingController _controllerEmail = TextEditingController();
+  final TextEditingController _controllerEmail = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +23,19 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
     double w = Utils.windowWidth(context);
     double o = (h + w) / 2;
     return Scaffold(
+      backgroundColor: AppTheme.white,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        elevation: 1,
+        backgroundColor: AppTheme.white,
+        title: const AppBarWidget(title: "Email"),
+      ),
       body: Column(
         children: [
-      AppBarWidget(title: "Email"),
           Expanded(
             child: ListView(
               shrinkWrap: true,
-              padding: EdgeInsets.only(top: 16*h,),
+
               physics: const NeverScrollableScrollPhysics(),
               children: [
                 Container(
@@ -39,22 +46,7 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          Text(
-                            "Change Email",
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
-                              color: AppTheme.dark63,
-                              fontFamily: AppTheme.fontFamilyPoppins,
-                              fontSize: 14 * o,
-                              height: 1.5,
-                              fontStyle: FontStyle.normal,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
+                   const TitleWidget(title: "Change Email"),
                       Container(
                         decoration: BoxDecoration(
                           border: Border.all(
@@ -125,7 +117,9 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
               ],
             ),
           ),
-           SaveWidget(title: "Change Email",),
+          SaveWidget(
+            title: "Change Email",
+          ),
         ],
       ),
     );

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lafyu/src/app_theme/app_theme.dart';
 import 'package:lafyu/src/ui/profile/my_profile/my_profile_screen.dart';
 import 'package:lafyu/src/ui/profile/order/order_screen.dart';
@@ -71,35 +70,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     );
                   },
-                  child: Container(
-                    color: Colors.transparent,
-                    height: 56 * h,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          "assets/icons/bag.svg",
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                            left: 16 * w,
-                          ),
-                          child: Text(
-                            "Order",
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
-                              color: AppTheme.dark63,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12 * o,
-                              fontStyle: FontStyle.normal,
-                              fontFamily: AppTheme.fontFamilyPoppins,
-                              letterSpacing: 0.5,
-                              height: 1.5,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                  child: const AccountWidget(
+                    icon: 'assets/icons/bag.svg',
+                    title: 'Order',
                   ),
                 ),
                 GestureDetector(
@@ -111,65 +84,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     );
                   },
-                  child: Container(
-                    color: Colors.transparent,
-                    height: 56 * h,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          "assets/icons/location.svg",
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                            left: 16 * w,
-                          ),
-                          child: Text(
-                            "Address",
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
-                              color: AppTheme.dark63,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12 * o,
-                              fontStyle: FontStyle.normal,
-                              fontFamily: AppTheme.fontFamilyPoppins,
-                              letterSpacing: 0.5,
-                              height: 1.5,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                  child: const AccountWidget(
+                    title: 'Address',
+                    icon: 'assets/icons/location.svg',
                   ),
                 ),
-                SizedBox(
-                  height: 56 * h,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(
-                        "assets/icons/payment.svg",
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(
-                          left: 16 * w,
-                        ),
-                        child: Text(
-                          "Payment",
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            color: AppTheme.dark63,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12 * o,
-                            fontStyle: FontStyle.normal,
-                            fontFamily: AppTheme.fontFamilyPoppins,
-                            letterSpacing: 0.5,
-                            height: 1.5,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                const AccountWidget(
+                  icon: "assets/icons/payment.svg",
+                  title: "Payment",
                 ),
               ],
             ),
