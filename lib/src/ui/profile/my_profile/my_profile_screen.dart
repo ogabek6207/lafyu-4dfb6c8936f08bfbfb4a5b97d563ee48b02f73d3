@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:lafyu/src/ui/profile/my_profile/change_email_screen.dart';
 import 'package:lafyu/src/ui/profile/my_profile/change_password_screen.dart';
 import 'package:lafyu/src/ui/profile/my_profile/change_phone_number_screen.dart';
@@ -7,6 +6,7 @@ import 'package:lafyu/src/ui/profile/my_profile/edit_birthday_screen.dart';
 import 'package:lafyu/src/ui/profile/my_profile/edit_gender_screen.dart';
 import 'package:lafyu/src/ui/profile/my_profile/change_name_screen.dart';
 import 'package:lafyu/src/widget/app_widget.dart';
+import 'package:lafyu/src/widget/profile_widget.dart';
 
 import '../../../app_theme/app_theme.dart';
 import '../../../utils/utils.dart';
@@ -108,62 +108,10 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                       ),
                     );
                   },
-                  child: Container(
-                    color: Colors.transparent,
-                    height: 54 * h,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          "assets/icons/gender.svg",
-                        ),
-                        Expanded(
-                          child: Container(
-                            margin: EdgeInsets.only(
-                              left: 16 * w,
-                            ),
-                            child: Text(
-                              "Gender",
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                color: AppTheme.dark63,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12 * o,
-                                fontStyle: FontStyle.normal,
-                                fontFamily: AppTheme.fontFamilyPoppins,
-                                letterSpacing: 0.5,
-                                height: 1.5 * h,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                            right: 16 * w,
-                          ),
-                          child: Text(
-                            "Male",
-                            style: TextStyle(
-                              color: AppTheme.greyB1,
-                              fontWeight: FontWeight.normal,
-                              fontSize: 12 * o,
-                              fontStyle: FontStyle.normal,
-                              fontFamily: AppTheme.fontFamilyPoppins,
-                              letterSpacing: 0.5,
-                              height: 1.8 * h,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                            right: 16 * w,
-                          ),
-                          child: SvgPicture.asset(
-                            "assets/icons/arrow_right.svg",
-                          ),
-                        ),
-                      ],
-                    ),
+                  child: const ProfileWidget(
+                    title: "Male",
+                    name: "Gender",
+                    icon: "assets/icons/gender.svg",
                   ),
                 ),
                 GestureDetector(
@@ -175,62 +123,10 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                       ),
                     );
                   },
-                  child: Container(
-                    color: Colors.transparent,
-                    height: 54 * h,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          "assets/icons/calendar.svg",
-                        ),
-                        Expanded(
-                          child: Container(
-                            margin: EdgeInsets.only(
-                              left: 16 * w,
-                            ),
-                            child: Text(
-                              "Birthday",
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                color: AppTheme.dark63,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12 * o,
-                                fontStyle: FontStyle.normal,
-                                fontFamily: AppTheme.fontFamilyPoppins,
-                                letterSpacing: 0.5,
-                                height: 1.5 * h,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                            right: 16 * w,
-                          ),
-                          child: Text(
-                            "12-12-2000",
-                            style: TextStyle(
-                              color: AppTheme.greyB1,
-                              fontWeight: FontWeight.normal,
-                              fontSize: 12 * o,
-                              fontStyle: FontStyle.normal,
-                              fontFamily: AppTheme.fontFamilyPoppins,
-                              letterSpacing: 0.5,
-                              height: 1.8 * h,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                            right: 16 * w,
-                          ),
-                          child: SvgPicture.asset(
-                            "assets/icons/arrow_right.svg",
-                          ),
-                        ),
-                      ],
-                    ),
+                  child: const ProfileWidget(
+                    title: "12-12-2000",
+                    icon: "assets/icons/calendar.svg",
+                    name: "Birthday",
                   ),
                 ),
                 GestureDetector(
@@ -242,62 +138,10 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                       ),
                     );
                   },
-                  child: Container(
-                    color: Colors.transparent,
-                    height: 54 * h,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          "assets/icons/message.svg",
-                        ),
-                        Expanded(
-                          child: Container(
-                            margin: EdgeInsets.only(
-                              left: 16 * w,
-                            ),
-                            child: Text(
-                              "Email",
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                color: AppTheme.dark63,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12 * o,
-                                fontStyle: FontStyle.normal,
-                                fontFamily: AppTheme.fontFamilyPoppins,
-                                letterSpacing: 0.5,
-                                height: 1.5 * h,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                            right: 16 * w,
-                          ),
-                          child: Text(
-                            "Derlaxy@yahoo.com",
-                            style: TextStyle(
-                              color: AppTheme.greyB1,
-                              fontWeight: FontWeight.normal,
-                              fontSize: 12 * o,
-                              fontStyle: FontStyle.normal,
-                              fontFamily: AppTheme.fontFamilyPoppins,
-                              letterSpacing: 0.5,
-                              height: 1.8 * h,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                            right: 16 * w,
-                          ),
-                          child: SvgPicture.asset(
-                            "assets/icons/arrow_right.svg",
-                          ),
-                        ),
-                      ],
-                    ),
+                  child: const ProfileWidget(
+                    title: 'Derlaxy@yahoo.com',
+                    name: 'Email',
+                    icon: 'assets/icons/message.svg',
                   ),
                 ),
                 GestureDetector(
@@ -309,62 +153,10 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                       ),
                     );
                   },
-                  child: Container(
-                    color: Colors.transparent,
-                    height: 54 * h,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          "assets/icons/phone.svg",
-                        ),
-                        Expanded(
-                          child: Container(
-                            margin: EdgeInsets.only(
-                              left: 16 * w,
-                            ),
-                            child: Text(
-                              "Phone Number",
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                color: AppTheme.dark63,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12 * o,
-                                fontStyle: FontStyle.normal,
-                                fontFamily: AppTheme.fontFamilyPoppins,
-                                letterSpacing: 0.5,
-                                height: 1.5 * h,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                            right: 16 * w,
-                          ),
-                          child: Text(
-                            "(307) 555-0133",
-                            style: TextStyle(
-                              color: AppTheme.greyB1,
-                              fontWeight: FontWeight.normal,
-                              fontSize: 12 * o,
-                              fontStyle: FontStyle.normal,
-                              fontFamily: AppTheme.fontFamilyPoppins,
-                              letterSpacing: 0.5,
-                              height: 1.8 * h,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                            right: 16 * w,
-                          ),
-                          child: SvgPicture.asset(
-                            "assets/icons/arrow_right.svg",
-                          ),
-                        ),
-                      ],
-                    ),
+                  child: const ProfileWidget(
+                    title: '(307) 555-0133',
+                    name: 'Phone Number',
+                    icon: 'assets/icons/phone.svg',
                   ),
                 ),
                 GestureDetector(
@@ -376,62 +168,10 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                       ),
                     );
                   },
-                  child: Container(
-                    color: Colors.transparent,
-                    height: 54 * h,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          "assets/icons/password_blue.svg",
-                        ),
-                        Expanded(
-                          child: Container(
-                            margin: EdgeInsets.only(
-                              left: 16 * w,
-                            ),
-                            child: Text(
-                              "Change Password",
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                color: AppTheme.dark63,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12 * o,
-                                fontStyle: FontStyle.normal,
-                                fontFamily: AppTheme.fontFamilyPoppins,
-                                letterSpacing: 0.5,
-                                height: 1.5 * h,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                            right: 16 * w,
-                          ),
-                          child: Text(
-                            "•••••••••••••••••",
-                            style: TextStyle(
-                              color: AppTheme.greyB1,
-                              fontWeight: FontWeight.normal,
-                              fontSize: 12 * o,
-                              fontStyle: FontStyle.normal,
-                              fontFamily: AppTheme.fontFamilyPoppins,
-                              letterSpacing: 0.5,
-                              height: 1.8 * h,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                            right: 16 * w,
-                          ),
-                          child: SvgPicture.asset(
-                            "assets/icons/arrow_right.svg",
-                          ),
-                        ),
-                      ],
-                    ),
+                  child: const ProfileWidget(
+                    icon: 'assets/icons/password_blue.svg',
+                    name: 'Change Password',
+                    title: '•••••••••••••••••',
                   ),
                 ),
               ],

@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lafyu/src/app_theme/app_theme.dart';
 import 'package:lafyu/src/ui/profile/my_profile/my_profile_screen.dart';
 import 'package:lafyu/src/ui/profile/order/order_screen.dart';
-
+import 'package:lafyu/src/widget/account_widget.dart';
 import '../../utils/utils.dart';
 import 'address/address_screen.dart';
 
@@ -57,35 +57,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           builder: (context) => const MyProfileScreen()),
                     );
                   },
-                  child: Container(
-                    color: Colors.transparent,
-                    height: 56 * h,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          "assets/icons/user_blue.svg",
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                            left: 16 * w,
-                          ),
-                          child: Text(
-                            "Profile",
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
-                              color: AppTheme.dark63,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12 * o,
-                              fontStyle: FontStyle.normal,
-                              fontFamily: AppTheme.fontFamilyPoppins,
-                              letterSpacing: 0.5,
-                              height: 1.5,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                  child: const AccountWidget(
+                    icon: 'assets/icons/user_blue.svg',
+                    title: 'Profile',
                   ),
                 ),
                 GestureDetector(
