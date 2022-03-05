@@ -35,19 +35,20 @@ class _CarouselWidgetState extends State<CarouselWidget> {
             return Builder(
               builder: (BuildContext context) {
                 return BannerWidget(
-                    image: saleResult.image,
-                    name: saleResult.name,
-                    clock: saleResult.endDate,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return SuperSaleScreen(id: saleResult.id);
-                          },
-                        ),
-                      );
-                    });
+                  image: saleResult.image,
+                  name: saleResult.name,
+                  clock: saleResult.endDate,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return SuperSaleScreen(id: saleResult.id);
+                        },
+                      ),
+                    );
+                  },
+                );
               },
             );
           }).toList(),
