@@ -18,8 +18,11 @@ class SearchWidgetHome extends StatelessWidget {
         height: 46 * h,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            border: Border.all(color: AppTheme.greyB1.withOpacity(0.3))),
+          borderRadius: BorderRadius.circular(5),
+          border: Border.all(
+            color: AppTheme.greyB1.withOpacity(0.3),
+          ),
+        ),
         child: Row(
           children: [
             SizedBox(

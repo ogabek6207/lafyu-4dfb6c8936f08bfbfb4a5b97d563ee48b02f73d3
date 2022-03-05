@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:lafyu/src/ui/main_screen.dart';
+import 'package:lafyu/src/ui/menu/main_screen.dart';
 import 'package:lafyu/src/widget/save_widget.dart';
 import '../../app_provider/app_provider.dart';
 import '../../app_theme/app_theme.dart';

@@ -1,17 +1,17 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:lafyu/src/model/super_flash_sale_model.dart';
+import 'package:lafyu/src/ui/menu/home/sale/super_sale_screen.dart';
 import 'package:lafyu/src/utils/utils.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../ui/home/product_screen.dart';
 import '../banner_widget.dart';
 
 class CarouselWidget extends StatefulWidget {
   final List<SuperFlashSaleResult> data;
 
-  const CarouselWidget({Key? key,required this.data}) : super(key: key);
+  const CarouselWidget({Key? key, required this.data}) : super(key: key);
 
   @override
   _CarouselWidgetState createState() => _CarouselWidgetState();
@@ -19,6 +19,7 @@ class CarouselWidget extends StatefulWidget {
 
 class _CarouselWidgetState extends State<CarouselWidget> {
   int activateIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     double h = Utils.windowHeight(context);
@@ -42,8 +43,7 @@ class _CarouselWidgetState extends State<CarouselWidget> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return SuperFlashSaleScreen(
-                                id: saleResult.id);
+                            return SuperSaleScreen(id: saleResult.id);
                           },
                         ),
                       );

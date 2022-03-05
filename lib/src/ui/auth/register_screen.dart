@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lafyu/src/model/auth/register_model.dart';
 import 'package:lafyu/src/ui/auth/accept_screen.dart';
-import 'package:lafyu/src/ui/main_screen.dart';
+import 'package:lafyu/src/ui/menu/main_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../app_provider/app_provider.dart';

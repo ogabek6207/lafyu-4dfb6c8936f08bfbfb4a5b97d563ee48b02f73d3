@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:lafyu/src/app_theme/app_theme.dart';
 import 'package:lafyu/src/widget/app_widget.dart';
 import 'package:lafyu/src/widget/save_widget.dart';
 import 'package:lafyu/src/widget/title_widget.dart';
 
-import '../../../app_theme/app_theme.dart';
-import '../../../utils/utils.dart';
+import 'package:lafyu/src/utils/utils.dart';
 
-class EditBirthdayScreen extends StatefulWidget {
-  const EditBirthdayScreen({Key? key}) : super(key: key);
+class PhoneNumberScreen extends StatefulWidget {
+  const PhoneNumberScreen({Key? key}) : super(key: key);
 
   @override
-  _EditBirthdayScreenState createState() => _EditBirthdayScreenState();
+  _PhoneNumberScreenState createState() => _PhoneNumberScreenState();
 }
 
-class _EditBirthdayScreenState extends State<EditBirthdayScreen> {
+class _PhoneNumberScreenState extends State<PhoneNumberScreen> {
+  TextEditingController _controllerPhoneNumber = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     double h = Utils.windowHeight(context);
@@ -23,10 +26,10 @@ class _EditBirthdayScreenState extends State<EditBirthdayScreen> {
     return Scaffold(
       backgroundColor: AppTheme.white,
       appBar: AppBar(
+        elevation: 1,
         automaticallyImplyLeading: false,
         backgroundColor: AppTheme.white,
-        elevation: 1,
-        title: const AppBarWidget(title: "Birthday"),
+        title: const AppBarWidget(title: "Phone Number"),
       ),
       body: Column(
         children: [
@@ -34,7 +37,6 @@ class _EditBirthdayScreenState extends State<EditBirthdayScreen> {
             child: ListView(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.zero,
               children: [
                 Container(
                   margin: EdgeInsets.only(
@@ -44,11 +46,8 @@ class _EditBirthdayScreenState extends State<EditBirthdayScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      const TitleWidget(
-                        title: 'Your Birthday',
-                      ),
+                      const TitleWidget(title: "Phone Number"),
                       Container(
-                        height: 48 * h,
                         decoration: BoxDecoration(
                           border: Border.all(
                             color: AppTheme.border,
@@ -57,27 +56,48 @@ class _EditBirthdayScreenState extends State<EditBirthdayScreen> {
                           borderRadius: BorderRadius.circular(5 * o),
                         ),
                         margin: EdgeInsets.only(
-                            top: 12 * h, bottom: 24 * h, right: 16 * w),
+                            top: 12 * h, bottom: 8 * h, right: 16 * w),
                         padding: EdgeInsets.symmetric(
                           horizontal: 16 * w,
                         ),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
+                            Container(
+                              child: SvgPicture.asset(
+                                "assets/icons/phone.svg",
+                              ),
+                              margin: EdgeInsets.only(
+                                right: 10 * w,
+                              ),
+                            ),
                             Expanded(
-                              child: Text(
-                                "12/12/2012",
+                              child: TextField(
                                 style: TextStyle(
                                   color: AppTheme.greyB1,
                                   fontSize: 12 * o,
-                                  fontWeight: FontWeight.normal,
-                                  fontStyle: FontStyle.normal,
+                                  height: 1.8,
+                                  letterSpacing: 0.5,
                                   fontFamily: AppTheme.fontFamilyPoppins,
+                                  fontStyle: FontStyle.normal,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                controller: _controllerPhoneNumber,
+                                keyboardType: TextInputType.number,
+                                inputFormatters: <TextInputFormatter>[
+                                  FilteringTextInputFormatter.digitsOnly
+                                ],
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: "Phone Number",
+                                  hintStyle: TextStyle(
+                                    color: AppTheme.greyB1,
+                                    fontSize: 12 * o,
+                                    fontFamily: AppTheme.fontFamilyPoppins,
+                                    fontStyle: FontStyle.normal,
+                                    fontWeight: FontWeight.normal,
+                                  ),
                                 ),
                               ),
-                            ),
-                            SvgPicture.asset(
-                              "assets/icons/calendar1.svg",
                             ),
                           ],
                         ),

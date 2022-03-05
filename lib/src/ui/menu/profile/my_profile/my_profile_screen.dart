@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:lafyu/src/ui/profile/my_profile/change_email_screen.dart';
-import 'package:lafyu/src/ui/profile/my_profile/change_password_screen.dart';
-import 'package:lafyu/src/ui/profile/my_profile/change_phone_number_screen.dart';
-import 'package:lafyu/src/ui/profile/my_profile/edit_birthday_screen.dart';
-import 'package:lafyu/src/ui/profile/my_profile/edit_gender_screen.dart';
-import 'package:lafyu/src/ui/profile/my_profile/change_name_screen.dart';
+import 'package:lafyu/src/app_theme/app_theme.dart';
 import 'package:lafyu/src/widget/app_widget.dart';
 import 'package:lafyu/src/widget/profile_widget.dart';
+import 'package:lafyu/src/utils/utils.dart';
 
-import '../../../app_theme/app_theme.dart';
-import '../../../utils/utils.dart';
+import 'change_email_screen.dart';
+import 'change_name_screen.dart';
+import 'change_password_screen.dart';
+import 'change_phone_number_screen.dart';
+import 'edit_birthday_screen.dart';
+import 'edit_gender_screen.dart';
 
 class MyProfileScreen extends StatefulWidget {
   const MyProfileScreen({Key? key}) : super(key: key);

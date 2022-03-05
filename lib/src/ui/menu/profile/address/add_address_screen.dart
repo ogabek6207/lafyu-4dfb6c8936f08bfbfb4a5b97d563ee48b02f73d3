@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:lafyu/src/app_theme/app_theme.dart';
 import 'package:lafyu/src/widget/add_adress_widget.dart';
 import 'package:lafyu/src/widget/app_widget.dart';
 import 'package:lafyu/src/widget/title_widget.dart';
-import '../../../app_theme/app_theme.dart';
-import '../../../utils/utils.dart';
+import 'package:lafyu/src/utils/utils.dart';
 
 class AddAddressScreen extends StatefulWidget {
   const AddAddressScreen({Key? key}) : super(key: key);

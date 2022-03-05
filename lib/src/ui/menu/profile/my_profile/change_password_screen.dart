@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:lafyu/src/app_theme/app_theme.dart';
+import 'package:lafyu/src/utils/utils.dart';
 import 'package:lafyu/src/widget/app_widget.dart';
 import 'package:lafyu/src/widget/pasword_widget.dart';
 import 'package:lafyu/src/widget/save_widget.dart';
 import 'package:lafyu/src/widget/title_widget.dart';
 
-import '../../../app_theme/app_theme.dart';
-import '../../../utils/utils.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({Key? key}) : super(key: key);

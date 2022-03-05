@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../model/super_flash_sale_model.dart';
-import '../../utils/utils.dart';
+import 'package:lafyu/src/model/super_flash_sale_model.dart';
+import 'package:lafyu/src/utils/utils.dart';
+
 
 class OfferScreen extends StatefulWidget {
   const OfferScreen({

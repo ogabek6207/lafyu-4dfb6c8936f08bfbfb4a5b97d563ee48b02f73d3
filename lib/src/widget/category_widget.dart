@@ -3,15 +3,21 @@ import 'package:lafyu/src/app_theme/app_theme.dart';
 import '../utils/utils.dart';
 
 class CategoryWidget extends StatelessWidget {
+  final String image, name;
+  final Function() onTap;
+  final double width;
+  final double height;
+  final EdgeInsets margin;
+
   const CategoryWidget({
     Key? key,
     required this.image,
     required this.name,
     required this.onTap,
+    required this.width,
+    required this.height,
+    required this.margin,
   }) : super(key: key);
-
-  final String image, name;
-  final Function() onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +26,8 @@ class CategoryWidget extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.only(left: 16 * w),
+        width: width,
+        margin:margin,
         child: Column(
           children: [
             Container(
@@ -33,8 +40,10 @@ class CategoryWidget extends StatelessWidget {
                 ),
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(50*h),
-                child: Image.network(image,),
+                borderRadius: BorderRadius.circular(50 * h),
+                child: Image.network(
+                  image,
+                ),
               ),
             ),
             SizedBox(

@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lafyu/src/app_theme/app_theme.dart';
+import 'package:lafyu/src/model/event/event_bottom_model.dart';
+import 'package:lafyu/src/utils/rx_bus.dart';
+import 'package:lafyu/src/utils/utils.dart';
 
-import '../../model/event/event_bottom_model.dart';
-import '../../utils/rx_bus.dart';
-import '../../utils/utils.dart';
 
-class SearchScreen extends StatefulWidget {
-  const SearchScreen({Key? key}) : super(key: key);
+
+class ExploreScreen extends StatefulWidget {
+  const ExploreScreen({Key? key}) : super(key: key);
 
   @override
-  _SearchScreenState createState() => _SearchScreenState();
+  _ExploreScreenState createState() => _ExploreScreenState();
 }
 
-class _SearchScreenState extends State<SearchScreen> {
+class _ExploreScreenState extends State<ExploreScreen> {
   final TextEditingController _controller = TextEditingController();
 
   @override

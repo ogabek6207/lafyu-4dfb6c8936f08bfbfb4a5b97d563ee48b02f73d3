@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:lafyu/src/ui/profile/order/order_detail_screen.dart';
+import 'package:lafyu/src/app_theme/app_theme.dart';
 import 'package:lafyu/src/widget/app_widget.dart';
 
-import '../../../app_theme/app_theme.dart';
-import '../../../utils/utils.dart';
+import 'package:lafyu/src/utils/utils.dart';
+
+import 'order_detail_screen.dart';
 
 class OrderScreen extends StatefulWidget {
   const OrderScreen({Key? key}) : super(key: key);

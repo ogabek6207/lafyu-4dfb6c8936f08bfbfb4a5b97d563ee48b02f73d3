@@ -238,7 +238,7 @@ class AppProvider {
     return _getResponse(url);
   }
 
-  Future<HttpResult> getSuperFlashCategory(int id) async {
+  Future<HttpResult> getSuperSale(int id) async {
     String url = baseUrl + "superflash/$id";
     return _getResponse(url);
   }

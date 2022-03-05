@@ -20,8 +20,8 @@ class Repository {
 
   Future<HttpResult> getSuperFlash() => _provider.getSuperFlash();
 
-  Future<HttpResult> getSuperFlashCategory(int id) =>
-      _provider.getSuperFlashCategory(id);
+  Future<HttpResult> getSuperSale(int id) =>
+      _provider.getSuperSale(id);
 
   Future<HttpResult> getProduct(
     String isHome,

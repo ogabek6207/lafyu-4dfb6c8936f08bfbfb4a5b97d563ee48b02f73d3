@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:lafyu/src/app_theme/app_theme.dart';
 import 'package:lafyu/src/widget/app_widget.dart';
 import 'package:lafyu/src/widget/save_widget.dart';
-import '../../../app_theme/app_theme.dart';
-import '../../../utils/utils.dart';
+import 'package:lafyu/src/utils/utils.dart';
 
 class EditGenderScreen extends StatefulWidget {
   const EditGenderScreen({Key? key}) : super(key: key);
@@ -88,7 +87,7 @@ class _EditGenderScreenState extends State<EditGenderScreen> {
                           height: 48 * h,
                           width: MediaQuery.of(context).size.width,
                           child: DropdownButton(
-elevation: 10,
+                            elevation: 10,
                             isExpanded: true,
                             value: dropDownValue,
                             icon: const Icon(Icons.keyboard_arrow_down),

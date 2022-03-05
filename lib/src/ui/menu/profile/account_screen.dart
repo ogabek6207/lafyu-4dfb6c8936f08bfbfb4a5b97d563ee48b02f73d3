@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:lafyu/src/app_theme/app_theme.dart';
-import 'package:lafyu/src/ui/profile/my_profile/my_profile_screen.dart';
-import 'package:lafyu/src/ui/profile/order/order_screen.dart';
+import 'package:lafyu/src/utils/utils.dart';
 import 'package:lafyu/src/widget/account_widget.dart';
-import '../../utils/utils.dart';
+
 import 'address/address_screen.dart';
+import 'my_profile/my_profile_screen.dart';
+import 'order/order_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);

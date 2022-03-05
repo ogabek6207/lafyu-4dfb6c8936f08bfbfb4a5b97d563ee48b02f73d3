@@ -18,7 +18,7 @@ class SectionBarWidget extends StatelessWidget {
     double w = Utils.windowWidth(context);
     double h = Utils.windowHeight(context);
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16 * w, vertical: 12 * h),
+      margin: EdgeInsets.symmetric(horizontal: 16 * w),
       child: Row(
         children: [
           Text(

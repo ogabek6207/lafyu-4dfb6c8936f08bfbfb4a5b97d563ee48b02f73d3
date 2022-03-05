@@ -5,13 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lafyu/src/app_theme/app_theme.dart';
 import 'package:lafyu/src/bloc/product_bloc.dart';
-import '../../model/api/product_list_model.dart';
-import '../../model/api/product_model.dart';
-import '../../utils/utils.dart';
-import '../../widget/button_widget.dart';
-import '../../widget/product_widget.dart';
-import '../../widget/section_bar_widget.dart';
-import '../review/review_screen.dart';
+import 'package:lafyu/src/model/api/product_model.dart';
+import 'package:lafyu/src/ui/review/review_screen.dart';
+import 'package:lafyu/src/utils/utils.dart';
+import 'package:lafyu/src/widget/button_widget.dart';
+import 'package:lafyu/src/widget/product_list/product_widget.dart';
+import 'package:lafyu/src/widget/section_bar_widget.dart';
 
 class DetailScreen extends StatefulWidget {
   final int id;
@@ -25,6 +24,7 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   ProductModel? productModel;
   int _current = 0;
+  bool like = false;
   final CarouselController _controller = CarouselController();
 
   @override
@@ -38,8 +38,9 @@ class _DetailScreenState extends State<DetailScreen> {
     double w = Utils.windowWidth(context);
     double h = Utils.windowHeight(context);
     return StreamBuilder<ProductModel>(
-        stream: productBloc.fetchProduct,
-        builder: (context, snapshot) {
+      stream: productBloc.fetchProduct,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
           ProductModel productModel = snapshot.data!;
           return Scaffold(
             backgroundColor: AppTheme.white,
@@ -158,9 +159,21 @@ class _DetailScreenState extends State<DetailScreen> {
                                   fontWeight: FontWeight.w700),
                             ),
                           ),
-                          SvgPicture.asset(
-                            'assets/icons/like.svg',
-                            width: 24 * w,
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                like = !like;
+                              });
+                            },
+                            child: like
+                                ? SvgPicture.asset(
+                                    'assets/icons/like_red.svg',
+                                    width: 24 * w,
+                                  )
+                                : SvgPicture.asset(
+                                    'assets/icons/like.svg',
+                                    width: 24 * w,
+                                  ),
                           ),
                         ],
                       ),
@@ -290,7 +303,12 @@ class _DetailScreenState extends State<DetailScreen> {
                                       width: 48 * h,
                                       height: 48 * h,
                                       decoration: BoxDecoration(
-                                        color: AppTheme.purple,
+                                        border: result[index].color == "FFFFFF"
+                                            ? Border.all(
+                                                color: Colors.black, width: 1)
+                                            : Border.all(
+                                                color: Colors.white, width: 1),
+                                        color: HexColor(result[index].color),
                                         borderRadius: BorderRadius.circular(50),
                                       ),
                                       child: Center(
@@ -573,29 +591,12 @@ class _DetailScreenState extends State<DetailScreen> {
                         child: StreamBuilder<ProductModel>(
                             stream: productBloc.fetchProduct,
                             builder: (context, snapshot) {
-                              List<ProductListResult> result =
-                                  productModel.products;
                               return ListView.builder(
-                                itemCount: result.length,
+                                itemCount: productModel.products.length,
                                 scrollDirection: Axis.horizontal,
                                 shrinkWrap: true,
                                 itemBuilder: (context, index) => ProductWidget(
-                                  image: result[index].images.image,
-                                  name: result[index].name,
-                                  price: result[index].price,
-                                  oldPrice: result[index].discountPrice,
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) {
-                                          return const DetailScreen(
-                                            id: 1,
-                                          );
-                                        },
-                                      ),
-                                    );
-                                  },
+                                  data: productModel.products[index],
                                 ),
                               );
                             }),
@@ -617,6 +618,9 @@ class _DetailScreenState extends State<DetailScreen> {
               ],
             ),
           );
-        });
+        }
+        return Container();
+      },
+    );
   }
 }

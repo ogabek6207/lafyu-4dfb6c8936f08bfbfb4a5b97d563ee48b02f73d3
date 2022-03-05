@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:lafyu/src/app_theme/app_theme.dart';
 import 'package:lafyu/src/widget/app_widget.dart';
 import 'package:lafyu/src/widget/save_widget.dart';
 import 'package:lafyu/src/widget/title_widget.dart';
-import '../../../app_theme/app_theme.dart';
-import '../../../utils/utils.dart';
+import 'package:lafyu/src/utils/utils.dart';
 import 'add_address_screen.dart';
 
 class AddressScreen extends StatefulWidget {

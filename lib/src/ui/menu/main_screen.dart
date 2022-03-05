@@ -1,14 +1,17 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:lafyu/src/app_theme/app_theme.dart';
 import 'package:lafyu/src/model/event/event_bottom_model.dart';
-import 'package:lafyu/src/ui/cart/card_screen.dart';
-import 'package:lafyu/src/ui/offer/offer_screen.dart';
-import 'package:lafyu/src/ui/profile/account_screen.dart';
-import 'package:lafyu/src/ui/search/search_screen.dart';
+import 'package:lafyu/src/ui/menu/cart/card_screen.dart';
+
+import 'package:lafyu/src/ui/menu/explore/explore_screen.dart';
+import 'package:lafyu/src/ui/menu/home/home_screen.dart';
+import 'package:lafyu/src/ui/menu/offer/offer_screen.dart';
+import 'package:lafyu/src/ui/menu/profile/account_screen.dart';
+
 import 'package:lafyu/src/utils/rx_bus.dart';
-import '../app_theme/app_theme.dart';
-import 'home/home_screen.dart';
+
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -24,7 +27,7 @@ class _MainScreenState extends State<MainScreen> {
 
   List<Widget> data = [
     const HomeScreen(),
-    const SearchScreen(),
+    const ExploreScreen(),
     const CardScreen(),
     const OfferScreen(),
     const ProfileScreen(),

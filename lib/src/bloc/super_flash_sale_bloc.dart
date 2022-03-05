@@ -7,14 +7,14 @@ class SuperFlashSaleBloc {
   final Repository _repository = Repository();
 
   final _superFlashSaleFetch = PublishSubject<SuperFlashSaleModel>();
-  // final _superFlashSaleFetchCategory =
-  //     PublishSubject<SuperFlashSaleCategoryModel>();
+  final _superSaleFetch =
+      PublishSubject<SuperFlashSaleModel>();
 
   Stream<SuperFlashSaleModel> get fetchSuperFlashSale =>
       _superFlashSaleFetch.stream;
 
-  // Stream<SuperFlashSaleCategoryModel> get fetchSuperFlashSaleCategory =>
-  //     _superFlashSaleFetchCategory.stream;
+  Stream<SuperFlashSaleModel> get fetchSuperSale =>
+      _superSaleFetch.stream;
 
   getSuperFlashSale() async {
     HttpResult response = await _repository.getSuperFlash();
@@ -23,15 +23,13 @@ class SuperFlashSaleBloc {
       _superFlashSaleFetch.sink.add(data);
     }
   }
-
-  // getSuperFlashSaleCategory(int id) async {
-  //   HttpResult response = await _repository.getSuperFlashCategory(id);
-  //   if (response.isSucces) {
-  //     SuperFlashSaleCategoryModel data =
-  //         SuperFlashSaleCategoryModel.fromJson(response.result);
-  //     _superFlashSaleFetchCategory.sink.add(data);
-  //   }
-  // }
+  getSuperSale(int id) async {
+    HttpResult response = await _repository.getSuperSale(id);
+    if (response.isSucces) {
+      SuperFlashSaleModel data = SuperFlashSaleModel.fromJson(response.result);
+      _superFlashSaleFetch.sink.add(data);
+    }
+  }
 }
 
 final superFlashSaleBloc = SuperFlashSaleBloc();
