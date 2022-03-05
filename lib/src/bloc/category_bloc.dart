@@ -1,5 +1,5 @@
 import 'package:lafyu/src/model/auth/http_result.dart';
-import 'package:lafyu/src/model/category_model.dart';
+import 'package:lafyu/src/model/api/category_model.dart';
 import 'package:lafyu/src/repository/repository_.dart';
 import 'package:rxdart/rxdart.dart';
 

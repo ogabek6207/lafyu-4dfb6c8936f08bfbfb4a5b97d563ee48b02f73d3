@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:lafyu/src/model/category_model.dart';
+import 'package:lafyu/src/model/api/category_model.dart';
 
 import '../../app_theme/app_theme.dart';
 import '../../bloc/category_bloc.dart';

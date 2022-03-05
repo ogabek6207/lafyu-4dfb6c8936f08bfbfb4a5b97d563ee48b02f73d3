@@ -1,9 +1,5 @@
-import 'dart:convert';
-
-HomeModel homeModelFromJson(String str) => HomeModel.fromJson(json.decode(str));
-
-class HomeModel {
-  HomeModel({
+class ProductListModel {
+  ProductListModel({
     required this.count,
     required this.next,
     required this.results,
@@ -11,18 +7,18 @@ class HomeModel {
 
   int count;
   String next;
-  List<HomeResult> results;
+  List<ProductListResult> results;
 
-  factory HomeModel.fromJson(Map<String, dynamic> json) => HomeModel(
+  factory ProductListModel.fromJson(Map<String, dynamic> json) => ProductListModel(
         count: json["count"] ?? 0,
         next: json["next"] ?? "",
-        results: List<HomeResult>.from(
-            json["results"].map((x) => HomeResult.fromJson(x))),
+        results: List<ProductListResult>.from(
+            json["results"].map((x) => ProductListResult.fromJson(x))),
       );
 }
 
-class HomeResult {
-  HomeResult({
+class ProductListResult {
+  ProductListResult({
     required this.id,
     required this.name,
     required this.start,
@@ -36,9 +32,9 @@ class HomeResult {
   int start;
   double price;
   double discountPrice;
-  HomeSaleImages images;
+  ProductSaleImages images;
 
-  factory HomeResult.fromJson(Map<String, dynamic> json) {
+  factory ProductListResult.fromJson(Map<String, dynamic> json) {
     double price = 0.0;
     try {
       price = json["price"] ?? 0.0;
@@ -57,19 +53,19 @@ class HomeResult {
       }
     }
 
-    return HomeResult(
+    return ProductListResult(
       id: json["id"] ?? 0,
       name: json["name"] ?? "",
       start: json["start"] ?? 0,
       price: price,
       discountPrice: discountPrice,
-      images: HomeSaleImages.fromJson(json["images"]),
+      images: ProductSaleImages.fromJson(json["images"]),
     );
   }
 }
 
-class HomeSaleImages {
-  HomeSaleImages({
+class ProductSaleImages {
+  ProductSaleImages({
     required this.id,
     required this.image,
     required this.product,
@@ -79,7 +75,7 @@ class HomeSaleImages {
   String image;
   int product;
 
-  factory HomeSaleImages.fromJson(Map<String, dynamic> json) => HomeSaleImages(
+  factory ProductSaleImages.fromJson(Map<String, dynamic> json) => ProductSaleImages(
         id: json["id"] ?? 0,
         image: json["image"] ?? "",
         product: json["product"] ?? 0,

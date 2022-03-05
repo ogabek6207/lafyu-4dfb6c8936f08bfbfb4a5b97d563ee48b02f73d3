@@ -8,23 +8,21 @@ import 'package:lafyu/src/bloc/category_bloc.dart';
 import 'package:lafyu/src/bloc/home_bloc.dart';
 import 'package:lafyu/src/bloc/super_flash_sale_bloc.dart';
 import 'package:lafyu/src/bloc/recommend_bloc.dart';
-import 'package:lafyu/src/model/category_model.dart';
-import 'package:lafyu/src/model/home_model.dart';
-import 'package:lafyu/src/model/recommend_model.dart';
+import 'package:lafyu/src/model/api/category_model.dart';
+import 'package:lafyu/src/model/api/product_list_model.dart';
+import 'package:lafyu/src/model/api/recommend_model.dart';
 import 'package:lafyu/src/model/super_flash_sale_model.dart';
 import 'package:lafyu/src/ui/favourite/favourite_screen.dart';
 import 'package:lafyu/src/ui/home/detail_screen.dart';
-import 'package:lafyu/src/ui/home/product_screen.dart';
 import 'package:lafyu/src/widget/category_widget.dart';
 import 'package:lafyu/src/widget/product_widget.dart';
 import 'package:lafyu/src/widget/section_bar_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../utils/utils.dart';
-import '../../widget/banner_widget.dart';
+import '../../widget/home/carousel_widget.dart';
 import '../../widget/recommend_widget.dart';
 import '../../widget/searchWidget.dart';
 import '../notification/notification_screen.dart';
-import '../offer/offer_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -36,7 +34,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   SuperFlashSaleModel? superFlashSaleModel;
   RecommendModel? recommendModel;
-  HomeModel? homeModel;
+  ProductListModel? homeModel;
   CategoryModel? categoryModel;
   int notfication = 8;
   int activateIndex = 0;
@@ -130,58 +128,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (snapshot.hasData) {
                   superFlashSaleModel = snapshot.data;
                 }
-                List<SuperFlashSaleResult> saleResult =
-                    superFlashSaleModel!.results;
-                return Column(
-                  children: [
-                    SizedBox(
-                      height: 16 * h,
-                    ),
-                    CarouselSlider(
-                      items: saleResult.map((saleResult) {
-                        return Builder(builder: (BuildContext context) {
-                          return BannerWidget(
-                              image: saleResult.image,
-                              name: saleResult.name,
-                              clock: saleResult.endDate,
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) {
-                                      return SuperFlashSaleScreen(
-                                          id: saleResult.id);
-                                    },
-                                  ),
-                                );
-                              });
-                        });
-                      }).toList(),
-                      options: CarouselOptions(
-                        height: 209 * h,
-                        autoPlay: true,
-                        viewportFraction: 1,
-                        onPageChanged: (index, reason) {
-                          setState(() {
-                            activateIndex = index;
-                          });
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                      height: 16 * h,
-                    ),
-                    AnimatedSmoothIndicator(
-                      effect: WormEffect(
-                        dotHeight: 8 * o,
-                        dotWidth: 8 * o,
-                        type: WormType.thin,
-                        // strokeWidth: 5,
-                      ),
-                      activeIndex: activateIndex,
-                      count: saleResult.length,
-                    ),
-                  ],
+                return CarouselWidget(
+                  data: superFlashSaleModel!.results,
                 );
               }
               return Container();
@@ -253,7 +201,7 @@ class _HomeScreenState extends State<HomeScreen> {
             margin: EdgeInsets.only(
               top: 12 * h,
             ),
-            child: StreamBuilder<HomeModel>(
+            child: StreamBuilder<ProductListModel>(
               stream: homeSaleBloc.fetchFlashSale,
               builder: (context, snapshot) {
                 if (snapshot.hasData || homeModel != null) {
@@ -261,7 +209,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     homeModel = snapshot.data;
                   }
 
-                  List<HomeResult> product = homeModel!.results;
+                  List<ProductListResult> product = homeModel!.results;
                   return ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: product.length,
@@ -307,7 +255,7 @@ class _HomeScreenState extends State<HomeScreen> {
             margin: EdgeInsets.only(
               top: 12 * h,
             ),
-            child: StreamBuilder<HomeModel>(
+            child: StreamBuilder<ProductListModel>(
               stream: homeSaleBloc.fetchMegaSale,
               builder: (context, snapshot) {
                 if (snapshot.hasData || homeModel != null) {
@@ -315,7 +263,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     homeModel = snapshot.data;
                   }
 
-                  List<HomeResult> product1 = homeModel!.results;
+                  List<ProductListResult> product1 = homeModel!.results;
                   double discountPercent;
                   return ListView.builder(
                     scrollDirection: Axis.horizontal,
@@ -402,14 +350,14 @@ class _HomeScreenState extends State<HomeScreen> {
               return Container();
             },
           ),
-          StreamBuilder<HomeModel>(
+          StreamBuilder<ProductListModel>(
             stream: homeSaleBloc.fetchHomeSale,
             builder: (context, snapshot) {
               if (snapshot.hasData || homeModel != null) {
                 if (snapshot.hasData) {
                   homeModel = snapshot.data;
                 }
-                List<HomeResult> homeResult = homeModel!.results;
+                List<ProductListResult> homeResult = homeModel!.results;
                 double discountPercent;
                 return Column(
                   children: [

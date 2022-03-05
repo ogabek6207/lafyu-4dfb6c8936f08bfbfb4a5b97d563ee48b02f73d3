@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'product_list_model.dart';
+
 ProductModel productModelFromJson(String str) =>
     ProductModel.fromJson(json.decode(str));
 
@@ -29,7 +31,7 @@ class ProductModel {
   double reviewAvg;
   int reviewCount;
   Review review;
-  List<Product> products;
+  List<ProductListResult> products;
   String category;
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
@@ -63,8 +65,8 @@ class ProductModel {
       reviewAvg: json["review_avg"] ?? 0,
       reviewCount: json["review_count"] ?? 0,
       review: Review.fromJson(json["review"]),
-      products:
-          List<Product>.from(json["products"].map((x) => Product.fromJson(x))),
+      products: List<ProductListResult>.from(
+          json["products"].map((x) => ProductListResult.fromJson(x))),
       category: json["category"],
     );
   }
@@ -101,55 +103,6 @@ class ImageResults {
         image: json["image"],
         product: json["product"],
       );
-}
-
-class Product {
-  Product({
-    required this.id,
-    required this.name,
-    required this.start,
-    required this.price,
-    required this.discountPrice,
-    required this.images,
-    required this.reviewAvg,
-  });
-
-  int id;
-  String name;
-  int start;
-  double price;
-  double discountPrice;
-  ImageResults images;
-  dynamic reviewAvg;
-
-  factory Product.fromJson(Map<String, dynamic> json) {
-    double price = 0.0;
-    try {
-      price = json["price"] ?? 0.0;
-    } catch (_) {
-      if (json["price"] != null) {
-        price = json["price"].toDouble();
-      }
-    }
-
-    double discountPrice = 0.0;
-    try {
-      discountPrice = json["discount_price"] ?? 0.0;
-    } catch (_) {
-      if (json["discount_price"] != null) {
-        discountPrice = json["discount_price"].toDouble();
-      }
-    }
-    return Product(
-      id: json["id"],
-      name: json["name"],
-      start: json["start"],
-      price: price,
-      discountPrice: discountPrice,
-      images: ImageResults.fromJson(json["images"]),
-      reviewAvg: json["review_avg"],
-    );
-  }
 }
 
 class Review {

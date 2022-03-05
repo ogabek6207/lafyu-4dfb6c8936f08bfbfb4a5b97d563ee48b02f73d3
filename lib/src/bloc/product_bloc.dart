@@ -1,5 +1,5 @@
 import 'package:rxdart/rxdart.dart';
-import '../model/product_model.dart';
+import '../model/api/product_model.dart';
 import '../repository/repository_.dart';
 
 class ProductBloc {

@@ -13,16 +13,17 @@ class AddAddressScreen extends StatefulWidget {
 }
 
 class _AddAddressScreenState extends State<AddAddressScreen> {
-  TextEditingController _controllerRegion = TextEditingController();
-  TextEditingController _controllerFirstName = TextEditingController();
-  TextEditingController _controllerLastName = TextEditingController();
-  TextEditingController _controllerStreet = TextEditingController();
-  TextEditingController _controllerStreetOptional = TextEditingController();
-  TextEditingController _controllerCity = TextEditingController();
-  TextEditingController _controller = TextEditingController();
-  TextEditingController _controllerState = TextEditingController();
-  TextEditingController _controllerZipCode = TextEditingController();
-  TextEditingController _controllerPhoneNumber = TextEditingController();
+  final TextEditingController _controllerRegion = TextEditingController();
+  final TextEditingController _controllerFirstName = TextEditingController();
+  final TextEditingController _controllerLastName = TextEditingController();
+  final TextEditingController _controllerStreet = TextEditingController();
+  final TextEditingController _controllerStreetOptional =
+      TextEditingController();
+  final TextEditingController _controllerCity = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
+  final TextEditingController _controllerState = TextEditingController();
+  final TextEditingController _controllerZipCode = TextEditingController();
+  final TextEditingController _controllerPhoneNumber = TextEditingController();
 
   String dropDownValue = 'United Kingdom';
 

@@ -1,13 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lafyu/src/model/flash_sale_model.dart';
-import 'package:lafyu/src/model/home_model.dart';
+import 'package:lafyu/src/model/api/product_list_model.dart';
 
 import '../app_theme/app_theme.dart';
 import '../utils/utils.dart';
 
 class ItemHorizontalWidget extends StatefulWidget {
-  final HomeResult data;
+  final ProductListResult data;
   final String image;
   double  discountPercent;
 

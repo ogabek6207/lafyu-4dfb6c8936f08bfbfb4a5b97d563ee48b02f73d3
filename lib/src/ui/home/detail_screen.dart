@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lafyu/src/app_theme/app_theme.dart';
 import 'package:lafyu/src/bloc/product_bloc.dart';
-import '../../model/product_model.dart';
+import '../../model/api/product_list_model.dart';
+import '../../model/api/product_model.dart';
 import '../../utils/utils.dart';
 import '../../widget/button_widget.dart';
 import '../../widget/product_widget.dart';
@@ -392,7 +393,6 @@ class _DetailScreenState extends State<DetailScreen> {
                           }),
                       Row(
                         children: [
-
                           Row(
                             children: [
                               SizedBox(
@@ -571,36 +571,34 @@ class _DetailScreenState extends State<DetailScreen> {
                       SizedBox(
                         height: 238 * h,
                         child: StreamBuilder<ProductModel>(
-                          stream: productBloc.fetchProduct,
-                          builder: (context, snapshot) {
-                            List<Product> result = productModel.products;
-
-                            return ListView.builder(
-                              itemCount: result.length,
-                              scrollDirection: Axis.horizontal,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) => ProductWidget(
-                                image:
-                                    result[index].images.image,
-                                name: result[index].name,
-                                price: result[index].price,
-                                oldPrice: result[index].discountPrice,
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) {
-                                        return const DetailScreen(
-                                          id: 1,
-                                        );
-                                      },
-                                    ),
-                                  );
-                                },
-                              ),
-                            );
-                          }
-                        ),
+                            stream: productBloc.fetchProduct,
+                            builder: (context, snapshot) {
+                              List<ProductListResult> result =
+                                  productModel.products;
+                              return ListView.builder(
+                                itemCount: result.length,
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) => ProductWidget(
+                                  image: result[index].images.image,
+                                  name: result[index].name,
+                                  price: result[index].price,
+                                  oldPrice: result[index].discountPrice,
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) {
+                                          return const DetailScreen(
+                                            id: 1,
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  },
+                                ),
+                              );
+                            }),
                       ),
                     ],
                   ),
