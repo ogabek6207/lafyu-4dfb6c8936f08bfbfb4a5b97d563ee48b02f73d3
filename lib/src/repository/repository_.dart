@@ -29,6 +29,8 @@ class Repository {
 
   Future<HttpResult> getProductDescription(int id) =>
       _provider.getProductDescription(id);
+  Future<HttpResult> getNotification(int id) =>
+      _provider.getNotification(id);
 
   Future<HttpResult> getCategory() => _provider.getCategory();
 
