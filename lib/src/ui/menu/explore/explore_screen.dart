@@ -6,7 +6,7 @@ import 'package:lafyu/src/bloc/category_bloc.dart';
 import 'package:lafyu/src/model/api/category_model.dart';
 import 'package:lafyu/src/model/event/event_bottom_model.dart';
 import 'package:lafyu/src/ui/favourite/favourite_screen.dart';
-import 'package:lafyu/src/ui/notification/notification_screen.dart';
+import 'package:lafyu/src/ui/notification/notification_type_screen.dart';
 import 'package:lafyu/src/utils/rx_bus.dart';
 import 'package:lafyu/src/utils/utils.dart';
 import 'package:lafyu/src/widget/category_widget.dart';
@@ -75,7 +75,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) {
-                  return const NotificationScreen();
+                  return const NotificationTypeScreen();
                 }),
               );
             },

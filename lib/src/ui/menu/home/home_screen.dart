@@ -13,7 +13,7 @@ import 'package:lafyu/src/model/api/recommend_model.dart';
 import 'package:lafyu/src/model/super_flash_sale_model.dart';
 import 'package:lafyu/src/ui/category/category_screen.dart';
 import 'package:lafyu/src/ui/favourite/favourite_screen.dart';
-import 'package:lafyu/src/ui/notification/notification_screen.dart';
+import 'package:lafyu/src/ui/notification/notification_type_screen.dart';
 import 'package:lafyu/src/utils/utils.dart';
 import 'package:lafyu/src/widget/category_widget.dart';
 import 'package:lafyu/src/widget/home/carousel_widget.dart';
@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) {
-                  return const NotificationScreen();
+                  return const NotificationTypeScreen();
                 }),
               );
             },

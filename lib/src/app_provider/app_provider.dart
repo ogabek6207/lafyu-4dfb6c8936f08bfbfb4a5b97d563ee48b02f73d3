@@ -223,6 +223,11 @@ class AppProvider {
     return _getResponse(url);
   }
 
+  Future<HttpResult> getNotificationType() async {
+    String url = baseUrl + "notifation-types";
+    return _getResponse(url);
+  }
+
   Future<HttpResult> getSuperSale(int id) async {
     String url = baseUrl + "superflash/$id";
     return _getResponse(url);

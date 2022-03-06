@@ -32,6 +32,8 @@ class Repository {
 
   Future<HttpResult> getCategory() => _provider.getCategory();
 
+  Future<HttpResult> getNotificationType() => _provider.getNotificationType();
+
   Future<HttpResult> getRecommend() => _provider.getRecommend();
 
   //AllSale
