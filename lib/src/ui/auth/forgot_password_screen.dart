@@ -4,12 +4,10 @@ import 'package:lafyu/src/ui/auth/new_password_screen.dart';
 import 'package:lafyu/src/ui/dialog/center_dialog.dart';
 import 'package:lafyu/src/widget/save_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../app_theme/app_theme.dart';
 import '../../model/auth/login_model.dart';
 import '../../repository/repository_.dart';
 import '../../utils/utils.dart';
-import 'accept_screen.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({Key? key}) : super(key: key);
@@ -176,7 +174,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         _loading = false;
       });
 
-      ///error
+
     }
   }
 }

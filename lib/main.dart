@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lafyu/src/ui/auth/login_screen.dart';
 import 'package:lafyu/src/ui/menu/main_screen.dart';
 
 void main() {
@@ -18,7 +19,10 @@ class MyApp extends StatelessWidget {
         platform: TargetPlatform.iOS,
         primarySwatch: Colors.blue,
       ),
-      home:   const MainScreen(),
+      home:   MainScreen(
+
+
+      ),
     );
   }
 }

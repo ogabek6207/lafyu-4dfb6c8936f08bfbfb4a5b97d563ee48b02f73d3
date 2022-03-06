@@ -232,6 +232,7 @@ class AppProvider {
     String url = baseUrl + "superflash/$id";
     return _getResponse(url);
   }
+
   Future<HttpResult> getNotification(int id) async {
     String url = baseUrl + "notifations/$id";
     return _getResponse(url);

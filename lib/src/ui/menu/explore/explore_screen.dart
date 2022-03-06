@@ -104,11 +104,13 @@ class _ExploreScreenState extends State<ExploreScreen> {
         backgroundColor: Colors.white,
       ),
       body: ListView(
-
-padding: EdgeInsets.only(top: 16*h),
+        padding: EdgeInsets.only(top: 16 * h),
         children: [
-          SectionBarWidget(leftTitle: "Man Fashion", rightTitle: "", onTap: (){}),
-          SizedBox(height: 12*h,),
+          SectionBarWidget(
+              leftTitle: "Man Fashion", rightTitle: "", onTap: () {}),
+          SizedBox(
+            height: 12 * h,
+          ),
           StreamBuilder<CategoryModel>(
             stream: categoryBloc.fetchCategory,
             builder: (context, snapshot) {
@@ -218,9 +220,14 @@ padding: EdgeInsets.only(top: 16*h),
               return Container();
             },
           ),
-          SizedBox(height: 8*h,),
-          SectionBarWidget(leftTitle: "Women Fashion", rightTitle: "", onTap: (){}),
-          SizedBox(height: 12*h,),
+          SizedBox(
+            height: 8 * h,
+          ),
+          SectionBarWidget(
+              leftTitle: "Women Fashion", rightTitle: "", onTap: () {}),
+          SizedBox(
+            height: 12 * h,
+          ),
           StreamBuilder<CategoryModel>(
             stream: categoryBloc.fetchCategory,
             builder: (context, snapshot) {
@@ -245,7 +252,7 @@ padding: EdgeInsets.only(top: 16*h),
                               child: CategoryWidget(
                                 height: 282 * h,
                                 width: (MediaQuery.of(context).size.width -
-                                    48 * w) /
+                                        48 * w) /
                                     2,
                                 onTap: () {},
                                 name: categoryResult[index * gridCount].name,
@@ -256,65 +263,65 @@ padding: EdgeInsets.only(top: 16*h),
                             SizedBox(width: 16 * w),
                             Expanded(
                               child: index * gridCount + 1 >=
-                                  categoryResult.length
+                                      categoryResult.length
                                   ? Container()
                                   : CategoryWidget(
-                                height: 282 * h,
-                                width:
-                                (MediaQuery.of(context).size.width -
-                                    48 * w) /
-                                    2,
-                                onTap: () {},
-                                name:
-                                categoryResult[index * gridCount + 1]
-                                    .name,
-                                margin: EdgeInsets.only(left: 0 * w),
-                                image:
-                                categoryResult[index * gridCount + 1]
-                                    .image,
-                              ),
+                                      height: 282 * h,
+                                      width:
+                                          (MediaQuery.of(context).size.width -
+                                                  48 * w) /
+                                              2,
+                                      onTap: () {},
+                                      name:
+                                          categoryResult[index * gridCount + 1]
+                                              .name,
+                                      margin: EdgeInsets.only(left: 0 * w),
+                                      image:
+                                          categoryResult[index * gridCount + 1]
+                                              .image,
+                                    ),
                             ),
                             SizedBox(width: 16 * w),
                             Expanded(
                               child: index * gridCount + 2 >=
-                                  categoryResult.length
+                                      categoryResult.length
                                   ? Container()
                                   : CategoryWidget(
-                                height: 282 * h,
-                                width:
-                                (MediaQuery.of(context).size.width -
-                                    48 * w) /
-                                    2,
-                                onTap: () {},
-                                name:
-                                categoryResult[index * gridCount + 2]
-                                    .name,
-                                margin: EdgeInsets.only(left: 0 * w),
-                                image:
-                                categoryResult[index * gridCount + 2]
-                                    .image,
-                              ),
+                                      height: 282 * h,
+                                      width:
+                                          (MediaQuery.of(context).size.width -
+                                                  48 * w) /
+                                              2,
+                                      onTap: () {},
+                                      name:
+                                          categoryResult[index * gridCount + 2]
+                                              .name,
+                                      margin: EdgeInsets.only(left: 0 * w),
+                                      image:
+                                          categoryResult[index * gridCount + 2]
+                                              .image,
+                                    ),
                             ),
                             SizedBox(width: 16 * w),
                             Expanded(
                               child: index * gridCount + 3 >=
-                                  categoryResult.length
+                                      categoryResult.length
                                   ? Container()
                                   : CategoryWidget(
-                                height: 282 * h,
-                                width:
-                                (MediaQuery.of(context).size.width -
-                                    48 * w) /
-                                    2,
-                                onTap: () {},
-                                name:
-                                categoryResult[index * gridCount + 3]
-                                    .name,
-                                margin: EdgeInsets.only(left: 0 * w),
-                                image:
-                                categoryResult[index * gridCount + 3]
-                                    .image,
-                              ),
+                                      height: 282 * h,
+                                      width:
+                                          (MediaQuery.of(context).size.width -
+                                                  48 * w) /
+                                              2,
+                                      onTap: () {},
+                                      name:
+                                          categoryResult[index * gridCount + 3]
+                                              .name,
+                                      margin: EdgeInsets.only(left: 0 * w),
+                                      image:
+                                          categoryResult[index * gridCount + 3]
+                                              .image,
+                                    ),
                             ),
                             SizedBox(width: 16 * w),
                           ],
@@ -324,7 +331,7 @@ padding: EdgeInsets.only(top: 16*h),
                     );
                   },
                   itemCount:
-                  (categoryResult.length + gridCount - 1) ~/ gridCount,
+                      (categoryResult.length + gridCount - 1) ~/ gridCount,
                 );
               }
               return Container();
