@@ -22,7 +22,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
       backgroundColor: AppTheme.white,
       body: Column(
         children: [
-     AppBarWidget(title: "Favorite Product"),
+     const AppBarWidget(title: "Favorite Product"),
           Expanded(
             child: ListView(
               padding: EdgeInsets.zero,

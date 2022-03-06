@@ -11,6 +11,7 @@ import 'package:lafyu/src/model/api/category_model.dart';
 import 'package:lafyu/src/model/api/product_list_model.dart';
 import 'package:lafyu/src/model/api/recommend_model.dart';
 import 'package:lafyu/src/model/super_flash_sale_model.dart';
+import 'package:lafyu/src/ui/category/category_screen.dart';
 import 'package:lafyu/src/ui/favourite/favourite_screen.dart';
 import 'package:lafyu/src/ui/notification/notification_screen.dart';
 import 'package:lafyu/src/utils/utils.dart';
@@ -178,7 +179,11 @@ class _HomeScreenState extends State<HomeScreen> {
           SectionBarWidget(
             leftTitle: "Flash Sale",
             rightTitle: "See More",
-            onTap: () {},
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return const CategoryScreen(id: 1);
+              }));
+            },
           ),
           SizedBox(
             height: 274 * h,
@@ -214,7 +219,16 @@ class _HomeScreenState extends State<HomeScreen> {
           SectionBarWidget(
             rightTitle: "See More",
             leftTitle: "Mega Sale",
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const CategoryScreen(id: 2);
+                  },
+                ),
+              );
+            },
           ),
           SizedBox(
             height: 274 * h,
