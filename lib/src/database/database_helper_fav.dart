@@ -1,8 +1,6 @@
 import 'dart:async';
-import 'package:lafyu/src/model/api/product_list_model.dart';
 import 'package:lafyu/src/model/database/fav_product_model.dart';
 import 'package:path/path.dart';
-
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelperFav {
