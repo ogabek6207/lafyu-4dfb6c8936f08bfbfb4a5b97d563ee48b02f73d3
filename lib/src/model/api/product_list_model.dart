@@ -9,7 +9,8 @@ class ProductListModel {
   String next;
   List<ProductListResult> results;
 
-  factory ProductListModel.fromJson(Map<String, dynamic> json) => ProductListModel(
+  factory ProductListModel.fromJson(Map<String, dynamic> json) =>
+      ProductListModel(
         count: json["count"] ?? 0,
         next: json["next"] ?? "",
         results: List<ProductListResult>.from(
@@ -75,7 +76,8 @@ class ProductSaleImages {
   String image;
   int product;
 
-  factory ProductSaleImages.fromJson(Map<String, dynamic> json) => ProductSaleImages(
+  factory ProductSaleImages.fromJson(Map<String, dynamic> json) =>
+      ProductSaleImages(
         id: json["id"] ?? 0,
         image: json["image"] ?? "",
         product: json["product"] ?? 0,

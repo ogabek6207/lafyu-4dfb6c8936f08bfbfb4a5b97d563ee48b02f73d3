@@ -16,12 +16,9 @@ class Repository {
           String firstName, password, confirmPassword, email) =>
       _provider.sendRegister(firstName, password, confirmPassword, email);
 
-  Future<HttpResult> getSearch(String number) => _provider.getSearch();
-
   Future<HttpResult> getSuperFlash() => _provider.getSuperFlash();
 
-  Future<HttpResult> getSuperSale(int id) =>
-      _provider.getSuperSale(id);
+  Future<HttpResult> getSuperSale(int id) => _provider.getSuperSale(id);
 
   Future<HttpResult> getProduct(
     String isHome,
@@ -30,8 +27,6 @@ class Repository {
   ) =>
       _provider.getProduct(isHome, megaSale, flashSale);
 
-  Future<HttpResult> getFlashSale() => _provider.getFlashSale();
-
   Future<HttpResult> getProductDescription(int id) =>
       _provider.getProductDescription(id);
 
@@ -39,5 +34,10 @@ class Repository {
 
   Future<HttpResult> getRecommend() => _provider.getRecommend();
 
+  //AllSale
   Future<HttpResult> getHomeSale() => _provider.getHomeSale();
+
+  Future<HttpResult> getFlashSale() => _provider.getFlashSale();
+
+  Future<HttpResult> getMegaSale() => _provider.getMegaSale();
 }

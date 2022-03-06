@@ -224,7 +224,8 @@ class _SuperSaleScreenState extends State<SuperSaleScreen> {
             ),
           );
         }
-        return Container();
+        return Scaffold(
+        );
       },
     );
   }

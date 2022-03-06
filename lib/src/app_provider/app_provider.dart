@@ -203,11 +203,6 @@ class AppProvider {
     return _getResponse(url);
   }
 
-  Future<HttpResult> getFlashSale() async {
-    String url = baseUrl + "product/?flash_sale=true";
-    return _getResponse(url);
-  }
-
   Future<HttpResult> getCategory() async {
     String url = baseUrl + "category";
     return _getResponse(url);
@@ -223,16 +218,6 @@ class AppProvider {
     return _getResponse(url);
   }
 
-  Future<HttpResult> getHomeSale() async {
-    String url = baseUrl + "product/?home_sale=true";
-    return _getResponse(url);
-  }
-
-  Future<HttpResult> getSearch() async {
-    String url = baseUrl + "drugs?search=";
-    return _getResponse(url);
-  }
-
   Future<HttpResult> getSuperFlash() async {
     String url = baseUrl + "superflash";
     return _getResponse(url);
@@ -240,6 +225,22 @@ class AppProvider {
 
   Future<HttpResult> getSuperSale(int id) async {
     String url = baseUrl + "superflash/$id";
+    return _getResponse(url);
+  }
+
+  //AllSale
+  Future<HttpResult> getFlashSale() async {
+    String url = baseUrl + "product/?flash_sale=true";
+    return _getResponse(url);
+  }
+
+  Future<HttpResult> getHomeSale() async {
+    String url = baseUrl + "product/?home_sale=true";
+    return _getResponse(url);
+  }
+
+  Future<HttpResult> getMegaSale() async {
+    String url = baseUrl + "product?mega_sale=true";
     return _getResponse(url);
   }
 }
