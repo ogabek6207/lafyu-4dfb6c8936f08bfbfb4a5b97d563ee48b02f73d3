@@ -22,16 +22,16 @@ class ProductListResult {
   ProductListResult({
     required this.id,
     required this.name,
-    required this.start,
     required this.price,
     required this.discountPrice,
     required this.images,
+    required this.reviewAvg,
   });
 
   int id;
   String name;
-  int start;
   double price;
+  double reviewAvg;
   double discountPrice;
   ProductSaleImages images;
 
@@ -57,29 +57,32 @@ class ProductListResult {
     return ProductListResult(
       id: json["id"] ?? 0,
       name: json["name"] ?? "",
-      start: json["start"] ?? 0,
+      reviewAvg: json["review_avg"] ?? 0.0,
       price: price,
       discountPrice: discountPrice,
       images: ProductSaleImages.fromJson(json["images"]),
     );
   }
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "image": images.image,
+        "price": price,
+        "review_avg": reviewAvg,
+        "base_price": discountPrice,
+      };
 }
 
 class ProductSaleImages {
   ProductSaleImages({
-    required this.id,
     required this.image,
-    required this.product,
   });
 
-  int id;
   String image;
-  int product;
 
   factory ProductSaleImages.fromJson(Map<String, dynamic> json) =>
       ProductSaleImages(
-        id: json["id"] ?? 0,
         image: json["image"] ?? "",
-        product: json["product"] ?? 0,
       );
 }

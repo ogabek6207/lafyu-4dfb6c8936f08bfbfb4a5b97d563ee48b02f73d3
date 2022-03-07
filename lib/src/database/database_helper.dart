@@ -1,24 +1,25 @@
 import 'dart:async';
-import 'package:lafyu/src/model/database/fav_product_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-class DatabaseHelperFav {
-  static final DatabaseHelperFav _instance = DatabaseHelperFav.internal();
+import '../model/api/product_list_model.dart';
 
-  factory DatabaseHelperFav() => _instance;
+class DatabaseHelper {
+  static final DatabaseHelper _instance = DatabaseHelper.internal();
 
-  final String tableNote = 'cardTable';
+  factory DatabaseHelper() => _instance;
+
+  final String tableFav = 'favTable';
   final String columnId = 'id';
   final String columnName = 'name';
-  final String columnImage = 'image';
   final String columnPrice = 'price';
   final String columnBasePrice = 'base_price';
-  final String columnStart = 'start';
+  final String columnImage = 'image';
+  final String columnAvg = 'review_avg';
 
   static Database? _db;
 
-  DatabaseHelperFav.internal();
+  DatabaseHelper.internal();
 
   Future<Database> get db async {
     if (_db != null) {
@@ -38,36 +39,38 @@ class DatabaseHelperFav {
 
   void _onCreate(Database db, int newVersion) async {
     await db.execute(
-      'CREATE TABLE $tableNote('
+      'CREATE TABLE $tableFav('
       '$columnId INTEGER PRIMARY KEY, '
       '$columnName TEXT, '
       '$columnImage TEXT, '
       '$columnPrice REAL, '
       '$columnBasePrice REAL, '
-      '$columnStart REAL)',
+      '$columnAvg REAL)',
     );
   }
 
-  Future<int> saveProducts(FavDatabaseModel item) async {
+  Future<int> saveProducts(ProductListResult item) async {
     var dbClient = await db;
     var re = await dbClient.insert(
-      tableNote,
+      tableFav,
       item.toJson(),
     );
     return re;
   }
 
-  Future<List<FavDatabaseModel>> getProduct() async {
+  Future<List<ProductListResult>> getProduct() async {
     var dbClient = await db;
-    List<Map> list = await dbClient.rawQuery('SELECT * FROM $tableNote');
-    List<FavDatabaseModel> products = <FavDatabaseModel>[];
+    List<Map> list = await dbClient.rawQuery('SELECT * FROM $tableFav');
+    List<ProductListResult> products = <ProductListResult>[];
     for (int i = 0; i < list.length; i++) {
-      var items = FavDatabaseModel(
+      var items = ProductListResult(
         id: list[i][columnId],
         name: list[i][columnName],
         price: list[i][columnPrice],
-        images: list[i][columnImage],
-        start: list[i][columnStart],
+        images: ProductSaleImages(
+          image: list[i][columnImage],
+        ),
+        reviewAvg: list[i][columnAvg],
         discountPrice: list[i][columnBasePrice],
       );
       products.add(items);
@@ -78,16 +81,16 @@ class DatabaseHelperFav {
   Future<int> deleteProducts(int id) async {
     var dbClient = await db;
     return await dbClient.delete(
-      tableNote,
+      tableFav,
       where: '$columnId = ?',
       whereArgs: [id],
     );
   }
 
-  Future<int> updateProduct(FavDatabaseModel products) async {
+  Future<int> updateProduct(ProductListResult products) async {
     var dbClient = await db;
     return await dbClient.update(
-      tableNote,
+      tableFav,
       products.toJson(),
       where: "$columnId = ?",
       whereArgs: [products.id],
@@ -101,6 +104,6 @@ class DatabaseHelperFav {
 
   Future<void> clear() async {
     var dbClient = await db;
-    await dbClient.rawQuery('DELETE FROM $tableNote');
+    await dbClient.rawQuery('DELETE FROM $tableFav');
   }
 }
