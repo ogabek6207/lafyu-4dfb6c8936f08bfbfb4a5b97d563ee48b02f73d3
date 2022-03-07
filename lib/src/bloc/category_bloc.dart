@@ -9,14 +9,21 @@ class CategoryBloc {
   final _categoryFetch = PublishSubject<CategoryModel>();
 
   Stream<CategoryModel> get fetchCategory => _categoryFetch.stream;
+  List<CategoryResult>? result;
 
-  getCategory() async {
-    HttpResult response = await _repository.getCategory();
-    if (response.isSucces) {
-      CategoryModel data = CategoryModel.fromJson(response.result);
-      _categoryFetch.sink.add(data);
+  getCategory(int genderType) async {
+    for (int i = 0; i < result!.length; i++) {
+      if (result![i].genderTypes == genderType) {
+        HttpResult response = await _repository.getCategory();
+        if (response.isSucces) {
+          CategoryModel data = CategoryModel.fromJson(response.result);
+          _categoryFetch.sink.add(data);
+        }
+      }
     }
   }
+
+
 }
 
 final categoryBloc = CategoryBloc();

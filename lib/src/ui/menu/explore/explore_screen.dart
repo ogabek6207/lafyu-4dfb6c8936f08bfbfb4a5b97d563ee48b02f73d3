@@ -28,7 +28,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
   @override
   void initState() {
-    categoryBloc.getCategory();
+    categoryBloc.getCategory(1);
     _registerBus();
     super.initState();
   }
@@ -88,11 +88,11 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     ),
                     position: BadgePosition.topEnd(top: 8 * h, end: 0),
                     child: Center(
-                      child: SvgPicture.asset('assets/icons/bell.svg'),
+                      child: SvgPicture.asset("assets/icons/bell.svg"),
                     ),
                   )
                 : Center(
-                    child: SvgPicture.asset('assets/icons/bell.svg'),
+                    child: SvgPicture.asset("assets/icons/bell.svg"),
                   ),
           ),
           SizedBox(
@@ -118,6 +118,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                 if (snapshot.hasData) {
                   categoryModel = snapshot.data;
                 }
+
                 List<CategoryResult> categoryResult = categoryModel!.results;
 
                 return ListView.builder(

@@ -11,7 +11,7 @@ import 'package:lafyu/src/model/api/category_model.dart';
 import 'package:lafyu/src/model/api/product_list_model.dart';
 import 'package:lafyu/src/model/api/recommend_model.dart';
 import 'package:lafyu/src/model/super_flash_sale_model.dart';
-import 'package:lafyu/src/ui/product_list/category_screen.dart';
+import 'package:lafyu/src/ui/product_list/productList_screen.dart';
 import 'package:lafyu/src/ui/favourite/favourite_screen.dart';
 import 'package:lafyu/src/ui/notification/notification_type_screen.dart';
 import 'package:lafyu/src/utils/utils.dart';
@@ -43,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
     homeSaleBloc.getFlashSale();
     homeSaleBloc.getHomeSale();
     homeSaleBloc.getMegaSale();
-    categoryBloc.getCategory();
+    categoryBloc.getCategory(1);
     recommendBloc.getRecommend();
     super.initState();
   }
@@ -181,7 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
             rightTitle: "See More",
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return const ProductListScreen(id: 1);
+                return  const ProductListScreen(type: 1, name: "Flash Sale",);
               }));
             },
           ),
@@ -224,7 +224,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return const ProductListScreen(id: 2);
+                    return const ProductListScreen(type: 2, name: "Mega Sale",);
                   },
                 ),
               );

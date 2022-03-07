@@ -3,20 +3,14 @@ import 'package:lafyu/src/model/auth/http_result.dart';
 import 'package:lafyu/src/repository/repository_.dart';
 import 'package:rxdart/rxdart.dart';
 
-class HomeBloc {
+class ProductListBloc {
   final Repository _repository = Repository();
 
   final _homeSaleFetch = PublishSubject<ProductListModel>();
-  final _megaSaleFetch = PublishSubject<ProductListModel>();
-  final _flashSaleFetch = PublishSubject<ProductListModel>();
 
   Stream<ProductListModel> get fetchHomeSale {
     return _homeSaleFetch.stream;
   }
-
-  Stream<ProductListModel> get fetchMegaSale => _megaSaleFetch.stream;
-
-  Stream<ProductListModel> get fetchFlashSale => _flashSaleFetch.stream;
 
   updateFavProduct(
     ProductListResult data,
@@ -36,10 +30,10 @@ class HomeBloc {
       _homeSaleFetch.sink.add(await equalsDatabase(homeSale!));
     }
     if (flashSale != null) {
-      _flashSaleFetch.sink.add(await equalsDatabase(flashSale!));
+      _homeSaleFetch.sink.add(await equalsDatabase(flashSale!));
     }
     if (megaSale != null) {
-      _megaSaleFetch.sink.add(await equalsDatabase(megaSale!));
+      _homeSaleFetch.sink.add(await equalsDatabase(megaSale!));
     }
   }
 
@@ -49,7 +43,7 @@ class HomeBloc {
         HttpResult response = await _repository.getProduct("", "", "true");
         if (response.isSucces) {
           flashSale = ProductListModel.fromJson(response.result);
-          _flashSaleFetch.sink.add(await equalsDatabase(flashSale!));
+          _homeSaleFetch.sink.add(await equalsDatabase(flashSale!));
         }
       }
     } else if (type == 2) {
@@ -57,7 +51,7 @@ class HomeBloc {
         HttpResult response = await _repository.getProduct("", "true", "");
         if (response.isSucces) {
           megaSale = ProductListModel.fromJson(response.result);
-          _megaSaleFetch.sink.add(await equalsDatabase(megaSale!));
+          _homeSaleFetch.sink.add(await equalsDatabase(megaSale!));
         }
       }
     } else if (type == 3) {
@@ -99,7 +93,7 @@ class HomeBloc {
     HttpResult response = await _repository.getProduct("", "", "true");
     if (response.isSucces) {
       flashSale = ProductListModel.fromJson(response.result);
-      _flashSaleFetch.sink.add(await equalsDatabase(flashSale!));
+      _homeSaleFetch.sink.add(await equalsDatabase(flashSale!));
     }
   }
 
@@ -109,9 +103,9 @@ class HomeBloc {
     HttpResult response = await _repository.getProduct("", "true", "");
     if (response.isSucces) {
       megaSale = ProductListModel.fromJson(response.result);
-      _megaSaleFetch.sink.add(await equalsDatabase(megaSale!));
+      _homeSaleFetch.sink.add(await equalsDatabase(megaSale!));
     }
   }
 }
 
-final homeSaleBloc = HomeBloc();
+final productListBloc = ProductListBloc();

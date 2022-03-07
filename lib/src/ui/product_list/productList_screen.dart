@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:lafyu/src/app_theme/app_theme.dart';
-import 'package:lafyu/src/bloc/all_sale_bloc.dart';
+import 'package:lafyu/src/bloc/product_list_bloc.dart';
 import 'package:lafyu/src/model/api/product_list_model.dart';
 import 'package:lafyu/src/widget/app_widget.dart';
 import 'package:lafyu/src/widget/product_list/product_widget.dart';
-
 import '../../utils/utils.dart';
 
 class ProductListScreen extends StatefulWidget {
-  final int id;
+  final int type;
+  final String name;
 
-  const ProductListScreen({Key? key, required this.id}) : super(key: key);
+  const ProductListScreen({
+    Key? key,
+    required this.type,
+    required this.name,
+  }) : super(key: key);
 
   @override
   _ProductListScreenState createState() => _ProductListScreenState();
@@ -21,6 +25,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
 
   @override
   void initState() {
+    productListBloc.getProduct(widget.type);
     super.initState();
   }
 
@@ -35,16 +40,16 @@ class _ProductListScreenState extends State<ProductListScreen> {
         backgroundColor: AppTheme.white,
         automaticallyImplyLeading: false,
         elevation: 1,
-        title: const AppBarWidget(
-          title: 'All Product',
+        title: AppBarWidget(
+          title: widget.name,
         ),
       ),
       body: ListView(
         children: [
           StreamBuilder<ProductListModel>(
-            stream: allSaleBloc.fetchHomeSale,
+            stream: productListBloc.fetchHomeSale,
             builder: (context, snapshot) {
-              if (snapshot.hasData ) {
+              if (snapshot.hasData) {
                 List<ProductListResult> allSaleResult = snapshot.data!.results;
                 return Column(
                   children: [
