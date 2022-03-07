@@ -2,8 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lafyu/src/app_theme/app_theme.dart';
+import 'package:lafyu/src/bloc/home_bloc.dart';
 import 'package:lafyu/src/model/api/product_list_model.dart';
 import 'package:lafyu/src/ui/product/detail_screen.dart';
+
 import '../../utils/utils.dart';
 
 class ProductWidget extends StatefulWidget {
@@ -65,6 +67,9 @@ class _ProductWidgetState extends State<ProductWidget> {
                   borderRadius: BorderRadius.circular(10),
                   child: CachedNetworkImage(
                     imageUrl: widget.data.images.image,
+                    width: widget.width - 32 * w,
+                    height: widget.width - 32 * w,
+                    fit: BoxFit.cover,
                     placeholder: (context, url) =>
                         const CircularProgressIndicator.adaptive(),
                     errorWidget: (context, url, error) =>
@@ -75,14 +80,15 @@ class _ProductWidgetState extends State<ProductWidget> {
                   children: [
                     const Spacer(),
                     GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            like = !like;
-                          });
-                        },
-                        child: like
-                            ? SvgPicture.asset("assets/icons/like_red.svg")
-                            : SvgPicture.asset("assets/icons/like.svg")),
+                      onTap: () {
+                        homeSaleBloc.updateFavProduct(
+                          widget.data,
+                        );
+                      },
+                      child: widget.data.favSelected
+                          ? SvgPicture.asset("assets/icons/like_red.svg")
+                          : SvgPicture.asset("assets/icons/like.svg"),
+                    ),
                     SizedBox(
                       width: 4 * w,
                     ),

@@ -12,7 +12,7 @@ class DatabaseHelper {
   final String columnId = 'id';
   final String columnName = 'name';
   final String columnPrice = 'price';
-  final String columnBasePrice = 'base_price';
+  final String columnBasePrice = 'discountPrice';
   final String columnImage = 'image';
   final String columnAvg = 'review_avg';
 

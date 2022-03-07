@@ -27,12 +27,11 @@ class RecomendedWidget extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         height: 206 * h,
         decoration: BoxDecoration(
-
           image: DecorationImage(
             fit: BoxFit.cover,
             image: NetworkImage(image),
           ),
-borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -72,7 +72,7 @@ class ProductListResult {
         "image": images.image,
         "price": price,
         "review_avg": reviewAvg,
-        "base_price": discountPrice,
+        "discountPrice": discountPrice,
       };
 }
 

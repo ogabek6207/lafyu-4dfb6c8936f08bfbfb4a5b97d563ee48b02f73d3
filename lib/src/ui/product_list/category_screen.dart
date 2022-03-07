@@ -7,29 +7,20 @@ import 'package:lafyu/src/widget/product_list/product_widget.dart';
 
 import '../../utils/utils.dart';
 
-class CategoryScreen extends StatefulWidget {
+class ProductListScreen extends StatefulWidget {
   final int id;
 
-  const CategoryScreen({Key? key, required this.id}) : super(key: key);
+  const ProductListScreen({Key? key, required this.id}) : super(key: key);
 
   @override
-  _CategoryScreenState createState() => _CategoryScreenState();
+  _ProductListScreenState createState() => _ProductListScreenState();
 }
 
-class _CategoryScreenState extends State<CategoryScreen> {
-  ProductListModel? allSaleModel;
+class _ProductListScreenState extends State<ProductListScreen> {
   int gridCount = 2;
 
   @override
   void initState() {
-    if (widget.id == 1) {
-      allSaleBloc.getFlashSale();
-    } else if (widget.id == 2) {
-      allSaleBloc.getMegaSale();
-    } else if (widget.id == 3) {
-      allSaleBloc.getHomeSale();
-    }
-
     super.initState();
   }
 
@@ -53,11 +44,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
           StreamBuilder<ProductListModel>(
             stream: allSaleBloc.fetchHomeSale,
             builder: (context, snapshot) {
-              if (snapshot.hasData || allSaleModel != null) {
-                if (snapshot.hasData) {
-                  allSaleModel = snapshot.data;
-                }
-                List<ProductListResult> allSaleResult = allSaleModel!.results;
+              if (snapshot.hasData ) {
+                List<ProductListResult> allSaleResult = snapshot.data!.results;
                 return Column(
                   children: [
                     SizedBox(

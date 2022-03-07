@@ -11,7 +11,7 @@ import 'package:lafyu/src/model/api/category_model.dart';
 import 'package:lafyu/src/model/api/product_list_model.dart';
 import 'package:lafyu/src/model/api/recommend_model.dart';
 import 'package:lafyu/src/model/super_flash_sale_model.dart';
-import 'package:lafyu/src/ui/category/category_screen.dart';
+import 'package:lafyu/src/ui/product_list/category_screen.dart';
 import 'package:lafyu/src/ui/favourite/favourite_screen.dart';
 import 'package:lafyu/src/ui/notification/notification_type_screen.dart';
 import 'package:lafyu/src/utils/utils.dart';
@@ -181,7 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
             rightTitle: "See More",
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return const CategoryScreen(id: 1);
+                return const ProductListScreen(id: 1);
               }));
             },
           ),
@@ -224,7 +224,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return const CategoryScreen(id: 2);
+                    return const ProductListScreen(id: 2);
                   },
                 ),
               );
