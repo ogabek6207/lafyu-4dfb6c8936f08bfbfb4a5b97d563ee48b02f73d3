@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-
 import '../model/api/product_list_model.dart';
 
 class DatabaseHelper {

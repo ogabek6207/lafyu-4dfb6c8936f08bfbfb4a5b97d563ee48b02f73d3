@@ -26,6 +26,7 @@ class ProductListResult {
     required this.discountPrice,
     required this.images,
     required this.reviewAvg,
+    this.favSelected = false,
   });
 
   int id;
@@ -33,6 +34,7 @@ class ProductListResult {
   double price;
   double reviewAvg;
   double discountPrice;
+  bool favSelected;
   ProductSaleImages images;
 
   factory ProductListResult.fromJson(Map<String, dynamic> json) {

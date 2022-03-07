@@ -1,11 +1,24 @@
+import 'package:lafyu/src/database/database_helper.dart';
+import 'package:lafyu/src/model/api/product_list_model.dart';
+
 import '../app_provider/app_provider.dart';
 import '../model/auth/http_result.dart';
 
 class Repository {
   final AppProvider _provider = AppProvider();
+  DatabaseHelper databaseHelper = DatabaseHelper();
 
   Future<HttpResult> sendLogin(String firstName, password) =>
       _provider.getLogin(firstName, password);
+
+  ///fav
+  Future<List<ProductListResult>> getFavProduct() =>
+      databaseHelper.getProduct();
+
+  Future<int> saveFavProducts(ProductListResult item) =>
+      databaseHelper.saveProducts(item);
+
+  Future<int> deleteFavProducts(int id) => databaseHelper.deleteProducts(id);
 
   Future<HttpResult> sendEmail(
     String email,
@@ -29,8 +42,8 @@ class Repository {
 
   Future<HttpResult> getProductDescription(int id) =>
       _provider.getProductDescription(id);
-  Future<HttpResult> getNotification(int id) =>
-      _provider.getNotification(id);
+
+  Future<HttpResult> getNotification(int id) => _provider.getNotification(id);
 
   Future<HttpResult> getCategory() => _provider.getCategory();
 

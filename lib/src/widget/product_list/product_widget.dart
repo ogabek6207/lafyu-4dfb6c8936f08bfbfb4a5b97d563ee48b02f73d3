@@ -1,9 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lafyu/src/app_theme/app_theme.dart';
 import 'package:lafyu/src/model/api/product_list_model.dart';
 import 'package:lafyu/src/ui/product/detail_screen.dart';
-
 import '../../utils/utils.dart';
 
 class ProductWidget extends StatefulWidget {
@@ -27,6 +27,8 @@ class ProductWidget extends StatefulWidget {
 }
 
 class _ProductWidgetState extends State<ProductWidget> {
+  bool like = false;
+
   @override
   Widget build(BuildContext context) {
     double w = Utils.windowWidth(context);
@@ -57,14 +59,36 @@ class _ProductWidgetState extends State<ProductWidget> {
             SizedBox(
               height: 16 * h,
             ),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image.network(
-                widget.data.images.image,
-                width: widget.width - 32 * w,
-                height: widget.width - 32 * w,
-                fit: BoxFit.cover,
-              ),
+            Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: CachedNetworkImage(
+                    imageUrl: widget.data.images.image,
+                    placeholder: (context, url) =>
+                        const CircularProgressIndicator.adaptive(),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
+                  ),
+                ),
+                Row(
+                  children: [
+                    const Spacer(),
+                    GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            like = !like;
+                          });
+                        },
+                        child: like
+                            ? SvgPicture.asset("assets/icons/like_red.svg")
+                            : SvgPicture.asset("assets/icons/like.svg")),
+                    SizedBox(
+                      width: 4 * w,
+                    ),
+                  ],
+                ),
+              ],
             ),
             SizedBox(
               height: 8 * h,
@@ -86,7 +110,27 @@ class _ProductWidgetState extends State<ProductWidget> {
                       children: [
                         SvgPicture.asset(
                           "assets/icons/star.svg",
-                        )
+                        ),
+                        SvgPicture.asset(
+                          widget.data.reviewAvg > 1
+                              ? "assets/icons/star.svg"
+                              : "assets/icons/star1.svg",
+                        ),
+                        SvgPicture.asset(
+                          widget.data.reviewAvg > 2
+                              ? "assets/icons/star.svg"
+                              : "assets/icons/star1.svg",
+                        ),
+                        SvgPicture.asset(
+                          widget.data.reviewAvg > 3
+                              ? "assets/icons/star.svg"
+                              : "assets/icons/star1.svg",
+                        ),
+                        SvgPicture.asset(
+                          widget.data.reviewAvg > 4
+                              ? "assets/icons/star.svg"
+                              : "assets/icons/star1.svg",
+                        ),
                       ],
                     ),
                   )
