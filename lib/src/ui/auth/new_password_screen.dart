@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lafyu/src/ui/dialog/center_dialog.dart';
+import 'package:lafyu/src/ui/menu/main_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../app_theme/app_theme.dart';
@@ -10,9 +11,9 @@ import '../../utils/utils.dart';
 import '../../widget/save_widget.dart';
 
 class NewPasswordScreen extends StatefulWidget {
-  String email;
+  final String email;
 
-  NewPasswordScreen({required this.email});
+  const NewPasswordScreen({Key? key, required this.email}) : super(key: key);
 
   @override
   _NewPasswordScreenState createState() => _NewPasswordScreenState();
@@ -32,7 +33,6 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
     return Scaffold(
       body: Column(
         children: [
-
           Expanded(
             child: ListView(
               padding: EdgeInsets.zero,
@@ -116,7 +116,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                               controller: _controllerOldPassword,
                               decoration: InputDecoration(
                                   border: InputBorder.none,
-                                  hintText: "Old Password",
+                                  hintText: "New Password",
                                   hintStyle: TextStyle(
                                     color: AppTheme.greyB1,
                                     fontFamily: AppTheme.fontFamilyPoppins,
@@ -125,7 +125,6 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                                   )),
                             ),
                           ),
-
                         ],
                       ),
                     ),
@@ -167,7 +166,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                               controller: _controllerNewPassword,
                               decoration: InputDecoration(
                                   border: InputBorder.none,
-                                  hintText: "New Password",
+                                  hintText: "New Password Again",
                                   hintStyle: TextStyle(
                                     color: AppTheme.greyB1,
                                     fontFamily: AppTheme.fontFamilyPoppins,
@@ -181,11 +180,6 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                     ),
                   ],
                 ),
-
-
-
-
-
               ],
             ),
           ),
@@ -195,7 +189,9 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                 _controllerOldPassword.text,
               );
             },
-            child: SaveWidget(title: "Send",),
+            child: SaveWidget(
+              title: "Send",
+            ),
           ),
         ],
       ),
@@ -203,7 +199,6 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
   }
 
   Future<void> sendData(String login) async {
-
     var info = await _repository.sendEmail(login);
     setState(() {
       _loading = true;
@@ -218,17 +213,20 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
           context,
           MaterialPageRoute(
             builder: (context) {
-              return NewPasswordScreen(email: login);
+              return const MainScreen();
             },
           ),
         );
       }
     } else {
-      setState(() {
-        _loading = false;
-      });
+      setState(
+        () {
+          _loading = false;
+        },
+      );
 
-      CenterDialog.showErrorDialog(context, "User not found or login or password error");
+      CenterDialog.showErrorDialog(
+          context, "User not found or login or password error");
     }
   }
 }

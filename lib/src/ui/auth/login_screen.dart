@@ -445,9 +445,7 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() {
         _loading = false;
       });
-      if (loginModel.status == 1) {
-
-      }
+      if (loginModel.status == 1) {}
     } else {
       setState(
         () {},
