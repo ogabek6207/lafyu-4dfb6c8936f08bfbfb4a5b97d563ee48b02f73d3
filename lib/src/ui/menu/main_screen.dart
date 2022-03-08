@@ -12,7 +12,6 @@ import 'package:lafyu/src/ui/menu/profile/account_screen.dart';
 
 import 'package:lafyu/src/utils/rx_bus.dart';
 
-
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
 
@@ -35,7 +34,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   void initState() {
-    _registerBus();
+    registerBus();
     super.initState();
   }
 
@@ -115,12 +114,12 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
-  void _registerBus() {
+  void registerBus() {
     RxBus.register<EventBottomModel>(tag: "baqay_bottom_view").listen(
       (event) {
         setState(() {
           _selectedIndex = event.position;
-          Timer(Duration(seconds: 1), () {
+          Timer(const Duration(seconds: 1), () {
             RxBus.post(EventBottomModel(24251), tag: "baqay_category");
           });
         });

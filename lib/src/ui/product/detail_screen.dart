@@ -399,16 +399,17 @@ class _DetailScreenState extends State<DetailScreen> {
                         height: 24 * h,
                       ),
                       SectionBarWidget(
-                          leftTitle: 'Mahsulotni ko\'rib chiqish',
-                          rightTitle: 'Batafsil',
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) {
-                                return const ReviewScreen();
-                              }),
-                            );
-                          }),
+                        leftTitle: 'Mahsulotni ko\'rib chiqish',
+                        rightTitle: 'Batafsil',
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) {
+                              return const ReviewScreen();
+                            }),
+                          );
+                        },
+                      ),
                       Row(
                         children: [
                           Row(

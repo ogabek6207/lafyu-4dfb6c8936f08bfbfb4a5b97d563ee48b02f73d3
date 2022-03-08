@@ -64,7 +64,7 @@ class ProductModel {
       size: List<Size>.from(json["size"].map((x) => Size.fromJson(x))),
       reviewAvg: json["review_avg"] ?? 0,
       reviewCount: json["review_count"] ?? 0,
-      review: Review.fromJson(json["review"]),
+      review:     Review.fromJson(json["review"]),
       products: List<ProductListResult>.from(
           json["products"].map((x) => ProductListResult.fromJson(x))),
       category: json["category"],

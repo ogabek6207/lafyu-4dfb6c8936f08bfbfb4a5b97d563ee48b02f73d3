@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lafyu/src/ui/auth/accept_screen.dart';
-import 'package:lafyu/src/ui/auth/new_password_screen.dart';
 import 'package:lafyu/src/ui/dialog/center_dialog.dart';
 import 'package:lafyu/src/widget/save_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -174,8 +173,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       setState(() {
         _loading = false;
       });
-
-
     }
   }
 }

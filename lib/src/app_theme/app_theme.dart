@@ -9,6 +9,8 @@ class AppTheme {
   static Color blueFF = const Color(0xFF40BFFF);
   static Color red = const Color(0xFFFB7181);
   static const Color  purple = Color(0xFF5C61F4);
+  static const Color shimmerBaseColor = Color(0xE0E0E0FF);
+  static const Color shimmerHighColor = Color(0xF5F5F5FF);
 
   ///fonts
   static const String fontFamilyPoppins = "Poppins";

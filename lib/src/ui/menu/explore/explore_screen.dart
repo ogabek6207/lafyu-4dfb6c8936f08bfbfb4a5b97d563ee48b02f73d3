@@ -28,7 +28,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
   @override
   void initState() {
-    categoryBloc.getCategory(1);
+    categoryBloc.getCategory();
     _registerBus();
     super.initState();
   }

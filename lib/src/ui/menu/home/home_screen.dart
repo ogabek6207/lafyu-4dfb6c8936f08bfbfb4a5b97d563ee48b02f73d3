@@ -11,6 +11,7 @@ import 'package:lafyu/src/model/api/category_model.dart';
 import 'package:lafyu/src/model/api/product_list_model.dart';
 import 'package:lafyu/src/model/api/recommend_model.dart';
 import 'package:lafyu/src/model/super_flash_sale_model.dart';
+import 'package:lafyu/src/ui/menu/explore/explore_screen.dart';
 import 'package:lafyu/src/ui/product_list/productList_screen.dart';
 import 'package:lafyu/src/ui/favourite/favourite_screen.dart';
 import 'package:lafyu/src/ui/notification/notification_type_screen.dart';
@@ -21,6 +22,7 @@ import 'package:lafyu/src/widget/product_list/product_widget.dart';
 import 'package:lafyu/src/widget/recommend_widget.dart';
 import 'package:lafyu/src/widget/searchWidget.dart';
 import 'package:lafyu/src/widget/section_bar_widget.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -43,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
     homeSaleBloc.getFlashSale();
     homeSaleBloc.getHomeSale();
     homeSaleBloc.getMegaSale();
-    categoryBloc.getCategory(1);
+    categoryBloc.getCategory();
     recommendBloc.getRecommend();
     super.initState();
   }
@@ -129,7 +131,48 @@ class _HomeScreenState extends State<HomeScreen> {
                   data: superFlashSaleModel!.results,
                 );
               }
-              return Container();
+              return Shimmer.fromColors(
+                baseColor: AppTheme.shimmerBaseColor,
+                highlightColor: AppTheme.shimmerHighColor,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  padding: EdgeInsets.zero,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: 1,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(
+                            top: 12 * h,
+                            bottom: 24 * h,
+                          ),
+                          height: 191 * h,
+                          child: ListView.builder(
+                            padding: EdgeInsets.only(left: 24 * w),
+                            scrollDirection: Axis.horizontal,
+                            itemCount: 10,
+                            itemBuilder: (context, position) {
+                              return Container(
+                                height: 206 * h,
+                                width: MediaQuery.of(context).size.width * w -
+                                    60 * w,
+                                margin: EdgeInsets.only(
+                                  right: 16 * w,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: AppTheme.white,
+                                  borderRadius: BorderRadius.circular(8 * o),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              );
             },
           ),
           Container(
@@ -144,7 +187,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 SectionBarWidget(
                   leftTitle: "Category",
                   rightTitle: "More Category",
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const ExploreScreen();
+                        },
+                      ),
+                    );
+                  },
                 ),
                 SizedBox(
                   height: 144 * h,
@@ -169,7 +221,67 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         );
                       }
-                      return Container();
+                      return Shimmer.fromColors(
+                        baseColor: AppTheme.shimmerBaseColor,
+                        highlightColor: AppTheme.shimmerHighColor,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          padding: EdgeInsets.zero,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: 10,
+                          itemBuilder: (context, index) {
+                            return Column(
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(
+                                    top: 12 * h,
+                                    bottom: 8 * h,
+                                  ),
+                                  height: 114 * h,
+                                  child: ListView.builder(
+                                    padding: EdgeInsets.only(left: 24 * w),
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: 10,
+                                    itemBuilder: (context, position) {
+                                      return Column(
+                                        children: [
+                                          Container(
+                                            height: 70 * h,
+                                            width: 70 * h,
+                                            margin: EdgeInsets.only(
+                                              right: 16 * w,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              color: AppTheme.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(40 * o),
+                                            ),
+                                          ),
+                                          Container(
+                                            height: 20 * h,
+                                            width: 60 * h,
+                                            margin: EdgeInsets.only(
+                                                top: 8 * h, right: 16 * w),
+                                            decoration: BoxDecoration(
+                                              color: AppTheme.red,
+                                              borderRadius:
+                                                  BorderRadius.circular(10 * o),
+                                            ),
+                                          ),
+
+
+
+
+                                        ],
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                      );
                     },
                   ),
                 ),
@@ -181,7 +293,10 @@ class _HomeScreenState extends State<HomeScreen> {
             rightTitle: "See More",
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return  const ProductListScreen(type: 1, name: "Flash Sale",);
+                return const ProductListScreen(
+                  type: 1,
+                  name: "Flash Sale",
+                );
               }));
             },
           ),
@@ -212,7 +327,57 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                   );
                 }
-                return Container();
+                return Shimmer.fromColors(
+                  baseColor: AppTheme.shimmerBaseColor,
+                  highlightColor: AppTheme.shimmerHighColor,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    padding: EdgeInsets.zero,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: 10,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(
+                              top: 12 * h,
+                              bottom: 8 * h,
+                            ),
+                            height: 244 * h,
+                            child: ListView.builder(
+                              padding: EdgeInsets.only(left: 24 * w),
+                              scrollDirection: Axis.horizontal,
+                              itemCount: 10,
+                              itemBuilder: (context, position) {
+                                return Column(
+                                  children: [
+                                    Container(
+                                      height: 238 * h,
+                                      width: 141 * w,
+                                      margin: EdgeInsets.only(
+                                        right: 16 * w,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: AppTheme.white,
+                                        borderRadius:
+                                        BorderRadius.circular(10 * o),
+                                      ),
+                                    ),
+
+
+
+
+
+                                  ],
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                );
               },
             ),
           ),
@@ -224,7 +389,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return const ProductListScreen(type: 2, name: "Mega Sale",);
+                    return const ProductListScreen(
+                      type: 2,
+                      name: "Mega Sale",
+                    );
                   },
                 ),
               );
@@ -258,7 +426,57 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 }
 
-                return Container();
+                return Shimmer.fromColors(
+                  baseColor: AppTheme.shimmerBaseColor,
+                  highlightColor: AppTheme.shimmerHighColor,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    padding: EdgeInsets.zero,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: 10,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(
+                              top: 12 * h,
+                              bottom: 8 * h,
+                            ),
+                            height: 244 * h,
+                            child: ListView.builder(
+                              padding: EdgeInsets.only(left: 24 * w),
+                              scrollDirection: Axis.horizontal,
+                              itemCount: 10,
+                              itemBuilder: (context, position) {
+                                return Column(
+                                  children: [
+                                    Container(
+                                      height: 238 * h,
+                                      width: 141 * w,
+                                      margin: EdgeInsets.only(
+                                        right: 16 * w,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: AppTheme.white,
+                                        borderRadius:
+                                        BorderRadius.circular(10 * o),
+                                      ),
+                                    ),
+
+
+
+
+
+                                  ],
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                );
               },
             ),
           ),
@@ -295,7 +513,48 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 );
               }
-              return Container();
+              return Shimmer.fromColors(
+                baseColor: AppTheme.shimmerBaseColor,
+                highlightColor: AppTheme.shimmerHighColor,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  padding: EdgeInsets.zero,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: 1,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(
+                            top: 12 * h,
+                            bottom: 24 * h,
+                          ),
+                          height: 191 * h,
+                          child: ListView.builder(
+                            padding: EdgeInsets.only(left: 24 * w),
+                            scrollDirection: Axis.horizontal,
+                            itemCount: 10,
+                            itemBuilder: (context, position) {
+                              return Container(
+                                height: 206 * h,
+                                width: MediaQuery.of(context).size.width * w -
+                                    60 * w,
+                                margin: EdgeInsets.only(
+                                  right: 16 * w,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: AppTheme.white,
+                                  borderRadius: BorderRadius.circular(8 * o),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              );
             },
           ),
           StreamBuilder<ProductListModel>(
