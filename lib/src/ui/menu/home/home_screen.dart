@@ -11,6 +11,7 @@ import 'package:lafyu/src/model/api/category_model.dart';
 import 'package:lafyu/src/model/api/product_list_model.dart';
 import 'package:lafyu/src/model/api/recommend_model.dart';
 import 'package:lafyu/src/model/super_flash_sale_model.dart';
+import 'package:lafyu/src/ui/category/category_screen.dart';
 import 'package:lafyu/src/ui/menu/explore/explore_screen.dart';
 import 'package:lafyu/src/ui/product_list/productList_screen.dart';
 import 'package:lafyu/src/ui/favourite/favourite_screen.dart';
@@ -192,7 +193,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return const ExploreScreen();
+                          return const CategoryScreen();
                         },
                       ),
                     );
