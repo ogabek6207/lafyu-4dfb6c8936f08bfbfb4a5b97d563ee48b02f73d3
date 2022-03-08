@@ -12,7 +12,6 @@ import 'package:lafyu/src/model/api/product_list_model.dart';
 import 'package:lafyu/src/model/api/recommend_model.dart';
 import 'package:lafyu/src/model/super_flash_sale_model.dart';
 import 'package:lafyu/src/ui/category/category_screen.dart';
-import 'package:lafyu/src/ui/menu/explore/explore_screen.dart';
 import 'package:lafyu/src/ui/product_list/productList_screen.dart';
 import 'package:lafyu/src/ui/favourite/favourite_screen.dart';
 import 'package:lafyu/src/ui/notification/notification_type_screen.dart';

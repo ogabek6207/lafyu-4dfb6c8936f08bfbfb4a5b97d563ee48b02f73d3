@@ -3,7 +3,7 @@ import 'package:lafyu/src/app_theme/app_theme.dart';
 import 'package:lafyu/src/bloc/category_bloc.dart';
 import 'package:lafyu/src/model/api/category_model.dart';
 import 'package:lafyu/src/widget/app_widget.dart';
-import 'package:lafyu/src/widget/category/category_widget.dart';
+import 'package:lafyu/src/widget/category/category_type_widget.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../utils/utils.dart';
@@ -51,7 +51,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   List<CategoryResult> result = categoryModel!.results;
                   return ListView.builder(
                     itemCount: result.length,
-                    itemBuilder: (context, index) => CategoryWidget(
+                    itemBuilder: (context, index) => CategoryTypeWidget(
                       name: result[index].name,
                       icon: result[index].image,
                     ),
@@ -64,7 +64,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     shrinkWrap: true,
                     padding: EdgeInsets.zero,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: 1,
+                    itemCount: 12,
                     itemBuilder: (context, index) {
                       return Column(
                         children: [
@@ -73,14 +73,14 @@ class _CategoryScreenState extends State<CategoryScreen> {
                               top: 12 * h,
                               bottom: 24 * h,
                             ),
-                            height: 191 * h,
+                            height: 56 * h,
                             child: ListView.builder(
                               padding: EdgeInsets.only(left: 24 * w),
                               scrollDirection: Axis.horizontal,
                               itemCount: 10,
                               itemBuilder: (context, position) {
                                 return Container(
-                                  height: 206 * h,
+                                  height: 56 * h,
                                   width: MediaQuery.of(context).size.width * w -
                                       60 * w,
                                   margin: EdgeInsets.only(

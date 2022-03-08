@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../app_theme/app_theme.dart';
@@ -23,20 +24,22 @@ class _AppBarWidgetState extends State<AppBarWidget> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Container(
-            margin: EdgeInsets.only(
-              right: 12 * w,
-            ),
-            height: 24 * o,
-            width: 24 * o,
-            child: SvgPicture.asset(
-              "assets/icons/arrow_left.svg",
-              height: 24 * o,
-              width: 24 * o,
+        Container(
+          margin: EdgeInsets.only(
+            right: 12 * w,
+          ),
+          height: 24 * o,
+          width: 24 * o,
+          child: Material(
+            child: InkWell(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: SvgPicture.asset(
+                "assets/icons/arrow_left.svg",
+                height: 24 * o,
+                width: 24 * o,
+              ),
             ),
           ),
         ),

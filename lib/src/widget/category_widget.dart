@@ -27,7 +27,7 @@ class CategoryWidget extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: width,
-        margin:margin,
+        margin: margin,
         child: Column(
           children: [
             Container(
@@ -39,10 +39,14 @@ class CategoryWidget extends StatelessWidget {
                   color: AppTheme.greyB1.withOpacity(0.3),
                 ),
               ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(50 * h),
-                child: Image.network(
-                  image,
+              child: SizedBox(
+                height: 24 * h,
+                width: 24 * h,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(50 * h),
+                  child: Image.network(
+                    image,
+                  ),
                 ),
               ),
             ),

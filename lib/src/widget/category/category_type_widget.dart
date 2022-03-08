@@ -4,18 +4,18 @@ import 'package:lafyu/src/app_theme/app_theme.dart';
 
 import '../../utils/utils.dart';
 
-class CategoryWidget extends StatefulWidget {
+class CategoryTypeWidget extends StatefulWidget {
   final String icon;
   final String name;
 
-  const CategoryWidget({Key? key, required this.icon, required this.name})
+  const CategoryTypeWidget({Key? key, required this.icon, required this.name})
       : super(key: key);
 
   @override
-  State<CategoryWidget> createState() => _CategoryWidgetState();
+  State<CategoryTypeWidget> createState() => _CategoryTypeWidgetState();
 }
 
-class _CategoryWidgetState extends State<CategoryWidget> {
+class _CategoryTypeWidgetState extends State<CategoryTypeWidget> {
   @override
   Widget build(BuildContext context) {
     double h = Utils.windowHeight(context);

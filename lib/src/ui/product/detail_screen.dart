@@ -8,6 +8,7 @@ import 'package:lafyu/src/bloc/product_bloc.dart';
 import 'package:lafyu/src/model/api/product_model.dart';
 import 'package:lafyu/src/ui/review/review_screen.dart';
 import 'package:lafyu/src/utils/utils.dart';
+import 'package:lafyu/src/widget/app_widget.dart';
 import 'package:lafyu/src/widget/button_widget.dart';
 import 'package:lafyu/src/widget/product_list/product_widget.dart';
 import 'package:lafyu/src/widget/section_bar_widget.dart';
@@ -48,18 +49,7 @@ class _DetailScreenState extends State<DetailScreen> {
               backgroundColor: AppTheme.white,
               automaticallyImplyLeading: false,
               elevation: 0,
-              leading: GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Center(
-                  child: SvgPicture.asset('assets/icons/arrow_left.svg'),
-                ),
-              ),
-              title: Text(
-                productModel.category,
-                style: TextStyle(fontSize: 16 * h, color: Colors.black),
-              ),
+            title: AppBarWidget(title: productModel.category,),
               actions: [
                 SvgPicture.asset('assets/icons/search.svg'),
                 SizedBox(

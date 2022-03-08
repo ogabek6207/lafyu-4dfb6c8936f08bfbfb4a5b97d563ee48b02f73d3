@@ -9,7 +9,7 @@ class HomeBloc {
   final _homeSaleFetch = PublishSubject<ProductListModel>();
   final _megaSaleFetch = PublishSubject<ProductListModel>();
   final _flashSaleFetch = PublishSubject<ProductListModel>();
-
+  final _productFetch = PublishSubject<List<ProductListResult>>();
   Stream<ProductListModel> get fetchHomeSale {
     return _homeSaleFetch.stream;
   }
@@ -17,7 +17,7 @@ class HomeBloc {
   Stream<ProductListModel> get fetchMegaSale => _megaSaleFetch.stream;
 
   Stream<ProductListModel> get fetchFlashSale => _flashSaleFetch.stream;
-
+  Stream<List<ProductListResult>> get fetchProduct => _productFetch.stream;
   updateFavProduct(
     ProductListResult data,
   ) async {
@@ -41,6 +41,10 @@ class HomeBloc {
     if (megaSale != null) {
       _megaSaleFetch.sink.add(await equalsDatabase(megaSale!));
     }
+  }
+  getDataBaseProduct()async{
+List<ProductListResult> database = await _repository.getFavProduct();
+_productFetch.sink.add(database);
   }
 
   getProduct(int type) async {

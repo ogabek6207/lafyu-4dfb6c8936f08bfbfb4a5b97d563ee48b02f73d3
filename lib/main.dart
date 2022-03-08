@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lafyu/src/ui/menu/main_screen.dart';
+import 'package:lafyu/src/ui/payment/payment_screen.dart';
 
 void main() {
   runApp(const MyApp());
