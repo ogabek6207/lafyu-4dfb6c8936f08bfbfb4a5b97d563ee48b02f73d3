@@ -49,7 +49,9 @@ class _DetailScreenState extends State<DetailScreen> {
               backgroundColor: AppTheme.white,
               automaticallyImplyLeading: false,
               elevation: 0,
-            title: AppBarWidget(title: productModel.category,),
+              title: AppBarWidget(
+                title: productModel.category,
+              ),
               actions: [
                 SvgPicture.asset('assets/icons/search.svg'),
                 SizedBox(

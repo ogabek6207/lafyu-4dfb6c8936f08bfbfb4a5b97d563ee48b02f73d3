@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lafyu/src/app_theme/app_theme.dart';
 import '../utils/utils.dart';
@@ -31,6 +32,8 @@ class CategoryWidget extends StatelessWidget {
         child: Column(
           children: [
             Container(
+              padding: EdgeInsets.all(18*h),
+
               width: 70 * h,
               height: 70 * h,
               decoration: BoxDecoration(
@@ -39,13 +42,15 @@ class CategoryWidget extends StatelessWidget {
                   color: AppTheme.greyB1.withOpacity(0.3),
                 ),
               ),
-              child: SizedBox(
-                height: 24 * h,
-                width: 24 * h,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(50 * h),
-                  child: Image.network(
-                    image,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(50 * h),
+                child: Center(
+                  child: CachedNetworkImage(
+                    imageUrl: image,
+                    placeholder: (context, url) =>
+                        const CircularProgressIndicator.adaptive(),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                   ),
                 ),
               ),

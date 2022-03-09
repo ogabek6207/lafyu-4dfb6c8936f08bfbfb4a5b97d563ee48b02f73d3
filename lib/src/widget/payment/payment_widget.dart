@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lafyu/src/app_theme/app_theme.dart';
-
 import '../../utils/utils.dart';
 
 class PaymentWidget extends StatefulWidget {
-  Color color;
+  final Color color;
 
-  PaymentWidget({Key? key, required this.color}) : super(key: key);
+  const PaymentWidget({Key? key, required this.color}) : super(key: key);
 
   @override
   State<PaymentWidget> createState() => _PaymentWidgetState();
@@ -65,18 +64,25 @@ class _PaymentWidgetState extends State<PaymentWidget> {
             ],
           ),
           Container(
-            margin: EdgeInsets.only(left: 21*w, top: 31,),
-            child: Text("6326    9124    8124    9875",
-            style: TextStyle(
-              color: AppTheme.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 24*h,
-              fontStyle: FontStyle.normal,
-              fontFamily: AppTheme.fontFamilyPoppins,
-              
+            margin: EdgeInsets.only(
+              left: 21 * w,
+              top: 31,
             ),
-
-
+            child: Text(
+              "6326    9124    8124    9875",
+              style: TextStyle(
+                color: AppTheme.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 24 * h,
+                fontStyle: FontStyle.normal,
+                fontFamily: AppTheme.fontFamilyPoppins,
+              ),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(
+              top: 19 * h,
+              left: 21 * w,
             ),
           ),
         ],
@@ -85,6 +91,6 @@ class _PaymentWidgetState extends State<PaymentWidget> {
   }
 
   Future<String> getCardNumber(String a) async {
-    return  "6326    9124    8124    9875";
+    return "6326    9124    8124    9875";
   }
 }
