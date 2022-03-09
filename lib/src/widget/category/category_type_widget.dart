@@ -27,7 +27,7 @@ class _CategoryTypeWidgetState extends State<CategoryTypeWidget> {
       padding: EdgeInsets.only(left: 16 * w, right: 16 * w),
       child: Row(
         children: [
-          Container(
+          SizedBox(
             height: 24 * h,
             width: 24 * h,
             child: CachedNetworkImage(

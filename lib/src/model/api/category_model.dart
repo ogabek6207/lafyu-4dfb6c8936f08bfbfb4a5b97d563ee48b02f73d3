@@ -1,7 +1,14 @@
-import 'dart:convert';
+class CategoryType {
+  List<CategoryResult> man;
+  List<CategoryResult> woman;
+  List<CategoryResult> kids;
 
-CategoryModel categoryModelFromJson(String str) =>
-    CategoryModel.fromJson(json.decode(str));
+  CategoryType({
+    required this.man,
+    required this.woman,
+    required this.kids,
+  });
+}
 
 class CategoryModel {
   CategoryModel({
@@ -20,8 +27,8 @@ class CategoryModel {
         count: json["count"] ?? 0,
         next: json["next"] ?? "",
         previous: json["previous"] ?? "",
-        results:
-            List<CategoryResult>.from(json["results"].map((x) => CategoryResult.fromJson(x))),
+        results: List<CategoryResult>.from(
+            json["results"].map((x) => CategoryResult.fromJson(x))),
       );
 }
 

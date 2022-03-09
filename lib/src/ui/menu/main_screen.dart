@@ -24,14 +24,6 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
-  List<Widget> data = [
-    const HomeScreen(),
-    const ExploreScreen(),
-    const CardScreen(),
-    const OfferScreen(),
-    const ProfileScreen(),
-  ];
-
   @override
   void initState() {
     registerBus();
@@ -47,7 +39,19 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: data[_selectedIndex],
+      body: [
+        HomeScreen(
+          pageChanged: (int index) {
+            setState(() {
+              _selectedIndex = index;
+            });
+          },
+        ),
+        const ExploreScreen(),
+        const CardScreen(),
+        const OfferScreen(),
+        const ProfileScreen(),
+      ][_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: (_index) {

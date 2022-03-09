@@ -11,7 +11,6 @@ import 'package:lafyu/src/model/api/category_model.dart';
 import 'package:lafyu/src/model/api/product_list_model.dart';
 import 'package:lafyu/src/model/api/recommend_model.dart';
 import 'package:lafyu/src/model/super_flash_sale_model.dart';
-import 'package:lafyu/src/ui/category/category_screen.dart';
 import 'package:lafyu/src/ui/payment/payment_screen.dart';
 import 'package:lafyu/src/ui/product_list/productList_screen.dart';
 import 'package:lafyu/src/ui/favourite/favourite_screen.dart';
@@ -26,7 +25,12 @@ import 'package:lafyu/src/widget/section_bar_widget.dart';
 import 'package:shimmer/shimmer.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  final Function(int index) pageChanged;
+
+  const HomeScreen({
+    Key? key,
+    required this.pageChanged,
+  }) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -200,14 +204,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   leftTitle: "Category",
                   rightTitle: "More Category",
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return const CategoryScreen();
-                        },
-                      ),
-                    );
+                    widget.pageChanged(1);
                   },
                 ),
                 SizedBox(
