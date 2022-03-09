@@ -1,9 +1,4 @@
-import 'dart:convert';
-
 import 'product_list_model.dart';
-
-ProductModel productModelFromJson(String str) =>
-    ProductModel.fromJson(json.decode(str));
 
 class ProductModel {
   ProductModel({
@@ -64,9 +59,13 @@ class ProductModel {
       size: List<Size>.from(json["size"].map((x) => Size.fromJson(x))),
       reviewAvg: json["review_avg"] ?? 0,
       reviewCount: json["review_count"] ?? 0,
-      review:     Review.fromJson(json["review"]),
-      products: List<ProductListResult>.from(
-          json["products"].map((x) => ProductListResult.fromJson(x))),
+      review: json["review"] == null
+          ? Review.fromJson({})
+          : Review.fromJson(json["review"]),
+      products: json["products"] == null
+          ? <ProductListResult>[]
+          : List<ProductListResult>.from(
+              json["products"].map((x) => ProductListResult.fromJson(x))),
       category: json["category"],
     );
   }
@@ -82,8 +81,8 @@ class ColorResult {
   String color;
 
   factory ColorResult.fromJson(Map<String, dynamic> json) => ColorResult(
-        id: json["id"],
-        color: json["color"],
+        id: json["id"] ?? 0,
+        color: json["color"] ?? "FFFFFF",
       );
 }
 
@@ -99,9 +98,9 @@ class ImageResults {
   int product;
 
   factory ImageResults.fromJson(Map<String, dynamic> json) => ImageResults(
-        id: json["id"],
-        image: json["image"],
-        product: json["product"],
+        id: json["id"] ?? 0,
+        image: json["image"] ?? "",
+        product: json["product"] ?? 0,
       );
 }
 
@@ -119,10 +118,16 @@ class Review {
   Images images;
 
   factory Review.fromJson(Map<String, dynamic> json) => Review(
-        user: User.fromJson(json["user"]),
+        user: json["user"] == null
+            ? User.fromJson({})
+            : User.fromJson(json["user"]),
         text: json["text"] ?? "",
-        date: DateTime.parse(json["date"]),
-        images: Images.fromJson(json["images"]),
+        date: json["date"] == null
+            ? DateTime.now()
+            : DateTime.parse(json["date"]),
+        images: json["images"] == null
+            ? Images.fromJson({})
+            : Images.fromJson(json["images"]),
       );
 }
 
@@ -138,9 +143,9 @@ class Images {
   int reviews;
 
   factory Images.fromJson(Map<String, dynamic> json) => Images(
-        id: json["id"],
-        image: json["image"],
-        reviews: json["reviews"],
+        id: json["id"] ?? 0,
+        image: json["image"] ?? "",
+        reviews: json["reviews"] ?? 0,
       );
 }
 
@@ -172,7 +177,7 @@ class Size {
   String size;
 
   factory Size.fromJson(Map<String, dynamic> json) => Size(
-        id: json["id"],
-        size: json["size"],
+        id: json["id"] ?? 0,
+        size: json["size"] ?? "",
       );
 }

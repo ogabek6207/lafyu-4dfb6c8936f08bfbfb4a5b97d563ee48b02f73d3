@@ -612,7 +612,12 @@ class _DetailScreenState extends State<DetailScreen> {
             ),
           );
         }
-        return Container();
+        return Scaffold(
+          backgroundColor: AppTheme.white,
+          body: const Center(
+            child: CircularProgressIndicator.adaptive(),
+          ),
+        );
       },
     );
   }
