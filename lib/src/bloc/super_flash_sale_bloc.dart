@@ -11,10 +11,9 @@ class SuperFlashSaleBloc {
   final _superSaleFetch = PublishSubject<SuperSaleModel>();
 
   Stream<SuperSaleModel> get fetchSuperSale => _superSaleFetch.stream;
+
   Stream<SuperFlashSaleModel> get fetchSuperFlashSale =>
       _superFlashSaleFetch.stream;
-
-
 
   getSuperFlashSale() async {
     HttpResult response = await _repository.getSuperFlash();

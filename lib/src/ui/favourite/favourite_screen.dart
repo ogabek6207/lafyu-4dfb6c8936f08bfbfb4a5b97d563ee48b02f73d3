@@ -16,13 +16,14 @@ class FavouriteScreen extends StatefulWidget {
 }
 
 class _FavouriteScreenState extends State<FavouriteScreen> {
-  ProductListModel? homeModel;
-int gridCount = 2;
-@override
+  int gridCount = 2;
+
+  @override
   void initState() {
-  homeSaleBloc.getDataBaseProduct();
+    homeSaleBloc.getDataBaseProduct();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     double h = Utils.windowHeight(context);
@@ -41,9 +42,8 @@ int gridCount = 2;
       body: StreamBuilder<List<ProductListResult>>(
         stream: homeSaleBloc.fetchProduct,
         builder: (context, snapshot) {
-          if (snapshot.hasData ) {
-
-            List<ProductListResult> homeResult = homeModel!.results;
+          if (snapshot.hasData) {
+            List<ProductListResult> homeResult = snapshot.data!;
             return Column(
               children: [
                 SizedBox(
@@ -65,27 +65,24 @@ int gridCount = 2;
                                 star: true,
                                 height: 282 * h,
                                 width: (MediaQuery.of(context).size.width -
-                                    48 * w) /
+                                        48 * w) /
                                     2,
                                 data: homeResult[index * gridCount],
                               ),
                             ),
                             SizedBox(width: 16 * w),
                             Expanded(
-                              child: index * gridCount + 1 >=
-                                  homeResult.length
+                              child: index * gridCount + 1 >= homeResult.length
                                   ? Container()
                                   : FavouriteWidget(
-                                star: true,
-                                height: 282 * h,
-                                width: (MediaQuery.of(context)
-                                    .size
-                                    .width -
-                                    48 * w) /
-                                    2,
-                                data:
-                                homeResult[index * gridCount + 1],
-                              ),
+                                      star: true,
+                                      height: 282 * h,
+                                      width:
+                                          (MediaQuery.of(context).size.width -
+                                                  48 * w) /
+                                              2,
+                                      data: homeResult[index * gridCount + 1],
+                                    ),
                             ),
                             SizedBox(width: 16 * w),
                           ],
@@ -94,8 +91,7 @@ int gridCount = 2;
                       ],
                     );
                   },
-                  itemCount:
-                  (homeResult.length + gridCount - 1) ~/ gridCount,
+                  itemCount: (homeResult.length + gridCount - 1) ~/ gridCount,
                 ),
               ],
             );

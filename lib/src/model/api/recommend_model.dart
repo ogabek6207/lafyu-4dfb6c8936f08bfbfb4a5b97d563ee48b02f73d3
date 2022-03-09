@@ -17,8 +17,10 @@ class RecommendModel {
   factory RecommendModel.fromJson(Map<String, dynamic> json) => RecommendModel(
         count: json["count"] ?? 0,
         next: json["next"] ?? "",
-        results: List<RecommendResult>.from(
-            json["results"].map((x) => RecommendResult.fromJson(x))),
+        results: json["results"] == null
+            ? <RecommendResult>[]
+            : List<RecommendResult>.from(
+                json["results"].map((x) => RecommendResult.fromJson(x))),
       );
 }
 

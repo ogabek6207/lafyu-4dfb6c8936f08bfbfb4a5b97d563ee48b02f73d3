@@ -1,4 +1,6 @@
+import 'package:lafyu/src/model/api/home_model.dart';
 import 'package:lafyu/src/model/api/product_list_model.dart';
+import 'package:lafyu/src/model/api/recommend_model.dart';
 import 'package:lafyu/src/model/auth/http_result.dart';
 import 'package:lafyu/src/repository/repository_.dart';
 import 'package:rxdart/rxdart.dart';
@@ -6,18 +8,52 @@ import 'package:rxdart/rxdart.dart';
 class HomeBloc {
   final Repository _repository = Repository();
 
-  final _homeSaleFetch = PublishSubject<ProductListModel>();
-  final _megaSaleFetch = PublishSubject<ProductListModel>();
-  final _flashSaleFetch = PublishSubject<ProductListModel>();
   final _productFetch = PublishSubject<List<ProductListResult>>();
-  Stream<ProductListModel> get fetchHomeSale {
-    return _homeSaleFetch.stream;
+  final _homeData = PublishSubject<HomeModel>();
+
+  Stream<HomeModel> get getHomeData => _homeData.stream;
+
+  Stream<List<ProductListResult>> get fetchProduct => _productFetch.stream;
+
+  HomeModel data = HomeModel(
+    flashSale: ProductListModel.fromJson({}).results,
+    megaSale: ProductListModel.fromJson({}).results,
+    homeSale: ProductListModel.fromJson({}).results,
+    recomended: RecommendModel.fromJson({}).results,
+  );
+
+  allHomeData() async {
+    HttpResult responseFlash = await _repository.getProduct("", "", "true");
+
+    if (responseFlash.isSucces) {
+      data.flashSale = await equalsDatabase(
+        ProductListModel.fromJson(responseFlash.result).results,
+      );
+      _homeData.sink.add(data);
+    }
+    HttpResult megaSale = await _repository.getProduct("", "true", "");
+    if (megaSale.isSucces) {
+      data.megaSale = await equalsDatabase(
+        ProductListModel.fromJson(megaSale.result).results,
+      );
+      _homeData.sink.add(data);
+    }
+    HttpResult redData = await _repository.getRecommend();
+    if (redData.isSucces) {
+      RecommendModel rec = RecommendModel.fromJson(redData.result);
+      data.recomended = rec.results;
+      _homeData.sink.add(data);
+    }
+
+    HttpResult responseHome = await _repository.getProduct("true", "", "");
+    if (responseHome.isSucces) {
+      data.homeSale = await equalsDatabase(
+        ProductListModel.fromJson(responseHome.result).results,
+      );
+      _homeData.sink.add(data);
+    }
   }
 
-  Stream<ProductListModel> get fetchMegaSale => _megaSaleFetch.stream;
-
-  Stream<ProductListModel> get fetchFlashSale => _flashSaleFetch.stream;
-  Stream<List<ProductListResult>> get fetchProduct => _productFetch.stream;
   updateFavProduct(
     ProductListResult data,
   ) async {
@@ -32,89 +68,60 @@ class HomeBloc {
   }
 
   _update() async {
-    if (homeSale != null) {
-      _homeSaleFetch.sink.add(await equalsDatabase(homeSale!));
-    }
-    if (flashSale != null) {
-      _flashSaleFetch.sink.add(await equalsDatabase(flashSale!));
-    }
-    if (megaSale != null) {
-      _megaSaleFetch.sink.add(await equalsDatabase(megaSale!));
-    }
+    data.homeSale = await equalsDatabase(data.homeSale);
+    data.megaSale = await equalsDatabase(data.megaSale);
+    data.flashSale = await equalsDatabase(data.flashSale);
+    _homeData.sink.add(data);
   }
-  getDataBaseProduct()async{
-List<ProductListResult> database = await _repository.getFavProduct();
-_productFetch.sink.add(database);
+
+  getDataBaseProduct() async {
+    List<ProductListResult> database = await _repository.getFavProduct();
+    _productFetch.sink.add(database);
   }
 
   getProduct(int type) async {
-    if (type == 1) {
-      {
-        HttpResult response = await _repository.getProduct("", "", "true");
-        if (response.isSucces) {
-          flashSale = ProductListModel.fromJson(response.result);
-          _flashSaleFetch.sink.add(await equalsDatabase(flashSale!));
-        }
-      }
-    } else if (type == 2) {
-      {
-        HttpResult response = await _repository.getProduct("", "true", "");
-        if (response.isSucces) {
-          megaSale = ProductListModel.fromJson(response.result);
-          _megaSaleFetch.sink.add(await equalsDatabase(megaSale!));
-        }
-      }
-    } else if (type == 3) {
-      {
-        HttpResult response = await _repository.getProduct("true", "", "");
-        if (response.isSucces) {
-          homeSale = ProductListModel.fromJson(response.result);
-          _homeSaleFetch.sink.add(await equalsDatabase(homeSale!));
-        }
-      }
-    }
+    // if (type == 1) {
+    //   {
+    //     HttpResult response = await _repository.getProduct("", "", "true");
+    //     if (response.isSucces) {
+    //       _flashSale = ProductListModel.fromJson(response.result);
+    //       _flashSaleFetch.sink.add(await equalsDatabase(_flashSale!));
+    //     }
+    //   }
+    // } else if (type == 2) {
+    //   {
+    //     HttpResult response = await _repository.getProduct("", "true", "");
+    //     if (response.isSucces) {
+    //       _megaSale = ProductListModel.fromJson(response.result);
+    //       _megaSaleFetch.sink.add(await equalsDatabase(_megaSale!));
+    //     }
+    //   }
+    // } else if (type == 3) {
+    //   {
+    //     HttpResult response = await _repository.getProduct("true", "", "");
+    //     if (response.isSucces) {
+    //       _homeSale = ProductListModel.fromJson(response.result);
+    //       _homeSaleFetch.sink.add(await equalsDatabase(_homeSale!));
+    //     }
+    //   }
+    // }
   }
 
-  Future<ProductListModel> equalsDatabase(ProductListModel data) async {
+  Future<List<ProductListResult>> equalsDatabase(
+      List<ProductListResult> data) async {
     List<ProductListResult> favData = await _repository.getFavProduct();
-    for (int i = 0; i < data.results.length; i++) {
+    for (int i = 0; i < data.length; i++) {
+      data[i].favSelected = false;
+    }
+    for (int i = 0; i < data.length; i++) {
       for (int j = 0; j < favData.length; j++) {
-        if (data.results[i].id == favData[j].id) {
-          data.results[i].favSelected = true;
+        if (data[i].id == favData[j].id) {
+          data[i].favSelected = true;
+          break;
         }
       }
     }
     return data;
-  }
-
-  ProductListModel? homeSale;
-
-  getHomeSale() async {
-    HttpResult response = await _repository.getProduct("true", "", "");
-    if (response.isSucces) {
-      homeSale = ProductListModel.fromJson(response.result);
-      _homeSaleFetch.sink.add(await equalsDatabase(homeSale!));
-    }
-  }
-
-  ProductListModel? flashSale;
-
-  getFlashSale() async {
-    HttpResult response = await _repository.getProduct("", "", "true");
-    if (response.isSucces) {
-      flashSale = ProductListModel.fromJson(response.result);
-      _flashSaleFetch.sink.add(await equalsDatabase(flashSale!));
-    }
-  }
-
-  ProductListModel? megaSale;
-
-  getMegaSale() async {
-    HttpResult response = await _repository.getProduct("", "true", "");
-    if (response.isSucces) {
-      megaSale = ProductListModel.fromJson(response.result);
-      _megaSaleFetch.sink.add(await equalsDatabase(megaSale!));
-    }
   }
 }
 

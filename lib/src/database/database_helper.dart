@@ -60,6 +60,7 @@ class DatabaseHelper {
   Future<List<ProductListResult>> getProduct() async {
     var dbClient = await db;
     List<Map> list = await dbClient.rawQuery('SELECT * FROM $tableFav');
+    print(list);
     List<ProductListResult> products = <ProductListResult>[];
     for (int i = 0; i < list.length; i++) {
       var items = ProductListResult(

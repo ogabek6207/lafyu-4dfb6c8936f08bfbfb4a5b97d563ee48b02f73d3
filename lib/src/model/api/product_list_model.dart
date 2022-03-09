@@ -13,8 +13,10 @@ class ProductListModel {
       ProductListModel(
         count: json["count"] ?? 0,
         next: json["next"] ?? "",
-        results: List<ProductListResult>.from(
-            json["results"].map((x) => ProductListResult.fromJson(x))),
+        results: json["results"] == null
+            ? <ProductListResult>[]
+            : List<ProductListResult>.from(
+                json["results"].map((x) => ProductListResult.fromJson(x))),
       );
 }
 
