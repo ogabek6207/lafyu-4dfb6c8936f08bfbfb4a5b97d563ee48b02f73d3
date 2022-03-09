@@ -12,6 +12,7 @@ import 'package:lafyu/src/model/api/product_list_model.dart';
 import 'package:lafyu/src/model/api/recommend_model.dart';
 import 'package:lafyu/src/model/super_flash_sale_model.dart';
 import 'package:lafyu/src/ui/category/category_screen.dart';
+import 'package:lafyu/src/ui/payment/payment_screen.dart';
 import 'package:lafyu/src/ui/product_list/productList_screen.dart';
 import 'package:lafyu/src/ui/favourite/favourite_screen.dart';
 import 'package:lafyu/src/ui/notification/notification_type_screen.dart';
@@ -61,7 +62,16 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         elevation: 0,
         title: SearchWidgetHome(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return const PaymentScreen();
+                },
+              ),
+            );
+          },
         ),
         actions: [
           GestureDetector(
@@ -268,10 +278,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   BorderRadius.circular(10 * o),
                                             ),
                                           ),
-
-
-
-
                                         ],
                                       );
                                     },
@@ -292,12 +298,17 @@ class _HomeScreenState extends State<HomeScreen> {
             leftTitle: "Flash Sale",
             rightTitle: "See More",
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return const ProductListScreen(
-                  type: 1,
-                  name: "Flash Sale",
-                );
-              }));
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const ProductListScreen(
+                      type: 1,
+                      name: "Flash Sale",
+                    );
+                  },
+                ),
+              );
             },
           ),
           SizedBox(
@@ -360,14 +371,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                       decoration: BoxDecoration(
                                         color: AppTheme.white,
                                         borderRadius:
-                                        BorderRadius.circular(10 * o),
+                                            BorderRadius.circular(10 * o),
                                       ),
                                     ),
-
-
-
-
-
                                   ],
                                 );
                               },
@@ -459,14 +465,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                       decoration: BoxDecoration(
                                         color: AppTheme.white,
                                         borderRadius:
-                                        BorderRadius.circular(10 * o),
+                                            BorderRadius.circular(10 * o),
                                       ),
                                     ),
-
-
-
-
-
                                   ],
                                 );
                               },
