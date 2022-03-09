@@ -1,4 +1,5 @@
 import 'package:rxdart/rxdart.dart';
+import '../model/api/product_list_model.dart';
 import '../model/api/product_model.dart';
 import '../repository/repository_.dart';
 
@@ -11,10 +12,10 @@ class ProductBloc {
   getProductDescription(int id) async {
     var response = await _repository.getProductDescription(id);
     if (response.isSucces) {
-      ProductModel productModel = ProductModel.fromJson(response.result!);
-      _productFetch.sink.add(productModel);
+      _productFetch.sink.add(ProductModel.fromJson(response.result!));
     }
   }
+
 
   dispose() {
     _productFetch.close();

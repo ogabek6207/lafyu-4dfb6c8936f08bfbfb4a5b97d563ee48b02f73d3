@@ -9,6 +9,7 @@ import 'package:lafyu/src/ui/notification/notification_type_screen.dart';
 import 'package:lafyu/src/utils/utils.dart';
 import 'package:lafyu/src/widget/category/category_list_widget.dart';
 import 'package:lafyu/src/widget/searchWidget.dart';
+import 'package:lafyu/src/widget/section_bar_widget.dart';
 
 class ExploreScreen extends StatefulWidget {
   const ExploreScreen({Key? key}) : super(key: key);
@@ -100,11 +101,17 @@ class _ExploreScreenState extends State<ExploreScreen> {
             List<CategoryResult> kids = snapshot.data!.kids;
             return ListView(
               children: [
-                Text("Man"),
+                SizedBox(height: 16*h,),
+              SectionBarWidget(leftTitle: "Man", rightTitle: "", onTap: (){}),
+                SizedBox(height: 16*h,),
                 CategoryListWidget(data: man),
-                Text("Woman"),
-                CategoryListWidget(data: woman),
-                Text("Kids"),
+                SizedBox(height: 16*h,),
+                SectionBarWidget(leftTitle: "Woman", rightTitle: "", onTap: (){}),
+                SizedBox(height: 16*h,),
+                CategoryListWidget(data:     woman),
+                SizedBox(height: 16*h,),
+                SectionBarWidget(leftTitle: "Kids", rightTitle: "", onTap: (){}),
+                SizedBox(height: 16*h,),
                 CategoryListWidget(data: kids),
               ],
             );

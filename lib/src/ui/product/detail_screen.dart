@@ -14,9 +14,11 @@ import 'package:lafyu/src/widget/product_list/product_widget.dart';
 import 'package:lafyu/src/widget/section_bar_widget.dart';
 
 class DetailScreen extends StatefulWidget {
+  bool favSelected;
   final int id;
 
-  const DetailScreen({Key? key, required this.id}) : super(key: key);
+  DetailScreen({Key? key, required this.favSelected, required this.id})
+      : super(key: key);
 
   @override
   _DetailScreenState createState() => _DetailScreenState();
@@ -69,47 +71,45 @@ class _DetailScreenState extends State<DetailScreen> {
                   child: ListView(
                     children: [
                       StreamBuilder<ProductModel>(
-                          stream: productBloc.fetchProduct,
-                          builder: (context, snapshot) {
-                            List<ImageResults> imageResult =
-                                productModel.images;
-                            return Column(
-                              children: [
-                                CarouselSlider(
-                                  items: imageResult.map((imageResult) {
-                                    return Builder(
-                                        builder: (BuildContext context) {
-                                      return Container(
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        height: 238 * h,
-                                        child: CachedNetworkImage(
-                                          imageUrl: imageResult.image,
-                                          fit: BoxFit.cover,
-                                          placeholder: (context, url) =>
-                                              const CircularProgressIndicator
-                                                  .adaptive(),
-                                          errorWidget: (context, url, error) =>
-                                              const Icon(Icons.error),
-                                        ),
-                                      );
+                        stream: productBloc.fetchProduct,
+                        builder: (context, snapshot) {
+                          List<ImageResults> imageResult = productModel.images;
+                          return Column(
+                            children: [
+                              CarouselSlider(
+                                items: imageResult.map((imageResult) {
+                                  return Builder(
+                                      builder: (BuildContext context) {
+                                    return SizedBox(
+                                      width: MediaQuery.of(context).size.width,
+                                      height: 238 * h,
+                                      child: CachedNetworkImage(
+                                        imageUrl: imageResult.image,
+                                        fit: BoxFit.cover,
+                                        placeholder: (context, url) =>
+                                            const CircularProgressIndicator
+                                                .adaptive(),
+                                        errorWidget: (context, url, error) =>
+                                            const Icon(Icons.error),
+                                      ),
+                                    );
+                                  });
+                                }).toList(),
+                                options: CarouselOptions(
+                                  viewportFraction: 0.90,
+                                  height: 238 * h,
+                                  autoPlay: true,
+                                  onPageChanged: (index, reason) {
+                                    setState(() {
+                                      _current = index;
                                     });
-                                  }).toList(),
-                                  options: CarouselOptions(
-                                    viewportFraction: 0.90,
-                                    height: 238 * h,
-                                    autoPlay: true,
-                                    onPageChanged: (index, reason) {
-                                      setState(() {
-                                        _current = index;
-                                      });
-                                    },
-                                  ),
+                                  },
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children:
-                                      imageResult.asMap().entries.map((entry) {
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: imageResult.asMap().entries.map(
+                                  (entry) {
                                     return GestureDetector(
                                       onTap: () =>
                                           _controller.animateToPage(entry.key),
@@ -131,11 +131,13 @@ class _DetailScreenState extends State<DetailScreen> {
                                                             : 0.3)),
                                       ),
                                     );
-                                  }).toList(),
-                                ),
-                              ],
-                            );
-                          }),
+                                  },
+                                ).toList(),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
                       SizedBox(
                         height: 8 * h,
                       ),
@@ -153,11 +155,13 @@ class _DetailScreenState extends State<DetailScreen> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              setState(() {
-                                like = !like;
-                              });
+                              setState(
+                                () {
+                                  widget.favSelected = !widget.favSelected;
+                                },
+                              );
                             },
-                            child: like
+                            child: widget.favSelected
                                 ? SvgPicture.asset(
                                     'assets/icons/like_red.svg',
                                     width: 24 * w,
@@ -310,7 +314,10 @@ class _DetailScreenState extends State<DetailScreen> {
                                           decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(50),
-                                              color: AppTheme.white),
+                                              color: result[index].color ==
+                                                      "FFFFFF"
+                                                  ? Colors.black
+                                                  : AppTheme.white),
                                         ),
                                       ),
                                     );

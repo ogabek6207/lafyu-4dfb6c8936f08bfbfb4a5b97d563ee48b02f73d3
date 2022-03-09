@@ -42,6 +42,7 @@ class _ProductWidgetState extends State<ProductWidget> {
           MaterialPageRoute(builder: (context) {
             return DetailScreen(
               id: widget.data.id,
+              favSelected: widget.data.favSelected,
             );
           }),
         );
@@ -81,7 +82,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                     const Spacer(),
                     GestureDetector(
                       onTap: () {
-                        homeSaleBloc.updateFavProduct(
+                        homeBloc.updateFavProduct(
                           widget.data,
                         );
                       },

@@ -20,7 +20,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
 
   @override
   void initState() {
-    homeSaleBloc.getDataBaseProduct();
+    homeBloc.getDataBaseProduct();
     super.initState();
   }
 
@@ -40,7 +40,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
       ),
       backgroundColor: AppTheme.white,
       body: StreamBuilder<List<ProductListResult>>(
-        stream: homeSaleBloc.fetchProduct,
+        stream: homeBloc.fetchProduct,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<ProductListResult> homeResult = snapshot.data!;

@@ -80,31 +80,7 @@ class HomeBloc {
   }
 
   getProduct(int type) async {
-    // if (type == 1) {
-    //   {
-    //     HttpResult response = await _repository.getProduct("", "", "true");
-    //     if (response.isSucces) {
-    //       _flashSale = ProductListModel.fromJson(response.result);
-    //       _flashSaleFetch.sink.add(await equalsDatabase(_flashSale!));
-    //     }
-    //   }
-    // } else if (type == 2) {
-    //   {
-    //     HttpResult response = await _repository.getProduct("", "true", "");
-    //     if (response.isSucces) {
-    //       _megaSale = ProductListModel.fromJson(response.result);
-    //       _megaSaleFetch.sink.add(await equalsDatabase(_megaSale!));
-    //     }
-    //   }
-    // } else if (type == 3) {
-    //   {
-    //     HttpResult response = await _repository.getProduct("true", "", "");
-    //     if (response.isSucces) {
-    //       _homeSale = ProductListModel.fromJson(response.result);
-    //       _homeSaleFetch.sink.add(await equalsDatabase(_homeSale!));
-    //     }
-    //   }
-    // }
+
   }
 
   Future<List<ProductListResult>> equalsDatabase(
@@ -123,6 +99,11 @@ class HomeBloc {
     }
     return data;
   }
+
+
+
+
+
 }
 
-final homeSaleBloc = HomeBloc();
+final homeBloc = HomeBloc();

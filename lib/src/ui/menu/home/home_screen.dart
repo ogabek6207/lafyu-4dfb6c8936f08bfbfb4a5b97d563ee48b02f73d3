@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     superFlashSaleBloc.getSuperFlashSale();
-    homeSaleBloc.allHomeData();
+    homeBloc.allHomeData();
     categoryBloc.getCategory();
     super.initState();
   }
@@ -180,7 +180,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           StreamBuilder<HomeModel>(
-              stream: homeSaleBloc.getHomeData,
+              stream: homeBloc.getHomeData,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return Column(

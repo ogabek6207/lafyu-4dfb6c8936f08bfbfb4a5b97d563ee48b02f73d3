@@ -14,9 +14,11 @@ class ProductModel {
     required this.review,
     required this.products,
     required this.category,
+    this.favSelected = false,
   });
 
   int id;
+  bool favSelected;
   String name;
   double price;
   double discountPrice;
@@ -48,8 +50,8 @@ class ProductModel {
       }
     }
     return ProductModel(
-      id: json["id"],
-      name: json["name"],
+      id: json["id"] ?? 0,
+      name: json["name"] ?? "",
       price: price,
       discountPrice: discountPrice,
       images: List<ImageResults>.from(
